@@ -94,9 +94,8 @@ public class Mesero {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + this.idMesero;
-        hash = 59 * hash + Objects.hashCode(this.nombre);
+        int hash = 5;
+        hash = 89 * hash + Objects.hashCode(this.dni);
         return hash;
     }
 
@@ -112,14 +111,13 @@ public class Mesero {
             return false;
         }
         final Mesero other = (Mesero) obj;
-        if (this.idMesero != other.idMesero) {
-            return false;
-        }
-        if (!Objects.equals(this.nombre, other.nombre)) {
+        if (!Objects.equals(this.dni, other.dni)) {
             return false;
         }
         return true;
     }
+
+    
     
         
 }

@@ -100,14 +100,8 @@ public class Pedido {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 47 * hash + this.idPedido;
-        hash = 47 * hash + Objects.hashCode(this.mesa);
-        hash = 47 * hash + Objects.hashCode(this.mesero);
-        hash = 47 * hash + (this.pagado ? 1 : 0);
-        hash = 47 * hash + Objects.hashCode(this.fecha);
-        hash = 47 * hash + Objects.hashCode(this.hora);
-        hash = 47 * hash + (this.activo ? 1 : 0);
+        int hash = 5;
+        hash = 53 * hash + this.idPedido;
         return hash;
     }
 
@@ -126,26 +120,10 @@ public class Pedido {
         if (this.idPedido != other.idPedido) {
             return false;
         }
-        if (this.pagado != other.pagado) {
-            return false;
-        }
-        if (this.activo != other.activo) {
-            return false;
-        }
-        if (!Objects.equals(this.mesa, other.mesa)) {
-            return false;
-        }
-        if (!Objects.equals(this.mesero, other.mesero)) {
-            return false;
-        }
-        if (!Objects.equals(this.fecha, other.fecha)) {
-            return false;
-        }
-        if (!Objects.equals(this.hora, other.hora)) {
-            return false;
-        }
         return true;
     }
+
+    
     
            
 }
