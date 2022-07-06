@@ -1,8 +1,8 @@
-
 package resto.dao;
 
-  import java.sql.*;
+import java.sql.*;
 import javax.swing.JOptionPane;
+
 public class Conexion {
   
   private String url = "jdbc:mysql://localhost/resto";

@@ -1,6 +1,4 @@
-
 package resto.entidades;
-
 
 public class DetalleDelPedido {
     

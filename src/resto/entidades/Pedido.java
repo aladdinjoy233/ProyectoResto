@@ -1,7 +1,6 @@
 package resto.entidades;
 
 import java.time.*;
-import java.util.Objects;
 
 public class Pedido {
     //atributos
@@ -123,7 +122,4 @@ public class Pedido {
         return true;
     }
 
-    
-    
-           
 }
