@@ -1,36 +1,39 @@
 package resto.entidades;
 
 import java.time.*;
+import java.util.Objects;
 
 public class Pedido {
+    //atributos
     private int idPedido;
-    private Producto producto;
     private Mesa mesa;
     private Mesero mesero;
     private boolean pagado;
     private LocalDate fecha;
-    private LocalTime hora;
+    private LocalDateTime hora;
+    private boolean activo;
 
+    //constructores
     public Pedido() {
     }
 
-    public Pedido(Producto producto, Mesa mesa, Mesero mesero, boolean pagado, LocalDate fecha, LocalTime hora) {
-        this.producto = producto;
+    public Pedido(Mesa mesa, Mesero mesero, boolean pagado, LocalDate fecha, LocalDateTime hora, boolean activo) {
         this.mesa = mesa;
         this.mesero = mesero;
         this.pagado = pagado;
         this.fecha = fecha;
         this.hora = hora;
+        this.activo = activo;
     }
 
-    public Pedido(int idPedido, Producto producto, Mesa mesa, Mesero mesero, boolean pagado, LocalDate fecha, LocalTime hora) {
+    public Pedido(int idPedido, Mesa mesa, Mesero mesero, boolean pagado, LocalDate fecha, LocalDateTime hora, boolean activo) {
         this.idPedido = idPedido;
-        this.producto = producto;
         this.mesa = mesa;
         this.mesero = mesero;
         this.pagado = pagado;
         this.fecha = fecha;
         this.hora = hora;
+        this.activo = activo;
     }
 
     public int getIdPedido() {
@@ -39,14 +42,6 @@ public class Pedido {
 
     public void setIdPedido(int idPedido) {
         this.idPedido = idPedido;
-    }
-
-    public Producto getProducto() {
-        return producto;
-    }
-
-    public void setProducto(Producto producto) {
-        this.producto = producto;
     }
 
     public Mesa getMesa() {
@@ -81,23 +76,38 @@ public class Pedido {
         this.fecha = fecha;
     }
 
-    public LocalTime getHora() {
+    public LocalDateTime getHora() {
         return hora;
     }
 
-    public void setHora(LocalTime hora) {
+    public void setHora(LocalDateTime hora) {
         this.hora = hora;
     }
 
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
+    //metodos
     @Override
     public String toString() {
-        return "Pedido{" + "idPedido=" + idPedido + ", producto=" + producto + ", mesa=" + mesa + ", mesero=" + mesero + ", pagado=" + pagado + ", fecha=" + fecha + ", hora=" + hora + '}';
+        return "Pedido " + idPedido + ", mesa " + mesa.getNumMesa() + ", mesero: " + mesero.getNombre() + " " + mesero.getApellido() + ", pagado: " + pagado + ", fecha: " + fecha + ", hora: " + hora + ", activo: " + activo;
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 53 * hash + this.idPedido;
+        int hash = 7;
+        hash = 47 * hash + this.idPedido;
+        hash = 47 * hash + Objects.hashCode(this.mesa);
+        hash = 47 * hash + Objects.hashCode(this.mesero);
+        hash = 47 * hash + (this.pagado ? 1 : 0);
+        hash = 47 * hash + Objects.hashCode(this.fecha);
+        hash = 47 * hash + Objects.hashCode(this.hora);
+        hash = 47 * hash + (this.activo ? 1 : 0);
         return hash;
     }
 
@@ -116,10 +126,26 @@ public class Pedido {
         if (this.idPedido != other.idPedido) {
             return false;
         }
+        if (this.pagado != other.pagado) {
+            return false;
+        }
+        if (this.activo != other.activo) {
+            return false;
+        }
+        if (!Objects.equals(this.mesa, other.mesa)) {
+            return false;
+        }
+        if (!Objects.equals(this.mesero, other.mesero)) {
+            return false;
+        }
+        if (!Objects.equals(this.fecha, other.fecha)) {
+            return false;
+        }
+        if (!Objects.equals(this.hora, other.hora)) {
+            return false;
+        }
         return true;
     }
-
     
-    
-    
+           
 }
