@@ -96,9 +96,11 @@ public class Reserva {
     
     
     // Metodos
+    
+
     @Override
     public String toString() {
-        return nombre + ", " + dni + ", " + fecha + ", " + hora + ", vigente=" + vigente + '}';
+        return "Reserva{" + "mesa=" + mesa + ", nombre=" + nombre + ", dni=" + dni + ", fecha=" + fecha + ", hora=" + hora + ", activo=" + activo + '}';
     }
 
     @Override

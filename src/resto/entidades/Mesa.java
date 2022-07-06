@@ -1,47 +1,40 @@
 package resto.entidades;
 
 public class Mesa {
-    private int numMesa;
-    private Reserva reserva;
-    private int capacidad;
-    private boolean ocupado;
-    private boolean atendido;
-    private Mesero mesero;
 
+    //atributos
+    
+    private int numMesa;
+    private int capacidad;
+    private boolean estado;
+    private boolean activo;
+
+    //constructores
+    
     public Mesa() {
     }
 
-    public Mesa(Reserva reserva, int capacidad, boolean ocupado, boolean atendido, Mesero mesero) {
-        this.reserva = reserva;
-        this.capacidad = capacidad;
-        this.ocupado = ocupado;
-        this.atendido = atendido;
-        this.mesero = mesero;
-    }
-
-    public Mesa(int numMesa, Reserva reserva, int capacidad, boolean ocupado, boolean atendido, Mesero mesero) {
+    public Mesa(int numMesa, int capacidad, boolean estado, boolean activo) {
         this.numMesa = numMesa;
-        this.reserva = reserva;
         this.capacidad = capacidad;
-        this.ocupado = ocupado;
-        this.atendido = atendido;
-        this.mesero = mesero;
+        this.estado = estado;
+        this.activo = activo;
     }
 
+    public Mesa(int capacidad, boolean estado, boolean activo) {
+        this.capacidad = capacidad;
+        this.estado = estado;
+        this.activo = activo;
+    }
+
+    //gett and sett
+    
     public int getNumMesa() {
         return numMesa;
     }
 
     public void setNumMesa(int numMesa) {
         this.numMesa = numMesa;
-    }
-
-    public Reserva getReserva() {
-        return reserva;
-    }
-
-    public void setReserva(Reserva reserva) {
-        this.reserva = reserva;
     }
 
     public int getCapacidad() {
@@ -52,31 +45,55 @@ public class Mesa {
         this.capacidad = capacidad;
     }
 
-    public boolean isOcupado() {
-        return ocupado;
+    public boolean isEstado() {
+        return estado;
     }
 
-    public void setOcupado(boolean ocupado) {
-        this.ocupado = ocupado;
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
-    public boolean getAtendido() {
-        return atendido;
+    public boolean isActivo() {
+        return activo;
     }
 
-    public void setAtendido(boolean atendido) {
-        this.atendido = atendido;
-    }
-
-    public Mesero getMesero() {
-        return mesero;
-    }
-
-    public void setMesero(Mesero mesero) {
-        this.mesero = mesero;
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
     
+    //metod
+
+    @Override
+    public String toString() {
+        return "Mesa{" + "numMesa=" + numMesa + ", capacidad=" + capacidad + ", estado=" + estado + ", activo=" + activo + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Mesa other = (Mesa) obj;
+        if (this.numMesa != other.numMesa) {
+            return false;
+        }
+        return true;
+    }
     
     
 }
-
+    
+  
+  
