@@ -7,21 +7,35 @@ public class Mesero {
     //atributos
     private int idMesero;
     private String nombre;
-    
+    private String apellido;
+    private Long dni;
+    private Long telefono;
+    private boolean activo;
+
     //constructores
+
     public Mesero() {
     }
-   
-    public Mesero(int idMesero, String nombre) {
+
+    public Mesero(int idMesero, String nombre, String apellido, Long dni, Long telefono, boolean activo) {
         this.idMesero = idMesero;
         this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
+        this.telefono = telefono;
+        this.activo = activo;
     }
 
-    public Mesero(String nombre) {
+    public Mesero(String nombre, String apellido, Long dni, Long telefono, boolean activo) {
         this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
+        this.telefono = telefono;
+        this.activo = activo;
     }
-    
+  
     //getters&setters
+
     public int getIdMesero() {
         return idMesero;
     }
@@ -37,12 +51,45 @@ public class Mesero {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public Long getDni() {
+        return dni;
+    }
+
+    public void setDni(Long dni) {
+        this.dni = dni;
+    }
+
+    public Long getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(Long telefono) {
+        this.telefono = telefono;
+    }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+   
+
     //metodos
 
     @Override
     public String toString() {
-        return nombre + " ID: " + idMesero;
+        return "Mesero{" + "idMesero=" + idMesero + ", nombre=" + nombre + ", activo=" + activo + '}';
     }
 
     @Override
