@@ -1,18 +1,20 @@
 package resto.dao;
 
+import java.time.*; // Este paquete contiene LocalDate, LocalTime y LocalDateTime.
 import java.util.*;
 import java.sql.*;
+import resto.entidades.*;
 import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import resto.entidades.Mesa;
-import resto.entidades.Reserva;
+
 
 public class ReservaData {
 
     //atrib
     private Connection con = null;
+    //private MesaData mesaData;
 
     //construct
     public ReservaData(Conexion conexion) {
@@ -23,18 +25,14 @@ public class ReservaData {
     public boolean existeReserva(Reserva reserva) {
         boolean existe = false;
 
-        String sql = "SELECT * FROM reserva WHERE"
-                + " numMesa = ?"
-                + " AND fecha = ?"
-                + " AND hora = ? "
-                + " AND activo = ?";
+        String sql = "SELECT * FROM reserva WHERE numMesa = ? AND fecha = ? AND hora = ? AND activo = ?";
         try {
 
             PreparedStatement ps = con.prepareStatement(sql);
 
             ps.setInt(1, reserva.getMesa().getNumMesa());
             ps.setDate(2, Date.valueOf(reserva.getFecha()));
-            ps.setTime(3, reserva.getHora());
+            ps.setTime(3,Time.valueOf(reserva.getHora()));
             ps.setBoolean(4, reserva.isActivo());
 
             ResultSet rs = ps.executeQuery();
@@ -48,7 +46,7 @@ public class ReservaData {
             ps.close();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al comparar Reseva" + ex);
+            JOptionPane.showMessageDialog(null, "Error al comparar Reserva\n"+ ex);
         }
         return existe;
     }
@@ -71,7 +69,7 @@ public class ReservaData {
             ps.setString(2, reserva.getNombre());
             ps.setLong(3, reserva.getDni());
             ps.setDate(4, Date.valueOf(reserva.getFecha()));
-            ps.setTime(5, reserva.getHora());
+            ps.setTime(5, Time.valueOf(reserva.getHora()));
             ps.setBoolean(6, reserva.isActivo());
 
             ps.executeUpdate();
@@ -84,15 +82,15 @@ public class ReservaData {
             }
 
             ps.close();
-
+JOptionPane.showMessageDialog(null, "Reserva agregada exitosamente");
         } catch (SQLException ex) {
             insert = false;
-            JOptionPane.showMessageDialog(null, "Error al cargar la reseva");
+            JOptionPane.showMessageDialog(null, "Error al cargar la reseva\n"+ex);
         }
         return insert;
     }
 
-    public ArrayList<Reserva> obtenerReservas() {
+  /*  public ArrayList<Reserva> obtenerReservas() {
 
         ArrayList<Reserva> reservas = new ArrayList<>();
 
@@ -108,12 +106,12 @@ public class ReservaData {
                 reserva = new Reserva();
 
                 reserva.setIdReserva(rs.getInt("idReseva"));
-                // Mesa mesa = crearMesa();
+                //Mesa mesa = obtenerMesa(rs.getInt("numMesa"));
                 // reserva.setMesa(mesa);
                 reserva.setNombre(rs.getString("nombre"));
                 reserva.setDni(rs.getLong("dni"));
-                reserva.setFecha("fecha");
-                reserva.setHora("hora");
+                reserva.setFecha(LocalDate.parse("fecha"));
+                reserva.setHora(LocalDateTime.parse("hora"));
                 reserva.setActivo(rs.getBoolean("activo"));
 
                 reservas.add(reserva);
@@ -144,12 +142,12 @@ public class ReservaData {
 
             if (rs.next()) {
                 reserva.setIdReserva(rs.getInt("idReseva"));
-                // Mesa mesa = crearMesa();
-                // reserva.setMesa(mesa);
+                //Mesa mesa = obtenerMesa(rs.getInt("numMesa"));
+                //reserva.setMesa(mesa);
                 reserva.setNombre(rs.getString("nombre"));
                 reserva.setDni(rs.getLong("dni"));
-                reserva.setFecha("fecha");
-                reserva.setHora("hora");
+                reserva.setFecha(LocalDate.parse("fecha"));
+                reserva.setHora(LocalDateTime.parse("hora"));
                 reserva.setActivo(rs.getBoolean("activo"));
             }
 
@@ -200,6 +198,7 @@ public class ReservaData {
             ps.setDate(4, Date.valueOf(reserva.getFecha()));
             ps.setTime(5, reserva.getHora());
             ps.setBoolean(6, reserva.isActivo());
+            ps.setInt(7, reserva.getIdReserva());
 
             if (ps.executeUpdate() != 0) {
                 modificado = true;
@@ -229,5 +228,5 @@ public class ReservaData {
         }
 
     }
-
+*/
 }

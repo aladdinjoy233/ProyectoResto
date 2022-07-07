@@ -2,6 +2,7 @@ package resto.main;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import javafx.util.converter.LocalDateTimeStringConverter;
 import resto.dao.*;
@@ -13,12 +14,14 @@ public class valentinMain {
 
         Conexion con = new Conexion();
         ReservaData rd = new ReservaData(con);
+ /*       
+        Mesa mesa = new Mesa(1,2, true, true);        
 
-        // LocalDateTime time = LocalDateTime.parse("11:00");
-        Reserva reser = new Reserva(1,"valentin", Long.parseLong("44207512"), 
-                                    LocalDate.parse("2022-07-06"), LocalDateTime.parse("11:00"), true);
+Reserva res = new Reserva(mesa, "valeria", Long.parseLong("33333333"), LocalDate.parse("2025-02-04"), LocalTime.parse("13:00"), true);
+        System.out.println(res.toString());
         
-        rd.agregarReserva(reser);
+        rd.agregarReserva(res);
+       */ 
     }
 
 }

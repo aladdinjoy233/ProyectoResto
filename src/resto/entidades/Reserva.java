@@ -2,6 +2,7 @@ package resto.entidades;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Reserva {
 
@@ -11,7 +12,7 @@ public class Reserva {
     private String nombre;
     private Long dni;
     private LocalDate fecha;
-    private LocalDateTime hora;
+    private LocalTime hora;
     private boolean activo;
 
     //constructores
@@ -19,7 +20,7 @@ public class Reserva {
     }
 
 
-    public Reserva(Mesa mesa, String nombre, Long dni, LocalDate fecha, LocalDateTime hora, boolean activo) {
+    public Reserva(Mesa mesa, String nombre, Long dni, LocalDate fecha, LocalTime hora, boolean activo) {
         this.idReserva = idReserva;
         this.mesa = mesa;
         this.nombre = nombre;
@@ -29,15 +30,16 @@ public class Reserva {
         this.activo = activo;
     }
 
-    public Reserva(int idReserva, String nombre, Long dni, LocalDate fecha, LocalDateTime hora, boolean activo) {
+    public Reserva(int idReserva, Mesa mesa, String nombre, Long dni, LocalDate fecha, LocalTime hora, boolean activo) {
         this.idReserva = idReserva;
+        this.mesa = mesa;
         this.nombre = nombre;
         this.dni = dni;
         this.fecha = fecha;
         this.hora = hora;
         this.activo = activo;
     }
-
+    
     //gett and sett
 
     public int getIdReserva() {
@@ -80,11 +82,11 @@ public class Reserva {
         this.fecha = fecha;
     }
 
-    public LocalDateTime getHora() {
+    public LocalTime getHora() {
         return hora;
     }
 
-    public void setHora(LocalDateTime hora) {
+    public void setHora(LocalTime hora) {
         this.hora = hora;
     }
 
@@ -103,7 +105,7 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return "Reserva{" + "mesa=" + mesa + ", nombre=" + nombre + ", dni=" + dni + ", fecha=" + fecha + ", hora=" + hora + ", activo=" + activo + '}';
+        return "Reserva{" + "Num mesa=" + mesa.getNumMesa() + ",\nnombre=" + nombre + ",\n dni=" + dni + ",\n fecha=" + fecha + ",\n hora=" + hora + ",\n activo=" + activo + '}';
     }
 
     @Override
