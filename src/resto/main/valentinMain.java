@@ -15,7 +15,7 @@ public class valentinMain {
         ReservaData rd = new ReservaData(con);
 
         // LocalDateTime time = LocalDateTime.parse("11:00");
-        Reserva reser = new Reserva("valentin", Long.parseLong("44207512"), 
+        Reserva reser = new Reserva(1,"valentin", Long.parseLong("44207512"), 
                                     LocalDate.parse("2022-07-06"), LocalDateTime.parse("11:00"), true);
         
         rd.agregarReserva(reser);
