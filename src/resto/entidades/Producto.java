@@ -91,7 +91,7 @@ public class Producto {
                 + "Nombre: " + nombre
                 + "\nStock: " + stock
                 + "\nPrecio: $" + formatter.format(precio)
-                + "\nCategoria: " + (comestible ? "comestible" : "bebida");
+                + "\nCategoria: " + (comestible ? "comestible" : "bebida\n");
     }
 
     @Override
