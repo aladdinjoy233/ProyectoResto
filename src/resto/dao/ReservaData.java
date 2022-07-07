@@ -1,14 +1,8 @@
-
 package resto.dao;
 
 import java.util.*;
-import java.sql.Connection;
+import java.sql.*;
 import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Time;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -21,20 +15,16 @@ public class ReservaData {
     private Connection con = null;
 
     //construct
-
-     public ReservaData(Conexion conexion) {
+    public ReservaData(Conexion conexion) {
         con = conexion.getConexion();
     }
-    
-     //metod
 
+    //metod
     public boolean existeReserva(Reserva reserva) {
         boolean existe = false;
 
         String sql = "SELECT * FROM reserva WHERE"
                 + " numMesa = ?"
-                + " nombre = ?"
-                + " AND dni = ?"
                 + " AND fecha = ?"
                 + " AND hora = ? "
                 + " AND activo = ?";
@@ -43,21 +33,16 @@ public class ReservaData {
             PreparedStatement ps = con.prepareStatement(sql);
 
             ps.setInt(1, reserva.getMesa().getNumMesa());
-            ps.setString(2, reserva.getNombre());
-            ps.setLong(3, reserva.getDni());
-            ps.setDate(4, Date.valueOf(reserva.getFecha()));
-            ps.setTime(5,reserva.getHora()); 
-            ps.setBoolean(6, reserva.isActivo());
+            ps.setDate(2, Date.valueOf(reserva.getFecha()));
+            ps.setTime(3, reserva.getHora());
+            ps.setBoolean(4, reserva.isActivo());
 
             ResultSet rs = ps.executeQuery();
 
-            if (rs.next() && reserva.getNombre().equalsIgnoreCase(rs.getString("nombre"))
-                          && reserva.getMesa().getNumMesa() == rs.getInt("numMesa")
-                          && reserva.getDni() == rs.getLong("dni")
-                          && Date.valueOf(reserva.getFecha()).equals(rs.getDate("fecha"))
-                          && Time.valueOf(reserva.getHora()).equals( rs.getTime("hora") )
-                          && reserva.isActivo() == rs.getBoolean("activo")
-                          ) {
+            if (rs.next() && reserva.getMesa().getNumMesa() == rs.getInt("numMesa")
+                    && Date.valueOf(reserva.getFecha()).equals(rs.getDate("fecha"))
+                    && Time.valueOf(reserva.getHora()).equals(rs.getTime("hora"))
+                    && reserva.isActivo() == rs.getBoolean("activo")) {
                 existe = true;
             }
             ps.close();
@@ -67,10 +52,10 @@ public class ReservaData {
         }
         return existe;
     }
-   
-    public boolean agregarMateria(Reserva reserva) {   
-        
-         if (existeReserva(reserva)) {
+
+    public boolean agregarReserva(Reserva reserva) {
+
+        if (existeReserva(reserva)) {
             JOptionPane.showMessageDialog(null, "ya existe esa reserva");
             return false;
         }
@@ -81,12 +66,12 @@ public class ReservaData {
 
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-      
+
             ps.setInt(1, reserva.getMesa().getNumMesa());
             ps.setString(2, reserva.getNombre());
             ps.setLong(3, reserva.getDni());
             ps.setDate(4, Date.valueOf(reserva.getFecha()));
-            ps.setTime(5,reserva.getHora()); 
+            ps.setTime(5, reserva.getHora());
             ps.setBoolean(6, reserva.isActivo());
 
             ps.executeUpdate();
@@ -104,12 +89,12 @@ public class ReservaData {
             insert = false;
             JOptionPane.showMessageDialog(null, "Error al cargar la reseva");
         }
-        return insert;    
+        return insert;
     }
-    
-    public ArrayList<Reserva> obtenerReservas() {  
-        
-         ArrayList<Reserva> reservas = new ArrayList<>();
+
+    public ArrayList<Reserva> obtenerReservas() {
+
+        ArrayList<Reserva> reservas = new ArrayList<>();
 
         String sql = "SELECT * FROM reseva WHERE activo = 1";
 
@@ -123,8 +108,8 @@ public class ReservaData {
                 reserva = new Reserva();
 
                 reserva.setIdReserva(rs.getInt("idReseva"));
-        // Mesa mesa = crearMesa();
-        // reserva.setMesa(mesa);
+                // Mesa mesa = crearMesa();
+                // reserva.setMesa(mesa);
                 reserva.setNombre(rs.getString("nombre"));
                 reserva.setDni(rs.getLong("dni"));
                 reserva.setFecha("fecha");
@@ -133,19 +118,19 @@ public class ReservaData {
 
                 reservas.add(reserva);
             }
-            
+
             ps.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al obtener reservas");
         }
 
-        return reservas;     
-    }  
-    
-    public Reserva obtenerReserva(int id) { 
-        
- Reserva reserva = new Reserva();
+        return reservas;
+    }
+
+    public Reserva obtenerReserva(int id) {
+
+        Reserva reserva = new Reserva();
 
         String sql = "SELECT * FROM reserva WHERE id = ?";
 
@@ -159,8 +144,8 @@ public class ReservaData {
 
             if (rs.next()) {
                 reserva.setIdReserva(rs.getInt("idReseva"));
-        // Mesa mesa = crearMesa();
-        // reserva.setMesa(mesa);
+                // Mesa mesa = crearMesa();
+                // reserva.setMesa(mesa);
                 reserva.setNombre(rs.getString("nombre"));
                 reserva.setDni(rs.getLong("dni"));
                 reserva.setFecha("fecha");
@@ -175,11 +160,11 @@ public class ReservaData {
         }
 
         return reserva;
-    }   
-    
+    }
+
     public boolean desactivarReserva(int id) {
-       boolean borrado = false;   
-       
+        boolean borrado = false;
+
         String sql = "UPDATE reserva SET activo = 0 WHERE id = ?";
 
         try {
@@ -196,14 +181,14 @@ public class ReservaData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al obtener reserva" + ex);
         }
-       return borrado;
+        return borrado;
     }
 
     public boolean modificarReserva(Reserva reserva) {
-       boolean modificado = false;   
-       
+        boolean modificado = false;
+
         String sql = "UPDATE reserva SET numMesa = ?, nombre = ?, dni = ?, fecha = ?, hora = ?"
-                   + ", activo = ? WHERE id = ?";
+                + ", activo = ? WHERE id = ?";
 
         try {
 
@@ -213,7 +198,7 @@ public class ReservaData {
             ps.setString(2, reserva.getNombre());
             ps.setLong(3, reserva.getDni());
             ps.setDate(4, Date.valueOf(reserva.getFecha()));
-            ps.setTime(5,reserva.getHora()); 
+            ps.setTime(5, reserva.getHora());
             ps.setBoolean(6, reserva.isActivo());
 
             if (ps.executeUpdate() != 0) {
@@ -227,10 +212,10 @@ public class ReservaData {
         }
         return modificado;
     }
-    
+
     public void borrarReserva(int id) {
-        
-            String sql = "DELETE FROM reserva WHERE `reserva`.`id` = ?";
+
+        String sql = "DELETE FROM reserva WHERE `reserva`.`id` = ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -240,10 +225,9 @@ public class ReservaData {
             JOptionPane.showMessageDialog(null, "La reserva ha sido eliminada");
             ps.close();
         } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Error al borrar una Materia." + ex);
+            JOptionPane.showMessageDialog(null, "Error al borrar reserva" + ex);
         }
 
-        
-   }
+    }
 
 }
