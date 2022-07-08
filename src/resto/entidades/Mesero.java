@@ -8,8 +8,8 @@ public class Mesero {
     private int idMesero;
     private String nombre;
     private String apellido;
-    private Long dni;
-    private Long telefono;
+    private long dni;
+    private long telefono;
     private boolean activo;
 
     //constructores
@@ -17,7 +17,7 @@ public class Mesero {
     public Mesero() {
     }
 
-    public Mesero(int idMesero, String nombre, String apellido, Long dni, Long telefono, boolean activo) {
+    public Mesero(int idMesero, String nombre, String apellido, long dni, long telefono, boolean activo) {
         this.idMesero = idMesero;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -26,7 +26,7 @@ public class Mesero {
         this.activo = activo;
     }
 
-    public Mesero(String nombre, String apellido, Long dni, Long telefono, boolean activo) {
+    public Mesero(String nombre, String apellido, long dni, long telefono, boolean activo) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
@@ -60,19 +60,19 @@ public class Mesero {
         this.apellido = apellido;
     }
 
-    public Long getDni() {
+    public long getDni() {
         return dni;
     }
 
-    public void setDni(Long dni) {
+    public void setDni(long dni) {
         this.dni = dni;
     }
 
-    public Long getTelefono() {
+    public long getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(Long telefono) {
+    public void setTelefono(long telefono) {
         this.telefono = telefono;
     }
 
@@ -89,7 +89,11 @@ public class Mesero {
 
     @Override
     public String toString() {
-        return "Mesero{" + "idMesero=" + idMesero + ", nombre=" + nombre + ", activo=" + activo + '}';
+        return "Mesero: " + nombre + " " + apellido
+                + "\nID: " + idMesero
+                + "\nDNI: " + dni
+                + "\nTelefono: " + telefono
+                + "\nEstado: " + (activo ? "activo\n" : "no activo\n");
     }
 
     @Override
