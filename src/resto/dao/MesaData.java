@@ -22,8 +22,10 @@ public class MesaData {
     }
 
     //Metodos
-    public boolean existeMesa(Mesa mesa) {
+    public boolean buscarMesa(int numMesa) {
         boolean result = false;
+        Mesa mesa = new Mesa();
+        mesa.setNumMesa(numMesa);
         String sql = "SELECT * FROM mesa WHERE numMesa = ?;";
         try {
             PreparedStatement ps = coneccion.prepareStatement(sql);
@@ -44,7 +46,7 @@ public class MesaData {
 
     public boolean crearMesa(Mesa mesa) {
         boolean result = true;
-        if (existeMesa(mesa)) {
+        if (buscarMesa(mesa.getNumMesa())) {
             JOptionPane.showMessageDialog(null, "La Mesa ya existe");
             return false;
         }
@@ -59,13 +61,7 @@ public class MesaData {
             ps.setBoolean(4, mesa.isActivo());
 
             ps.executeUpdate();
-            
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                mesa.setNumMesa(rs.getInt(1));
-            } else {
-                result = false;
-            }
+                        
             ps.close();
 
         } catch (SQLException ex) {

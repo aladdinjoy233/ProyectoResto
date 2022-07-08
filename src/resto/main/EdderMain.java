@@ -18,16 +18,16 @@ public class EdderMain {
         Conexion coneccion = new Conexion();
         MesaData md = new MesaData(coneccion);
         //Consultar si existe una Mesa que si Existe
-        Mesa tabla1 = new Mesa(1, 4, true, true);
-        System.out.println(md.existeMesa(tabla1));
+        
+        System.out.println(md.buscarMesa(1));
         //Consultar una mesa q no Existe
-        Mesa tabla2 = new Mesa(10, 4, true, true);
-        System.out.println(md.existeMesa(tabla2));
+        
+        System.out.println(md.buscarMesa(10));
         
         //Crear Mesa
-        Mesa tabla3 = new Mesa(6, 5, true, true);
+        Mesa tabla3 = new Mesa(8, 5, true, true);
         System.out.println(md.crearMesa(tabla3));
-        System.out.println("La mesa existe" + md.existeMesa(tabla3));
+        //System.out.println("La mesa existe" + md.existeMesa(tabla3));
     }
     
 }
