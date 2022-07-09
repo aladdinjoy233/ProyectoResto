@@ -3,14 +3,12 @@ package resto.entidades;
 public class Mesa {
 
     //atributos
-    
     private int numMesa;
     private int capacidad;
     private boolean estado;
     private boolean activo;
 
     //constructores
-    
     public Mesa() {
     }
 
@@ -28,7 +26,6 @@ public class Mesa {
     }
 
     //gett and sett
-    
     public int getNumMesa() {
         return numMesa;
     }
@@ -60,12 +57,11 @@ public class Mesa {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
-    
-    //metod
 
+    //metod
     @Override
     public String toString() {
-        return "Mesa{" + "numMesa=" + numMesa + ", capacidad=" + capacidad + ", estado=" + estado + ", activo=" + activo + '}';
+        return "Numero de Mesa: " + numMesa + ", Capacidad: " + capacidad + ", Estado: " + estado + ", Activo: " + activo;
     }
 
     @Override
@@ -91,9 +87,5 @@ public class Mesa {
         }
         return true;
     }
-    
-    
+
 }
-    
-  
-  
