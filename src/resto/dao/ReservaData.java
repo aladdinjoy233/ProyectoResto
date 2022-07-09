@@ -109,8 +109,7 @@ public class ReservaData {
 
                 reserva.setIdReserva(rs.getInt("idReserva"));
 
-                mesa = md.obtenerMesa(rs.getInt("numMesa"));
-                System.out.println(mesa.getCapacidad()+" , "+mesa.getNumMesa());                
+                mesa = md.obtenerMesa(rs.getInt("numMesa"));                
 
                 reserva.setMesa(mesa);
                 reserva.setNombre(rs.getString("nombre"));
