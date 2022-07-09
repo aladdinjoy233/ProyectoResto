@@ -105,7 +105,7 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return "Reserva{" + "Num mesa=" + mesa.getNumMesa() + ",\nnombre=" + nombre + ",\n dni=" + dni + ",\n fecha=" + fecha + ",\n hora=" + hora + ",\n activo=" + activo + '}';
+        return "Reserva{" + "Num mesa=" + mesa.getNumMesa() + ", nombre=" + nombre + ", dni=" + dni + ", fecha=" + fecha + ", hora=" + hora + ", activo=" + activo + '}';
     }
 
     @Override
