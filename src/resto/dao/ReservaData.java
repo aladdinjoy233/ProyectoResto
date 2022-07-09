@@ -5,8 +5,6 @@ import java.util.*;
 import java.sql.*;
 import resto.entidades.*;
 import java.sql.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class ReservaData {
@@ -18,6 +16,7 @@ public class ReservaData {
     //construct
     public ReservaData(Conexion conexion) {
         con = conexion.getConexion();
+        this.md = new MesaData(conexion);
     }
 
     //metod
@@ -25,7 +24,7 @@ public class ReservaData {
         boolean existe = false;
 
         String sql = "SELECT * FROM reserva WHERE numMesa = ? AND fecha = ? AND hora = ? AND activo = ?";
-       
+
         try {
 
             PreparedStatement ps = con.prepareStatement(sql);
@@ -93,6 +92,8 @@ public class ReservaData {
     public ArrayList<Reserva> obtenerReservas() {
 
         ArrayList<Reserva> reservas = new ArrayList<>();
+        Reserva reserva;
+        Mesa mesa;
 
         String sql = "SELECT * FROM reserva WHERE activo = 1";
 
@@ -100,14 +101,17 @@ public class ReservaData {
             PreparedStatement ps = con.prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();
-            Reserva reserva;
 
             while (rs.next()) {
+
                 reserva = new Reserva();
+                mesa = new Mesa();
 
                 reserva.setIdReserva(rs.getInt("idReserva"));
-                // Mesa mesa = md.obtenerMesa(rs.getInt("numMesa"));
-                Mesa mesa = new Mesa(1, 1, true, true);
+
+                mesa = md.obtenerMesa(rs.getInt("numMesa"));
+                System.out.println(mesa.getCapacidad()+" , "+mesa.getNumMesa());                
+
                 reserva.setMesa(mesa);
                 reserva.setNombre(rs.getString("nombre"));
                 reserva.setDni(rs.getLong("dni"));
@@ -130,6 +134,7 @@ public class ReservaData {
     public Reserva obtenerReserva(int idReserva) {
 
         Reserva reserva = new Reserva();
+        Mesa mesa = new Mesa();
 
         String sql = "SELECT * FROM reserva WHERE idReserva = ?";
 
@@ -143,17 +148,18 @@ public class ReservaData {
 
             if (rs.next()) {
                 reserva.setIdReserva(rs.getInt("idReserva"));
-//                Mesa mesa = md.obtenerMesa(rs.getInt("numMesa"));
-                Mesa mesa = new Mesa(1, 1, true, true);
+                
+                mesa = md.obtenerMesa(rs.getInt("numMesa"));
                 reserva.setMesa(mesa);
+                
                 reserva.setNombre(rs.getString("nombre"));
                 reserva.setDni(rs.getLong("dni"));
                 reserva.setFecha(rs.getDate("fecha").toLocalDate());
                 reserva.setHora(rs.getTime("hora").toLocalTime());
                 reserva.setActivo(rs.getBoolean("activo"));
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "No existe dicha reserva");
-                return reserva=null;
+                return reserva = null;
             }
 
             ps.close();
@@ -223,7 +229,7 @@ public class ReservaData {
 //existeReserva(reserva)
         try {
             Reserva reserva = obtenerReserva(idReserva);
-            if (reserva!=null) {
+            if (reserva != null) {
 
                 PreparedStatement ps = con.prepareStatement(sql);
                 ps.setInt(1, idReserva);
@@ -233,7 +239,7 @@ public class ReservaData {
 
                 ps.close();
             }
-            
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al borrar reserva\n" + ex);
         }

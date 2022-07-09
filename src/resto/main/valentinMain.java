@@ -22,14 +22,14 @@ Reserva res = new Reserva(mesa, "valeria", Long.parseLong("33333333"), LocalDate
         rd.agregarReserva(res);
         */
         
-        System.out.println("---------------------- todas las resevas ----------------------------");
+        System.out.println("---------------------- todas las reservas ----------------------------");
         
-        ArrayList<Reserva>reservas=rd.obtenerReservas();
+        ArrayList<Reserva> reservas = rd.obtenerReservas();
         for (Reserva reserva : reservas) {
             System.out.println(reserva);
         }
         
-        System.out.println("---------------------- una rserva sola ------------------------------");
+        System.out.println("---------------------- una reserva sola ------------------------------");
        
         Reserva reserva = rd.obtenerReserva(28);
         System.out.println(reserva.toString());

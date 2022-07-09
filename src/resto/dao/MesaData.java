@@ -145,10 +145,11 @@ public class MesaData {
                 mesa.setCapacidad(rs.getInt("capacidad"));
                 mesa.setEstado(rs.getBoolean("estado"));
                 mesa.setActivo(rs.getBoolean("activo"));
+             
             } else {
                 JOptionPane.showMessageDialog(null, "La Mesa " + numMesa + " no existe.");
             }
-
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al obtener la Mesa " + ex);
         }
