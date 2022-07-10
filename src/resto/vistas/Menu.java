@@ -21,6 +21,7 @@ public class Menu extends javax.swing.JFrame {
     logoBg = new javax.swing.JPanel();
     restoLogo = new javax.swing.JLabel();
     barraSuperior = new javax.swing.JPanel();
+    contenido = new javax.swing.JPanel();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setMinimumSize(new java.awt.Dimension(1020, 640));
@@ -141,6 +142,22 @@ public class Menu extends javax.swing.JFrame {
 
     bg.add(barraSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, -1, 110));
 
+    contenido.setBackground(new java.awt.Color(240, 239, 239));
+    contenido.setPreferredSize(new java.awt.Dimension(780, 530));
+
+    javax.swing.GroupLayout contenidoLayout = new javax.swing.GroupLayout(contenido);
+    contenido.setLayout(contenidoLayout);
+    contenidoLayout.setHorizontalGroup(
+      contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGap(0, 780, Short.MAX_VALUE)
+    );
+    contenidoLayout.setVerticalGroup(
+      contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGap(0, 530, Short.MAX_VALUE)
+    );
+
+    bg.add(contenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, -1, -1));
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
@@ -229,6 +246,7 @@ public class Menu extends javax.swing.JFrame {
   private javax.swing.JPanel barraLateral;
   private javax.swing.JPanel barraSuperior;
   private javax.swing.JPanel bg;
+  private javax.swing.JPanel contenido;
   private javax.swing.JPanel exitBtn;
   private javax.swing.JLabel exitImg;
   private javax.swing.JPanel logoBg;
