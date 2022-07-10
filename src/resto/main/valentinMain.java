@@ -16,9 +16,10 @@ public class valentinMain {
         Conexion con = new Conexion();
         ReservaData rd = new ReservaData(con);
  
-         /*  System.out.println("------------------- crear reserva -------------------------");     
+        /*
+        System.out.println("------------------- crear reserva -------------------------");     
         Mesa mesa = new Mesa(1,2, true, true);        
-Reserva res = new Reserva(mesa, "valeria", Long.parseLong("33333333"), LocalDate.parse("2025-02-04"), LocalTime.parse("13:00"), true);   
+Reserva res = new Reserva(mesa, "jose", Long.parseLong("44444444"), LocalDate.parse("2022-07-10"), LocalTime.parse("13:00"), true);   
         rd.agregarReserva(res);
         */
         

@@ -52,8 +52,14 @@ public class ReservaData {
 
     public boolean agregarReserva(Reserva reserva) {
 
+        LocalDate hoy = LocalDate.now();
+        LocalTime horaActual = LocalTime.now();
+
         if (existeReserva(reserva)) {
             JOptionPane.showMessageDialog(null, "ya existe esa reserva");
+            return false;
+        } else if (reserva.getFecha().isBefore(hoy) || reserva.getFecha().equals(hoy) && reserva.getHora().isBefore(horaActual) ) {
+            JOptionPane.showMessageDialog(null, "la fecha/hora debe ser proxima a la actual");
             return false;
         }
 
@@ -109,7 +115,7 @@ public class ReservaData {
 
                 reserva.setIdReserva(rs.getInt("idReserva"));
 
-                mesa = md.obtenerMesa(rs.getInt("numMesa"));                
+                mesa = md.obtenerMesa(rs.getInt("numMesa"));
 
                 reserva.setMesa(mesa);
                 reserva.setNombre(rs.getString("nombre"));
@@ -147,10 +153,10 @@ public class ReservaData {
 
             if (rs.next()) {
                 reserva.setIdReserva(rs.getInt("idReserva"));
-                
+
                 mesa = md.obtenerMesa(rs.getInt("numMesa"));
                 reserva.setMesa(mesa);
-                
+
                 reserva.setNombre(rs.getString("nombre"));
                 reserva.setDni(rs.getLong("dni"));
                 reserva.setFecha(rs.getDate("fecha").toLocalDate());
