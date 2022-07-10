@@ -1,11 +1,40 @@
 package resto.vistas;
 
 import java.awt.*;
+import java.time.LocalDate;
+import javax.swing.JPanel;
 
 public class Menu extends javax.swing.JFrame {
 
+  private javax.swing.JPanel tabSeleccionada;
+
   public Menu() {
     initComponents();
+
+//    Setear la fecha en el menu
+    LocalDate now = LocalDate.now();
+    int dia = now.getDayOfMonth();
+    int mes = now.getMonthValue();
+    int anio = now.getYear();
+
+    String fechaActual
+            = (dia < 10 ? "0" + dia : dia) + "/"
+            + (mes < 10 ? "0" + mes : mes) + "/"
+            + anio;
+
+    fecha.setText(fechaActual);
+
+//    Cargar vista principal
+    setearSeleccionado(tabPrincipal);
+
+    VistaPrincipal vp = new VistaPrincipal();
+    vp.setSize(780, 530);
+    vp.setLocation(0, 0);
+
+    contenido.removeAll();
+    contenido.add(vp, BorderLayout.CENTER);
+    contenido.revalidate();
+    contenido.repaint();
   }
 
   @SuppressWarnings("unchecked")
@@ -20,7 +49,12 @@ public class Menu extends javax.swing.JFrame {
     pnlAcento = new javax.swing.JPanel();
     logoBg = new javax.swing.JPanel();
     restoLogo = new javax.swing.JLabel();
+    tabPrincipal = new javax.swing.JPanel();
+    principalImg = new javax.swing.JLabel();
+    principalTexto = new javax.swing.JLabel();
     barraSuperior = new javax.swing.JPanel();
+    frase = new javax.swing.JLabel();
+    fecha = new javax.swing.JLabel();
     contenido = new javax.swing.JPanel();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -125,19 +159,75 @@ public class Menu extends javax.swing.JFrame {
 
     barraLateral.add(logoBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 230, 110));
 
+    tabPrincipal.setBackground(new java.awt.Color(217, 177, 142));
+    tabPrincipal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    tabPrincipal.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        tabPrincipalMouseClicked(evt);
+      }
+      public void mouseEntered(java.awt.event.MouseEvent evt) {
+        tabPrincipalMouseEntered(evt);
+      }
+      public void mouseExited(java.awt.event.MouseEvent evt) {
+        tabPrincipalMouseExited(evt);
+      }
+    });
+
+    principalImg.setForeground(new java.awt.Color(114, 63, 50));
+    principalImg.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+    principalImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resto/img/iconoCasa.png"))); // NOI18N
+
+    principalTexto.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+    principalTexto.setForeground(new java.awt.Color(114, 63, 50));
+    principalTexto.setText("Página Principal");
+
+    javax.swing.GroupLayout tabPrincipalLayout = new javax.swing.GroupLayout(tabPrincipal);
+    tabPrincipal.setLayout(tabPrincipalLayout);
+    tabPrincipalLayout.setHorizontalGroup(
+      tabPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(tabPrincipalLayout.createSequentialGroup()
+        .addGap(27, 27, 27)
+        .addComponent(principalImg)
+        .addGap(18, 18, 18)
+        .addComponent(principalTexto)
+        .addContainerGap(60, Short.MAX_VALUE))
+    );
+    tabPrincipalLayout.setVerticalGroup(
+      tabPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addComponent(principalImg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+      .addComponent(principalTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+    );
+
+    barraLateral.add(tabPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 240, 60));
+
     bg.add(barraLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
     barraSuperior.setBackground(new java.awt.Color(114, 63, 50));
+
+    frase.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+    frase.setForeground(new java.awt.Color(217, 177, 142));
+    frase.setText("“Acá no solo se come, se come bien”");
+
+    fecha.setFont(new java.awt.Font("Times New Roman", 2, 18)); // NOI18N
+    fecha.setForeground(new java.awt.Color(217, 177, 142));
+    fecha.setText("fecha");
 
     javax.swing.GroupLayout barraSuperiorLayout = new javax.swing.GroupLayout(barraSuperior);
     barraSuperior.setLayout(barraSuperiorLayout);
     barraSuperiorLayout.setHorizontalGroup(
       barraSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 780, Short.MAX_VALUE)
+      .addGroup(barraSuperiorLayout.createSequentialGroup()
+        .addGap(33, 33, 33)
+        .addComponent(frase)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 336, Short.MAX_VALUE)
+        .addComponent(fecha)
+        .addGap(329, 329, 329))
     );
     barraSuperiorLayout.setVerticalGroup(
       barraSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 110, Short.MAX_VALUE)
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barraSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        .addComponent(frase, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
     );
 
     bg.add(barraSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, -1, 110));
@@ -204,9 +294,44 @@ public class Menu extends javax.swing.JFrame {
     exitImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resto/img/iconoSalir.png")));
   }//GEN-LAST:event_exitImgMouseExited
 
-  /**
-   * @param args the command line arguments
-   */
+  private void tabPrincipalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabPrincipalMouseEntered
+    if (tabSeleccionada != tabPrincipal) {
+      setearHover(tabPrincipal);
+    }
+  }//GEN-LAST:event_tabPrincipalMouseEntered
+
+  private void tabPrincipalMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabPrincipalMouseExited
+    if (tabSeleccionada != tabPrincipal) {
+      resetearColor(tabPrincipal);
+    }
+  }//GEN-LAST:event_tabPrincipalMouseExited
+
+  private void tabPrincipalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabPrincipalMouseClicked
+    setearSeleccionado(tabPrincipal);
+    
+    VistaPrincipal vp = new VistaPrincipal();
+    vp.setSize(780, 530);
+    vp.setLocation(0, 0);
+    
+    contenido.removeAll();
+    contenido.add(vp, BorderLayout.CENTER);
+    contenido.revalidate();
+    contenido.repaint();
+  }//GEN-LAST:event_tabPrincipalMouseClicked
+
+  void resetearColor(JPanel panel) {
+    panel.setBackground(Color.decode("#D9B18E"));
+  }
+
+  void setearHover(JPanel panel) {
+    panel.setBackground(Color.decode("#E1C2A8"));
+  }
+
+  void setearSeleccionado(JPanel panel) {
+    panel.setBackground(Color.decode("#F1CFB2"));
+    tabSeleccionada = panel;
+  }
+
   public static void main(String args[]) {
     /* Set the Nimbus look and feel */
     //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -249,8 +374,13 @@ public class Menu extends javax.swing.JFrame {
   private javax.swing.JPanel contenido;
   private javax.swing.JPanel exitBtn;
   private javax.swing.JLabel exitImg;
+  private javax.swing.JLabel fecha;
+  private javax.swing.JLabel frase;
   private javax.swing.JPanel logoBg;
   private javax.swing.JPanel pnlAcento;
+  private javax.swing.JLabel principalImg;
+  private javax.swing.JLabel principalTexto;
   private javax.swing.JLabel restoLogo;
+  private javax.swing.JPanel tabPrincipal;
   // End of variables declaration//GEN-END:variables
 }
