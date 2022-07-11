@@ -188,14 +188,14 @@ public class Menu extends javax.swing.JFrame {
     tabPrincipal.setBackground(new java.awt.Color(217, 177, 142));
     tabPrincipal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     tabPrincipal.addMouseListener(new java.awt.event.MouseAdapter() {
-      public void mouseClicked(java.awt.event.MouseEvent evt) {
-        tabPrincipalMouseClicked(evt);
-      }
       public void mouseEntered(java.awt.event.MouseEvent evt) {
         tabPrincipalMouseEntered(evt);
       }
       public void mouseExited(java.awt.event.MouseEvent evt) {
         tabPrincipalMouseExited(evt);
+      }
+      public void mousePressed(java.awt.event.MouseEvent evt) {
+        tabPrincipalMousePressed(evt);
       }
     });
 
@@ -229,14 +229,14 @@ public class Menu extends javax.swing.JFrame {
     tabReservas.setBackground(new java.awt.Color(217, 177, 142));
     tabReservas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     tabReservas.addMouseListener(new java.awt.event.MouseAdapter() {
-      public void mouseClicked(java.awt.event.MouseEvent evt) {
-        tabReservasMouseClicked(evt);
-      }
       public void mouseEntered(java.awt.event.MouseEvent evt) {
         tabReservasMouseEntered(evt);
       }
       public void mouseExited(java.awt.event.MouseEvent evt) {
         tabReservasMouseExited(evt);
+      }
+      public void mousePressed(java.awt.event.MouseEvent evt) {
+        tabReservasMousePressed(evt);
       }
     });
 
@@ -270,14 +270,14 @@ public class Menu extends javax.swing.JFrame {
     tabPedidos.setBackground(new java.awt.Color(217, 177, 142));
     tabPedidos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     tabPedidos.addMouseListener(new java.awt.event.MouseAdapter() {
-      public void mouseClicked(java.awt.event.MouseEvent evt) {
-        tabPedidosMouseClicked(evt);
-      }
       public void mouseEntered(java.awt.event.MouseEvent evt) {
         tabPedidosMouseEntered(evt);
       }
       public void mouseExited(java.awt.event.MouseEvent evt) {
         tabPedidosMouseExited(evt);
+      }
+      public void mousePressed(java.awt.event.MouseEvent evt) {
+        tabPedidosMousePressed(evt);
       }
     });
 
@@ -311,14 +311,14 @@ public class Menu extends javax.swing.JFrame {
     tabProductos.setBackground(new java.awt.Color(217, 177, 142));
     tabProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     tabProductos.addMouseListener(new java.awt.event.MouseAdapter() {
-      public void mouseClicked(java.awt.event.MouseEvent evt) {
-        tabProductosMouseClicked(evt);
-      }
       public void mouseEntered(java.awt.event.MouseEvent evt) {
         tabProductosMouseEntered(evt);
       }
       public void mouseExited(java.awt.event.MouseEvent evt) {
         tabProductosMouseExited(evt);
+      }
+      public void mousePressed(java.awt.event.MouseEvent evt) {
+        tabProductosMousePressed(evt);
       }
     });
 
@@ -352,14 +352,14 @@ public class Menu extends javax.swing.JFrame {
     tabMesas.setBackground(new java.awt.Color(217, 177, 142));
     tabMesas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     tabMesas.addMouseListener(new java.awt.event.MouseAdapter() {
-      public void mouseClicked(java.awt.event.MouseEvent evt) {
-        tabMesasMouseClicked(evt);
-      }
       public void mouseEntered(java.awt.event.MouseEvent evt) {
         tabMesasMouseEntered(evt);
       }
       public void mouseExited(java.awt.event.MouseEvent evt) {
         tabMesasMouseExited(evt);
+      }
+      public void mousePressed(java.awt.event.MouseEvent evt) {
+        tabMesasMousePressed(evt);
       }
     });
 
@@ -393,14 +393,14 @@ public class Menu extends javax.swing.JFrame {
     tabMeseros.setBackground(new java.awt.Color(217, 177, 142));
     tabMeseros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     tabMeseros.addMouseListener(new java.awt.event.MouseAdapter() {
-      public void mouseClicked(java.awt.event.MouseEvent evt) {
-        tabMeserosMouseClicked(evt);
-      }
       public void mouseEntered(java.awt.event.MouseEvent evt) {
         tabMeserosMouseEntered(evt);
       }
       public void mouseExited(java.awt.event.MouseEvent evt) {
         tabMeserosMouseExited(evt);
+      }
+      public void mousePressed(java.awt.event.MouseEvent evt) {
+        tabMeserosMousePressed(evt);
       }
     });
 
@@ -434,14 +434,14 @@ public class Menu extends javax.swing.JFrame {
     tabHistorial.setBackground(new java.awt.Color(217, 177, 142));
     tabHistorial.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     tabHistorial.addMouseListener(new java.awt.event.MouseAdapter() {
-      public void mouseClicked(java.awt.event.MouseEvent evt) {
-        tabHistorialMouseClicked(evt);
-      }
       public void mouseEntered(java.awt.event.MouseEvent evt) {
         tabHistorialMouseEntered(evt);
       }
       public void mouseExited(java.awt.event.MouseEvent evt) {
         tabHistorialMouseExited(evt);
+      }
+      public void mousePressed(java.awt.event.MouseEvent evt) {
+        tabHistorialMousePressed(evt);
       }
     });
 
@@ -568,7 +568,8 @@ public class Menu extends javax.swing.JFrame {
 
   // <editor-fold desc="Codigo para los distintos tabs">
   
-  // =~=~=~= Menu principal =~=~=~=
+  // =~=~=~= Eventos hover/deshover de los tabs =~=~=~=
+  // = Tab principal =
   private void tabPrincipalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabPrincipalMouseEntered
       if (tabSeleccionada != tabPrincipal) {
           setearHover(tabPrincipal);
@@ -581,34 +582,7 @@ public class Menu extends javax.swing.JFrame {
       }
   }//GEN-LAST:event_tabPrincipalMouseExited
 
-  private void tabPrincipalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabPrincipalMouseClicked
-    setearSeleccionado(tabPrincipal);
-
-    VistaPrincipal vp = new VistaPrincipal();
-    vp.setSize(780, 530);
-    vp.setLocation(0, 0);
-
-    contenido.removeAll();
-    contenido.add(vp, BorderLayout.CENTER);
-    contenido.revalidate();
-    contenido.repaint();
-  }//GEN-LAST:event_tabPrincipalMouseClicked
-
-  
-  // =~=~=~= Menu reservas =~=~=~=
-  private void tabReservasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabReservasMouseClicked
-    setearSeleccionado(tabReservas);
-
-    ReservaVista rv = new ReservaVista(con);
-    rv.setSize(780, 530);
-    rv.setLocation(0, 0);
-
-    contenido.removeAll();
-    contenido.add(rv, BorderLayout.CENTER);
-    contenido.revalidate();
-    contenido.repaint();
-  }//GEN-LAST:event_tabReservasMouseClicked
-
+  // = Tab reservas =
   private void tabReservasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabReservasMouseEntered
     if (tabSeleccionada != tabReservas) {
         setearHover(tabReservas);
@@ -621,21 +595,7 @@ public class Menu extends javax.swing.JFrame {
     }
   }//GEN-LAST:event_tabReservasMouseExited
 
-  
-  // =~=~=~= Menu pedidos =~=~=~=
-  private void tabPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabPedidosMouseClicked
-    setearSeleccionado(tabPedidos);
-
-    VistaPrincipal vp = new VistaPrincipal();
-    vp.setSize(780, 530);
-    vp.setLocation(0, 0);
-
-    contenido.removeAll();
-    contenido.add(vp, BorderLayout.CENTER);
-    contenido.revalidate();
-    contenido.repaint();
-  }//GEN-LAST:event_tabPedidosMouseClicked
-
+  // = Tab pedidos =
   private void tabPedidosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabPedidosMouseEntered
     if (tabSeleccionada != tabPedidos) {
       setearHover(tabPedidos);
@@ -648,21 +608,7 @@ public class Menu extends javax.swing.JFrame {
     }
   }//GEN-LAST:event_tabPedidosMouseExited
 
-  
-  // =~=~=~= Menu productos =~=~=~=
-  private void tabProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabProductosMouseClicked
-    setearSeleccionado(tabProductos);
-
-    VistaPrincipal vp = new VistaPrincipal();
-    vp.setSize(780, 530);
-    vp.setLocation(0, 0);
-
-    contenido.removeAll();
-    contenido.add(vp, BorderLayout.CENTER);
-    contenido.revalidate();
-    contenido.repaint();
-  }//GEN-LAST:event_tabProductosMouseClicked
-
+  // = Tab productos =
   private void tabProductosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabProductosMouseEntered
     if (tabSeleccionada != tabProductos) {
       setearHover(tabProductos);
@@ -675,21 +621,7 @@ public class Menu extends javax.swing.JFrame {
     }
   }//GEN-LAST:event_tabProductosMouseExited
 
-  
-  // =~=~=~= Menu mesas =~=~=~=
-  private void tabMesasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMesasMouseClicked
-    setearSeleccionado(tabMesas);
-
-    VistaPrincipal vp = new VistaPrincipal();
-    vp.setSize(780, 530);
-    vp.setLocation(0, 0);
-
-    contenido.removeAll();
-    contenido.add(vp, BorderLayout.CENTER);
-    contenido.revalidate();
-    contenido.repaint();
-  }//GEN-LAST:event_tabMesasMouseClicked
-
+  // = Tab mesas =
   private void tabMesasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMesasMouseEntered
     if (tabSeleccionada != tabMesas) {
       setearHover(tabMesas);
@@ -702,21 +634,7 @@ public class Menu extends javax.swing.JFrame {
     }
   }//GEN-LAST:event_tabMesasMouseExited
 
-  
-  // =~=~=~= Menu meseros =~=~=~=
-  private void tabMeserosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMeserosMouseClicked
-    setearSeleccionado(tabMeseros);
-
-    VistaPrincipal vp = new VistaPrincipal();
-    vp.setSize(780, 530);
-    vp.setLocation(0, 0);
-
-    contenido.removeAll();
-    contenido.add(vp, BorderLayout.CENTER);
-    contenido.revalidate();
-    contenido.repaint();
-  }//GEN-LAST:event_tabMeserosMouseClicked
-
+  // = Tab meseros =
   private void tabMeserosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMeserosMouseEntered
     if (tabSeleccionada != tabMeseros) {
       setearHover(tabMeseros);
@@ -729,21 +647,7 @@ public class Menu extends javax.swing.JFrame {
     }
   }//GEN-LAST:event_tabMeserosMouseExited
 
-  
-  // =~=~=~= Menu historial =~=~=~=
-  private void tabHistorialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabHistorialMouseClicked
-    setearSeleccionado(tabHistorial);
-
-    VistaPrincipal vp = new VistaPrincipal();
-    vp.setSize(780, 530);
-    vp.setLocation(0, 0);
-
-    contenido.removeAll();
-    contenido.add(vp, BorderLayout.CENTER);
-    contenido.revalidate();
-    contenido.repaint();
-  }//GEN-LAST:event_tabHistorialMouseClicked
-
+  // = Tab historial =
   private void tabHistorialMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabHistorialMouseEntered
     if (tabSeleccionada != tabHistorial) {
       setearHover(tabHistorial);
@@ -755,6 +659,99 @@ public class Menu extends javax.swing.JFrame {
       resetearColor(tabHistorial);
     }
   }//GEN-LAST:event_tabHistorialMouseExited
+
+  
+  // =~=~=~= Eventos click de los tabs =~=~=~=
+  private void tabPrincipalMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabPrincipalMousePressed
+    setearSeleccionado(tabPrincipal);
+
+    VistaPrincipal vp = new VistaPrincipal();
+    vp.setSize(780, 530);
+    vp.setLocation(0, 0);
+
+    contenido.removeAll();
+    contenido.add(vp, BorderLayout.CENTER);
+    contenido.revalidate();
+    contenido.repaint();
+  }//GEN-LAST:event_tabPrincipalMousePressed
+
+  private void tabReservasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabReservasMousePressed
+    setearSeleccionado(tabReservas);
+
+    ReservaVista rv = new ReservaVista(con);
+    rv.setSize(780, 530);
+    rv.setLocation(0, 0);
+
+    contenido.removeAll();
+    contenido.add(rv, BorderLayout.CENTER);
+    contenido.revalidate();
+    contenido.repaint();
+  }//GEN-LAST:event_tabReservasMousePressed
+
+  private void tabPedidosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabPedidosMousePressed
+    setearSeleccionado(tabPedidos);
+
+    VistaPrincipal vp = new VistaPrincipal();
+    vp.setSize(780, 530);
+    vp.setLocation(0, 0);
+
+    contenido.removeAll();
+    contenido.add(vp, BorderLayout.CENTER);
+    contenido.revalidate();
+    contenido.repaint();
+  }//GEN-LAST:event_tabPedidosMousePressed
+
+  private void tabProductosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabProductosMousePressed
+    setearSeleccionado(tabProductos);
+
+    VistaPrincipal vp = new VistaPrincipal();
+    vp.setSize(780, 530);
+    vp.setLocation(0, 0);
+
+    contenido.removeAll();
+    contenido.add(vp, BorderLayout.CENTER);
+    contenido.revalidate();
+    contenido.repaint();
+  }//GEN-LAST:event_tabProductosMousePressed
+
+  private void tabMesasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMesasMousePressed
+    setearSeleccionado(tabMesas);
+
+    VistaPrincipal vp = new VistaPrincipal();
+    vp.setSize(780, 530);
+    vp.setLocation(0, 0);
+
+    contenido.removeAll();
+    contenido.add(vp, BorderLayout.CENTER);
+    contenido.revalidate();
+    contenido.repaint();
+  }//GEN-LAST:event_tabMesasMousePressed
+
+  private void tabMeserosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMeserosMousePressed
+    setearSeleccionado(tabMeseros);
+
+    VistaPrincipal vp = new VistaPrincipal();
+    vp.setSize(780, 530);
+    vp.setLocation(0, 0);
+
+    contenido.removeAll();
+    contenido.add(vp, BorderLayout.CENTER);
+    contenido.revalidate();
+    contenido.repaint();
+  }//GEN-LAST:event_tabMeserosMousePressed
+
+  private void tabHistorialMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabHistorialMousePressed
+    setearSeleccionado(tabHistorial);
+
+    VistaPrincipal vp = new VistaPrincipal();
+    vp.setSize(780, 530);
+    vp.setLocation(0, 0);
+
+    contenido.removeAll();
+    contenido.add(vp, BorderLayout.CENTER);
+    contenido.revalidate();
+    contenido.repaint();
+  }//GEN-LAST:event_tabHistorialMousePressed
   // </editor-fold>    
     
   void resetearColor(JPanel panel) {
