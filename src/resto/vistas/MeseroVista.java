@@ -47,7 +47,7 @@ public class MeseroVista extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(114, 63, 50));
         jLabel1.setText("Meseros");
 
-        jCheckBox1.setBackground(new java.awt.Color(240, 239, 239));
+        jCheckBox1.setBackground(new java.awt.Color(252, 252, 252));
         jCheckBox1.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
         jCheckBox1.setForeground(new java.awt.Color(114, 63, 50));
         jCheckBox1.setText("Ver meseros inactivos");
