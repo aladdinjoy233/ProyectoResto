@@ -2,274 +2,541 @@ package resto.vistas;
 
 import java.awt.*;
 import java.time.LocalDate;
+import java.util.*;
 import javax.swing.JPanel;
-import resto.dao.Conexion;
+import resto.dao.*;
 
 public class Menu extends javax.swing.JFrame {
 
-    private javax.swing.JPanel tabSeleccionada;
-    private Conexion con;
+  private JPanel tabSeleccionada;
+  private ArrayList<JPanel> tabs;
 
-    public Menu() {
-        initComponents();
+  private Conexion con;
 
-        con = new Conexion();
+  public Menu() {
+    initComponents();
+    
+    tabs = new ArrayList<>(Arrays.asList(tabHistorial, tabMesas, tabMeseros, tabPedidos, tabPrincipal, tabProductos, tabReservas));
+
+    con = new Conexion();
 
 //    Setear la fecha en el menu
-        LocalDate now = LocalDate.now();
-        int dia = now.getDayOfMonth();
-        int mes = now.getMonthValue();
-        int anio = now.getYear();
+    LocalDate now = LocalDate.now();
+    int dia = now.getDayOfMonth();
+    int mes = now.getMonthValue();
+    int anio = now.getYear();
 
-        String fechaActual
-                = (dia < 10 ? "0" + dia : dia) + "/"
-                + (mes < 10 ? "0" + mes : mes) + "/"
-                + anio;
+    String fechaActual
+            = (dia < 10 ? "0" + dia : dia) + "/"
+            + (mes < 10 ? "0" + mes : mes) + "/"
+            + anio;
 
-        fecha.setText(fechaActual);
+    fecha.setText(fechaActual);
 
 //    Cargar vista principal
-        setearSeleccionado(tabPrincipal);
+    setearSeleccionado(tabPrincipal);
 
-        VistaPrincipal vp = new VistaPrincipal();
-        ReservaVista rv = new ReservaVista(con);     //prueba para ver la reserva
-        rv.setSize(780, 530);
-        rv.setLocation(0, 0);
+    VistaPrincipal vp = new VistaPrincipal();
+    vp.setSize(780, 530);
+    vp.setLocation(0, 0);
 
-        contenido.removeAll();
-        //contenido.add(vp, BorderLayout.CENTER);
-        contenido.add(rv, BorderLayout.CENTER);
-        contenido.revalidate();
-        contenido.repaint();
-    }
+    contenido.removeAll();
+    contenido.add(vp, BorderLayout.CENTER);
+    contenido.revalidate();
+    contenido.repaint();
+  }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+  // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+  private void initComponents() {
 
-        bg = new javax.swing.JPanel();
-        barra = new javax.swing.JPanel();
-        exitBtn = new javax.swing.JPanel();
-        exitImg = new javax.swing.JLabel();
-        barraLateral = new javax.swing.JPanel();
-        pnlAcento = new javax.swing.JPanel();
-        logoBg = new javax.swing.JPanel();
-        restoLogo = new javax.swing.JLabel();
-        tabPrincipal = new javax.swing.JPanel();
-        principalImg = new javax.swing.JLabel();
-        principalTexto = new javax.swing.JLabel();
-        barraSuperior = new javax.swing.JPanel();
-        frase = new javax.swing.JLabel();
-        fecha = new javax.swing.JLabel();
-        contenido = new javax.swing.JPanel();
+    bg = new javax.swing.JPanel();
+    barra = new javax.swing.JPanel();
+    exitBtn = new javax.swing.JPanel();
+    exitImg = new javax.swing.JLabel();
+    barraLateral = new javax.swing.JPanel();
+    pnlAcento = new javax.swing.JPanel();
+    logoBg = new javax.swing.JPanel();
+    restoLogo = new javax.swing.JLabel();
+    tabPrincipal = new javax.swing.JPanel();
+    principalImg = new javax.swing.JLabel();
+    principalTexto = new javax.swing.JLabel();
+    tabReservas = new javax.swing.JPanel();
+    reservasImg = new javax.swing.JLabel();
+    reservasTexto = new javax.swing.JLabel();
+    tabPedidos = new javax.swing.JPanel();
+    pedidosImg = new javax.swing.JLabel();
+    pedidosTexto = new javax.swing.JLabel();
+    tabProductos = new javax.swing.JPanel();
+    productosImg = new javax.swing.JLabel();
+    productosTexto = new javax.swing.JLabel();
+    tabMesas = new javax.swing.JPanel();
+    mesasImg = new javax.swing.JLabel();
+    mesasTexto = new javax.swing.JLabel();
+    tabMeseros = new javax.swing.JPanel();
+    meserosImg = new javax.swing.JLabel();
+    meserosTexto = new javax.swing.JLabel();
+    tabHistorial = new javax.swing.JPanel();
+    historialImg = new javax.swing.JLabel();
+    historialTexto = new javax.swing.JLabel();
+    barraSuperior = new javax.swing.JPanel();
+    frase = new javax.swing.JLabel();
+    fecha = new javax.swing.JLabel();
+    contenido = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1020, 640));
-        setUndecorated(true);
-        setResizable(false);
+    setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+    setMinimumSize(new java.awt.Dimension(1020, 640));
+    setUndecorated(true);
+    setResizable(false);
 
-        bg.setBackground(new java.awt.Color(240, 239, 239));
-        bg.setPreferredSize(new java.awt.Dimension(1020, 640));
-        bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+    bg.setBackground(new java.awt.Color(240, 239, 239));
+    bg.setPreferredSize(new java.awt.Dimension(1020, 640));
+    bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        barra.setBackground(new java.awt.Color(255, 255, 255));
-        barra.setOpaque(false);
-        barra.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                barraMouseDragged(evt);
-            }
-        });
-        barra.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                barraMousePressed(evt);
-            }
-        });
+    barra.setBackground(new java.awt.Color(255, 255, 255));
+    barra.setOpaque(false);
+    barra.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+      public void mouseDragged(java.awt.event.MouseEvent evt) {
+        barraMouseDragged(evt);
+      }
+    });
+    barra.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mousePressed(java.awt.event.MouseEvent evt) {
+        barraMousePressed(evt);
+      }
+    });
 
-        exitBtn.setBackground(new java.awt.Color(114, 63, 50));
-        exitBtn.setPreferredSize(new java.awt.Dimension(25, 25));
+    exitBtn.setBackground(new java.awt.Color(114, 63, 50));
+    exitBtn.setPreferredSize(new java.awt.Dimension(25, 25));
 
-        exitImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        exitImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resto/img/iconoSalir.png"))); // NOI18N
-        exitImg.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        exitImg.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                exitImgMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                exitImgMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                exitImgMouseExited(evt);
-            }
-        });
+    exitImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    exitImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resto/img/iconoSalir.png"))); // NOI18N
+    exitImg.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    exitImg.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        exitImgMouseClicked(evt);
+      }
+      public void mouseEntered(java.awt.event.MouseEvent evt) {
+        exitImgMouseEntered(evt);
+      }
+      public void mouseExited(java.awt.event.MouseEvent evt) {
+        exitImgMouseExited(evt);
+      }
+    });
 
-        javax.swing.GroupLayout exitBtnLayout = new javax.swing.GroupLayout(exitBtn);
-        exitBtn.setLayout(exitBtnLayout);
-        exitBtnLayout.setHorizontalGroup(
-            exitBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(exitImg, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-        );
-        exitBtnLayout.setVerticalGroup(
-            exitBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(exitImg, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-        );
+    javax.swing.GroupLayout exitBtnLayout = new javax.swing.GroupLayout(exitBtn);
+    exitBtn.setLayout(exitBtnLayout);
+    exitBtnLayout.setHorizontalGroup(
+      exitBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addComponent(exitImg, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+    );
+    exitBtnLayout.setVerticalGroup(
+      exitBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addComponent(exitImg, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+    );
 
-        javax.swing.GroupLayout barraLayout = new javax.swing.GroupLayout(barra);
-        barra.setLayout(barraLayout);
-        barraLayout.setHorizontalGroup(
-            barraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barraLayout.createSequentialGroup()
-                .addContainerGap(989, Short.MAX_VALUE)
-                .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        barraLayout.setVerticalGroup(
-            barraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(barraLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(9, Short.MAX_VALUE))
-        );
+    javax.swing.GroupLayout barraLayout = new javax.swing.GroupLayout(barra);
+    barra.setLayout(barraLayout);
+    barraLayout.setHorizontalGroup(
+      barraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barraLayout.createSequentialGroup()
+        .addContainerGap(989, Short.MAX_VALUE)
+        .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap())
+    );
+    barraLayout.setVerticalGroup(
+      barraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(barraLayout.createSequentialGroup()
+        .addContainerGap()
+        .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap(9, Short.MAX_VALUE))
+    );
 
-        bg.add(barra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 40));
+    bg.add(barra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 40));
 
-        barraLateral.setBackground(new java.awt.Color(217, 177, 142));
-        barraLateral.setPreferredSize(new java.awt.Dimension(240, 640));
-        barraLateral.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+    barraLateral.setBackground(new java.awt.Color(217, 177, 142));
+    barraLateral.setPreferredSize(new java.awt.Dimension(240, 640));
+    barraLateral.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        pnlAcento.setBackground(new java.awt.Color(114, 63, 50));
-        pnlAcento.setPreferredSize(new java.awt.Dimension(8, 110));
+    pnlAcento.setBackground(new java.awt.Color(114, 63, 50));
+    pnlAcento.setPreferredSize(new java.awt.Dimension(8, 110));
 
-        javax.swing.GroupLayout pnlAcentoLayout = new javax.swing.GroupLayout(pnlAcento);
-        pnlAcento.setLayout(pnlAcentoLayout);
-        pnlAcentoLayout.setHorizontalGroup(
-            pnlAcentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 8, Short.MAX_VALUE)
-        );
-        pnlAcentoLayout.setVerticalGroup(
-            pnlAcentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 110, Short.MAX_VALUE)
-        );
+    javax.swing.GroupLayout pnlAcentoLayout = new javax.swing.GroupLayout(pnlAcento);
+    pnlAcento.setLayout(pnlAcentoLayout);
+    pnlAcentoLayout.setHorizontalGroup(
+      pnlAcentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGap(0, 8, Short.MAX_VALUE)
+    );
+    pnlAcentoLayout.setVerticalGroup(
+      pnlAcentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGap(0, 110, Short.MAX_VALUE)
+    );
 
-        barraLateral.add(pnlAcento, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+    barraLateral.add(pnlAcento, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        logoBg.setBackground(new java.awt.Color(217, 177, 142));
-        logoBg.setAlignmentX(1.0F);
-        logoBg.setAlignmentY(1.0F);
-        logoBg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+    logoBg.setBackground(new java.awt.Color(217, 177, 142));
+    logoBg.setAlignmentX(1.0F);
+    logoBg.setAlignmentY(1.0F);
+    logoBg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        restoLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        restoLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resto/img/restoLogo.png"))); // NOI18N
-        logoBg.add(restoLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, 0, 230, 110));
+    restoLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    restoLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resto/img/restoLogo.png"))); // NOI18N
+    logoBg.add(restoLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, 0, 230, 110));
 
-        barraLateral.add(logoBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 230, 110));
+    barraLateral.add(logoBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 230, 110));
 
-        tabPrincipal.setBackground(new java.awt.Color(217, 177, 142));
-        tabPrincipal.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        tabPrincipal.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabPrincipalMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                tabPrincipalMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                tabPrincipalMouseExited(evt);
-            }
-        });
+    tabPrincipal.setBackground(new java.awt.Color(217, 177, 142));
+    tabPrincipal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    tabPrincipal.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        tabPrincipalMouseClicked(evt);
+      }
+      public void mouseEntered(java.awt.event.MouseEvent evt) {
+        tabPrincipalMouseEntered(evt);
+      }
+      public void mouseExited(java.awt.event.MouseEvent evt) {
+        tabPrincipalMouseExited(evt);
+      }
+    });
 
-        principalImg.setForeground(new java.awt.Color(114, 63, 50));
-        principalImg.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        principalImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resto/img/iconoCasa.png"))); // NOI18N
+    principalImg.setForeground(new java.awt.Color(114, 63, 50));
+    principalImg.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+    principalImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resto/img/iconoCasa.png"))); // NOI18N
 
-        principalTexto.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        principalTexto.setForeground(new java.awt.Color(114, 63, 50));
-        principalTexto.setText("Página Principal");
+    principalTexto.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+    principalTexto.setForeground(new java.awt.Color(114, 63, 50));
+    principalTexto.setText("Página Principal");
 
-        javax.swing.GroupLayout tabPrincipalLayout = new javax.swing.GroupLayout(tabPrincipal);
-        tabPrincipal.setLayout(tabPrincipalLayout);
-        tabPrincipalLayout.setHorizontalGroup(
-            tabPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tabPrincipalLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(principalImg)
-                .addGap(18, 18, 18)
-                .addComponent(principalTexto)
-                .addContainerGap(60, Short.MAX_VALUE))
-        );
-        tabPrincipalLayout.setVerticalGroup(
-            tabPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(principalImg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-            .addComponent(principalTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+    javax.swing.GroupLayout tabPrincipalLayout = new javax.swing.GroupLayout(tabPrincipal);
+    tabPrincipal.setLayout(tabPrincipalLayout);
+    tabPrincipalLayout.setHorizontalGroup(
+      tabPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(tabPrincipalLayout.createSequentialGroup()
+        .addGap(27, 27, 27)
+        .addComponent(principalImg)
+        .addGap(18, 18, 18)
+        .addComponent(principalTexto)
+        .addContainerGap(60, Short.MAX_VALUE))
+    );
+    tabPrincipalLayout.setVerticalGroup(
+      tabPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addComponent(principalImg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+      .addComponent(principalTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+    );
 
-        barraLateral.add(tabPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 240, 60));
+    barraLateral.add(tabPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 240, 60));
 
-        bg.add(barraLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+    tabReservas.setBackground(new java.awt.Color(217, 177, 142));
+    tabReservas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    tabReservas.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        tabReservasMouseClicked(evt);
+      }
+      public void mouseEntered(java.awt.event.MouseEvent evt) {
+        tabReservasMouseEntered(evt);
+      }
+      public void mouseExited(java.awt.event.MouseEvent evt) {
+        tabReservasMouseExited(evt);
+      }
+    });
 
-        barraSuperior.setBackground(new java.awt.Color(114, 63, 50));
+    reservasImg.setForeground(new java.awt.Color(114, 63, 50));
+    reservasImg.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+    reservasImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resto/img/iconoCalendario.png"))); // NOI18N
 
-        frase.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
-        frase.setForeground(new java.awt.Color(217, 177, 142));
-        frase.setText("“Acá no solo se come, se come bien”");
+    reservasTexto.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+    reservasTexto.setForeground(new java.awt.Color(114, 63, 50));
+    reservasTexto.setText("Reservas");
 
-        fecha.setFont(new java.awt.Font("Times New Roman", 2, 18)); // NOI18N
-        fecha.setForeground(new java.awt.Color(217, 177, 142));
-        fecha.setText("fecha");
+    javax.swing.GroupLayout tabReservasLayout = new javax.swing.GroupLayout(tabReservas);
+    tabReservas.setLayout(tabReservasLayout);
+    tabReservasLayout.setHorizontalGroup(
+      tabReservasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(tabReservasLayout.createSequentialGroup()
+        .addGap(27, 27, 27)
+        .addComponent(reservasImg)
+        .addGap(18, 18, 18)
+        .addComponent(reservasTexto)
+        .addContainerGap(105, Short.MAX_VALUE))
+    );
+    tabReservasLayout.setVerticalGroup(
+      tabReservasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addComponent(reservasImg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+      .addComponent(reservasTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+    );
 
-        javax.swing.GroupLayout barraSuperiorLayout = new javax.swing.GroupLayout(barraSuperior);
-        barraSuperior.setLayout(barraSuperiorLayout);
-        barraSuperiorLayout.setHorizontalGroup(
-            barraSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(barraSuperiorLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(frase)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 336, Short.MAX_VALUE)
-                .addComponent(fecha)
-                .addGap(329, 329, 329))
-        );
-        barraSuperiorLayout.setVerticalGroup(
-            barraSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barraSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(frase, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+    barraLateral.add(tabReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 240, 60));
 
-        bg.add(barraSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, -1, 110));
+    tabPedidos.setBackground(new java.awt.Color(217, 177, 142));
+    tabPedidos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    tabPedidos.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        tabPedidosMouseClicked(evt);
+      }
+      public void mouseEntered(java.awt.event.MouseEvent evt) {
+        tabPedidosMouseEntered(evt);
+      }
+      public void mouseExited(java.awt.event.MouseEvent evt) {
+        tabPedidosMouseExited(evt);
+      }
+    });
 
-        contenido.setBackground(new java.awt.Color(240, 239, 239));
-        contenido.setPreferredSize(new java.awt.Dimension(780, 530));
+    pedidosImg.setForeground(new java.awt.Color(114, 63, 50));
+    pedidosImg.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+    pedidosImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resto/img/iconoRegistro.png"))); // NOI18N
 
-        javax.swing.GroupLayout contenidoLayout = new javax.swing.GroupLayout(contenido);
-        contenido.setLayout(contenidoLayout);
-        contenidoLayout.setHorizontalGroup(
-            contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 780, Short.MAX_VALUE)
-        );
-        contenidoLayout.setVerticalGroup(
-            contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 530, Short.MAX_VALUE)
-        );
+    pedidosTexto.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+    pedidosTexto.setForeground(new java.awt.Color(114, 63, 50));
+    pedidosTexto.setText("Pedidos");
 
-        bg.add(contenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, -1, -1));
+    javax.swing.GroupLayout tabPedidosLayout = new javax.swing.GroupLayout(tabPedidos);
+    tabPedidos.setLayout(tabPedidosLayout);
+    tabPedidosLayout.setHorizontalGroup(
+      tabPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(tabPedidosLayout.createSequentialGroup()
+        .addGap(27, 27, 27)
+        .addComponent(pedidosImg)
+        .addGap(18, 18, 18)
+        .addComponent(pedidosTexto)
+        .addContainerGap(115, Short.MAX_VALUE))
+    );
+    tabPedidosLayout.setVerticalGroup(
+      tabPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addComponent(pedidosImg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+      .addComponent(pedidosTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+    );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+    barraLateral.add(tabPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 240, 60));
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+    tabProductos.setBackground(new java.awt.Color(217, 177, 142));
+    tabProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    tabProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        tabProductosMouseClicked(evt);
+      }
+      public void mouseEntered(java.awt.event.MouseEvent evt) {
+        tabProductosMouseEntered(evt);
+      }
+      public void mouseExited(java.awt.event.MouseEvent evt) {
+        tabProductosMouseExited(evt);
+      }
+    });
+
+    productosImg.setForeground(new java.awt.Color(114, 63, 50));
+    productosImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    productosImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resto/img/iconoCopa.png"))); // NOI18N
+
+    productosTexto.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+    productosTexto.setForeground(new java.awt.Color(114, 63, 50));
+    productosTexto.setText("Productos");
+
+    javax.swing.GroupLayout tabProductosLayout = new javax.swing.GroupLayout(tabProductos);
+    tabProductos.setLayout(tabProductosLayout);
+    tabProductosLayout.setHorizontalGroup(
+      tabProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(tabProductosLayout.createSequentialGroup()
+        .addGap(27, 27, 27)
+        .addComponent(productosImg, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+        .addComponent(productosTexto)
+        .addContainerGap(108, Short.MAX_VALUE))
+    );
+    tabProductosLayout.setVerticalGroup(
+      tabProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addComponent(productosImg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+      .addComponent(productosTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+    );
+
+    barraLateral.add(tabProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 240, 60));
+
+    tabMesas.setBackground(new java.awt.Color(217, 177, 142));
+    tabMesas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    tabMesas.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        tabMesasMouseClicked(evt);
+      }
+      public void mouseEntered(java.awt.event.MouseEvent evt) {
+        tabMesasMouseEntered(evt);
+      }
+      public void mouseExited(java.awt.event.MouseEvent evt) {
+        tabMesasMouseExited(evt);
+      }
+    });
+
+    mesasImg.setForeground(new java.awt.Color(114, 63, 50));
+    mesasImg.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+    mesasImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resto/img/iconoSilla.png"))); // NOI18N
+
+    mesasTexto.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+    mesasTexto.setForeground(new java.awt.Color(114, 63, 50));
+    mesasTexto.setText("Mesas");
+
+    javax.swing.GroupLayout tabMesasLayout = new javax.swing.GroupLayout(tabMesas);
+    tabMesas.setLayout(tabMesasLayout);
+    tabMesasLayout.setHorizontalGroup(
+      tabMesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(tabMesasLayout.createSequentialGroup()
+        .addGap(27, 27, 27)
+        .addComponent(mesasImg)
+        .addGap(18, 18, 18)
+        .addComponent(mesasTexto)
+        .addContainerGap(126, Short.MAX_VALUE))
+    );
+    tabMesasLayout.setVerticalGroup(
+      tabMesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addComponent(mesasImg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+      .addComponent(mesasTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+    );
+
+    barraLateral.add(tabMesas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 240, 60));
+
+    tabMeseros.setBackground(new java.awt.Color(217, 177, 142));
+    tabMeseros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    tabMeseros.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        tabMeserosMouseClicked(evt);
+      }
+      public void mouseEntered(java.awt.event.MouseEvent evt) {
+        tabMeserosMouseEntered(evt);
+      }
+      public void mouseExited(java.awt.event.MouseEvent evt) {
+        tabMeserosMouseExited(evt);
+      }
+    });
+
+    meserosImg.setForeground(new java.awt.Color(114, 63, 50));
+    meserosImg.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+    meserosImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resto/img/iconoMesero.png"))); // NOI18N
+
+    meserosTexto.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+    meserosTexto.setForeground(new java.awt.Color(114, 63, 50));
+    meserosTexto.setText("Meseros");
+
+    javax.swing.GroupLayout tabMeserosLayout = new javax.swing.GroupLayout(tabMeseros);
+    tabMeseros.setLayout(tabMeserosLayout);
+    tabMeserosLayout.setHorizontalGroup(
+      tabMeserosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(tabMeserosLayout.createSequentialGroup()
+        .addGap(27, 27, 27)
+        .addComponent(meserosImg)
+        .addGap(18, 18, 18)
+        .addComponent(meserosTexto)
+        .addContainerGap(110, Short.MAX_VALUE))
+    );
+    tabMeserosLayout.setVerticalGroup(
+      tabMeserosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addComponent(meserosImg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+      .addComponent(meserosTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+    );
+
+    barraLateral.add(tabMeseros, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 240, 60));
+
+    tabHistorial.setBackground(new java.awt.Color(217, 177, 142));
+    tabHistorial.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    tabHistorial.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        tabHistorialMouseClicked(evt);
+      }
+      public void mouseEntered(java.awt.event.MouseEvent evt) {
+        tabHistorialMouseEntered(evt);
+      }
+      public void mouseExited(java.awt.event.MouseEvent evt) {
+        tabHistorialMouseExited(evt);
+      }
+    });
+
+    historialImg.setForeground(new java.awt.Color(114, 63, 50));
+    historialImg.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+    historialImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resto/img/iconoReloj.png"))); // NOI18N
+
+    historialTexto.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+    historialTexto.setForeground(new java.awt.Color(114, 63, 50));
+    historialTexto.setText("Historial Pedidos");
+
+    javax.swing.GroupLayout tabHistorialLayout = new javax.swing.GroupLayout(tabHistorial);
+    tabHistorial.setLayout(tabHistorialLayout);
+    tabHistorialLayout.setHorizontalGroup(
+      tabHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(tabHistorialLayout.createSequentialGroup()
+        .addGap(27, 27, 27)
+        .addComponent(historialImg)
+        .addGap(18, 18, 18)
+        .addComponent(historialTexto)
+        .addContainerGap(53, Short.MAX_VALUE))
+    );
+    tabHistorialLayout.setVerticalGroup(
+      tabHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addComponent(historialImg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+      .addComponent(historialTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+    );
+
+    barraLateral.add(tabHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 470, 240, 60));
+
+    bg.add(barraLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+    barraSuperior.setBackground(new java.awt.Color(114, 63, 50));
+
+    frase.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+    frase.setForeground(new java.awt.Color(217, 177, 142));
+    frase.setText("“Acá no solo se come, se come bien”");
+
+    fecha.setFont(new java.awt.Font("Times New Roman", 2, 18)); // NOI18N
+    fecha.setForeground(new java.awt.Color(217, 177, 142));
+    fecha.setText("fecha");
+
+    javax.swing.GroupLayout barraSuperiorLayout = new javax.swing.GroupLayout(barraSuperior);
+    barraSuperior.setLayout(barraSuperiorLayout);
+    barraSuperiorLayout.setHorizontalGroup(
+      barraSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(barraSuperiorLayout.createSequentialGroup()
+        .addGap(33, 33, 33)
+        .addComponent(frase)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 336, Short.MAX_VALUE)
+        .addComponent(fecha)
+        .addGap(329, 329, 329))
+    );
+    barraSuperiorLayout.setVerticalGroup(
+      barraSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barraSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        .addComponent(frase, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+    );
+
+    bg.add(barraSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, -1, 110));
+
+    contenido.setBackground(new java.awt.Color(240, 239, 239));
+    contenido.setPreferredSize(new java.awt.Dimension(780, 530));
+
+    javax.swing.GroupLayout contenidoLayout = new javax.swing.GroupLayout(contenido);
+    contenido.setLayout(contenidoLayout);
+    contenidoLayout.setHorizontalGroup(
+      contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGap(0, 780, Short.MAX_VALUE)
+    );
+    contenidoLayout.setVerticalGroup(
+      contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGap(0, 530, Short.MAX_VALUE)
+    );
+
+    bg.add(contenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, -1, -1));
+
+    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+    getContentPane().setLayout(layout);
+    layout.setHorizontalGroup(
+      layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(layout.createSequentialGroup()
+        .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addGap(0, 0, Short.MAX_VALUE))
+    );
+    layout.setVerticalGroup(
+      layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(layout.createSequentialGroup()
+        .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addGap(0, 0, Short.MAX_VALUE))
+    );
+
+    pack();
+  }// </editor-fold>//GEN-END:initComponents
 
   private void exitImgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitImgMouseClicked
 //    dispose();
@@ -299,6 +566,9 @@ public class Menu extends javax.swing.JFrame {
       exitImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resto/img/iconoSalir.png")));
   }//GEN-LAST:event_exitImgMouseExited
 
+  // <editor-fold desc="Codigo para los distintos tabs">
+  
+  // =~=~=~= Menu principal =~=~=~=
   private void tabPrincipalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabPrincipalMouseEntered
       if (tabSeleccionada != tabPrincipal) {
           setearHover(tabPrincipal);
@@ -312,84 +582,267 @@ public class Menu extends javax.swing.JFrame {
   }//GEN-LAST:event_tabPrincipalMouseExited
 
   private void tabPrincipalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabPrincipalMouseClicked
-      setearSeleccionado(tabPrincipal);
+    setearSeleccionado(tabPrincipal);
 
-      VistaPrincipal vp = new VistaPrincipal();
-      ReservaVista rv = new ReservaVista(con);
-//    vp.setSize(780, 530);
-//    vp.setLocation(0, 0);
-      rv.setSize(780, 530);
-      rv.setLocation(0, 0);
+    VistaPrincipal vp = new VistaPrincipal();
+    vp.setSize(780, 530);
+    vp.setLocation(0, 0);
 
-      contenido.removeAll();
-//    contenido.add(vp, BorderLayout.CENTER);
-      contenido.add(rv, BorderLayout.CENTER);
-      contenido.revalidate();
-      contenido.repaint();
+    contenido.removeAll();
+    contenido.add(vp, BorderLayout.CENTER);
+    contenido.revalidate();
+    contenido.repaint();
   }//GEN-LAST:event_tabPrincipalMouseClicked
 
-    void resetearColor(JPanel panel) {
-        panel.setBackground(Color.decode("#D9B18E"));
-    }
+  
+  // =~=~=~= Menu reservas =~=~=~=
+  private void tabReservasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabReservasMouseClicked
+    setearSeleccionado(tabReservas);
 
-    void setearHover(JPanel panel) {
-        panel.setBackground(Color.decode("#E1C2A8"));
-    }
+    ReservaVista rv = new ReservaVista(con);
+    rv.setSize(780, 530);
+    rv.setLocation(0, 0);
 
-    void setearSeleccionado(JPanel panel) {
-        panel.setBackground(Color.decode("#F1CFB2"));
-        tabSeleccionada = panel;
-    }
+    contenido.removeAll();
+    contenido.add(rv, BorderLayout.CENTER);
+    contenido.revalidate();
+    contenido.repaint();
+  }//GEN-LAST:event_tabReservasMouseClicked
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+  private void tabReservasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabReservasMouseEntered
+    if (tabSeleccionada != tabReservas) {
+        setearHover(tabReservas);
+    }
+  }//GEN-LAST:event_tabReservasMouseEntered
+
+  private void tabReservasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabReservasMouseExited
+    if (tabSeleccionada != tabReservas) {
+      resetearColor(tabReservas);
+    }
+  }//GEN-LAST:event_tabReservasMouseExited
+
+  
+  // =~=~=~= Menu pedidos =~=~=~=
+  private void tabPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabPedidosMouseClicked
+    setearSeleccionado(tabPedidos);
+
+    VistaPrincipal vp = new VistaPrincipal();
+    vp.setSize(780, 530);
+    vp.setLocation(0, 0);
+
+    contenido.removeAll();
+    contenido.add(vp, BorderLayout.CENTER);
+    contenido.revalidate();
+    contenido.repaint();
+  }//GEN-LAST:event_tabPedidosMouseClicked
+
+  private void tabPedidosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabPedidosMouseEntered
+    if (tabSeleccionada != tabPedidos) {
+      setearHover(tabPedidos);
+    }
+  }//GEN-LAST:event_tabPedidosMouseEntered
+
+  private void tabPedidosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabPedidosMouseExited
+    if (tabSeleccionada != tabPedidos) {
+      resetearColor(tabPedidos);
+    }
+  }//GEN-LAST:event_tabPedidosMouseExited
+
+  
+  // =~=~=~= Menu productos =~=~=~=
+  private void tabProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabProductosMouseClicked
+    setearSeleccionado(tabProductos);
+
+    VistaPrincipal vp = new VistaPrincipal();
+    vp.setSize(780, 530);
+    vp.setLocation(0, 0);
+
+    contenido.removeAll();
+    contenido.add(vp, BorderLayout.CENTER);
+    contenido.revalidate();
+    contenido.repaint();
+  }//GEN-LAST:event_tabProductosMouseClicked
+
+  private void tabProductosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabProductosMouseEntered
+    if (tabSeleccionada != tabProductos) {
+      setearHover(tabProductos);
+    }
+  }//GEN-LAST:event_tabProductosMouseEntered
+
+  private void tabProductosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabProductosMouseExited
+    if (tabSeleccionada != tabProductos) {
+      resetearColor(tabProductos);
+    }
+  }//GEN-LAST:event_tabProductosMouseExited
+
+  
+  // =~=~=~= Menu mesas =~=~=~=
+  private void tabMesasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMesasMouseClicked
+    setearSeleccionado(tabMesas);
+
+    VistaPrincipal vp = new VistaPrincipal();
+    vp.setSize(780, 530);
+    vp.setLocation(0, 0);
+
+    contenido.removeAll();
+    contenido.add(vp, BorderLayout.CENTER);
+    contenido.revalidate();
+    contenido.repaint();
+  }//GEN-LAST:event_tabMesasMouseClicked
+
+  private void tabMesasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMesasMouseEntered
+    if (tabSeleccionada != tabMesas) {
+      setearHover(tabMesas);
+    }
+  }//GEN-LAST:event_tabMesasMouseEntered
+
+  private void tabMesasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMesasMouseExited
+    if (tabSeleccionada != tabMesas) {
+      resetearColor(tabMesas);
+    }
+  }//GEN-LAST:event_tabMesasMouseExited
+
+  
+  // =~=~=~= Menu meseros =~=~=~=
+  private void tabMeserosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMeserosMouseClicked
+    setearSeleccionado(tabMeseros);
+
+    VistaPrincipal vp = new VistaPrincipal();
+    vp.setSize(780, 530);
+    vp.setLocation(0, 0);
+
+    contenido.removeAll();
+    contenido.add(vp, BorderLayout.CENTER);
+    contenido.revalidate();
+    contenido.repaint();
+  }//GEN-LAST:event_tabMeserosMouseClicked
+
+  private void tabMeserosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMeserosMouseEntered
+    if (tabSeleccionada != tabMeseros) {
+      setearHover(tabMeseros);
+    }
+  }//GEN-LAST:event_tabMeserosMouseEntered
+
+  private void tabMeserosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMeserosMouseExited
+    if (tabSeleccionada != tabMeseros) {
+      resetearColor(tabMeseros);
+    }
+  }//GEN-LAST:event_tabMeserosMouseExited
+
+  
+  // =~=~=~= Menu historial =~=~=~=
+  private void tabHistorialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabHistorialMouseClicked
+    setearSeleccionado(tabHistorial);
+
+    VistaPrincipal vp = new VistaPrincipal();
+    vp.setSize(780, 530);
+    vp.setLocation(0, 0);
+
+    contenido.removeAll();
+    contenido.add(vp, BorderLayout.CENTER);
+    contenido.revalidate();
+    contenido.repaint();
+  }//GEN-LAST:event_tabHistorialMouseClicked
+
+  private void tabHistorialMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabHistorialMouseEntered
+    if (tabSeleccionada != tabHistorial) {
+      setearHover(tabHistorial);
+    }
+  }//GEN-LAST:event_tabHistorialMouseEntered
+
+  private void tabHistorialMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabHistorialMouseExited
+    if (tabSeleccionada != tabHistorial) {
+      resetearColor(tabHistorial);
+    }
+  }//GEN-LAST:event_tabHistorialMouseExited
+  // </editor-fold>    
+    
+  void resetearColor(JPanel panel) {
+    panel.setBackground(Color.decode("#D9B18E"));
+  }
+
+  void setearHover(JPanel panel) {
+    panel.setBackground(Color.decode("#E1C2A8"));
+  }
+
+  void setearSeleccionado(JPanel panel) {
+    panel.setBackground(Color.decode("#F1CFB2"));
+    tabSeleccionada = panel;
+    
+    tabs.forEach(tab -> {
+      if (tab != panel) {
+        resetearColor(tab);
+      }
+    });
+  }
+
+  public static void main(String args[]) {
+    /* Set the Nimbus look and feel */
+    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+     */
+    try {
+      for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+        if ("Nimbus".equals(info.getName())) {
+          javax.swing.UIManager.setLookAndFeel(info.getClassName());
+          break;
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Menu frame = new Menu();
-                frame.setLocationRelativeTo(null);
-                frame.setVisible(true);
-            }
-        });
+      }
+    } catch (ClassNotFoundException ex) {
+      java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+      java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+      java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+      java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
+    //</editor-fold>
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel barra;
-    private javax.swing.JPanel barraLateral;
-    private javax.swing.JPanel barraSuperior;
-    private javax.swing.JPanel bg;
-    private javax.swing.JPanel contenido;
-    private javax.swing.JPanel exitBtn;
-    private javax.swing.JLabel exitImg;
-    private javax.swing.JLabel fecha;
-    private javax.swing.JLabel frase;
-    private javax.swing.JPanel logoBg;
-    private javax.swing.JPanel pnlAcento;
-    private javax.swing.JLabel principalImg;
-    private javax.swing.JLabel principalTexto;
-    private javax.swing.JLabel restoLogo;
-    private javax.swing.JPanel tabPrincipal;
-    // End of variables declaration//GEN-END:variables
+    /* Create and display the form */
+    java.awt.EventQueue.invokeLater(new Runnable() {
+      public void run() {
+        Menu frame = new Menu();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+      }
+    });
+  }
+
+  // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JPanel barra;
+  private javax.swing.JPanel barraLateral;
+  private javax.swing.JPanel barraSuperior;
+  private javax.swing.JPanel bg;
+  private javax.swing.JPanel contenido;
+  private javax.swing.JPanel exitBtn;
+  private javax.swing.JLabel exitImg;
+  private javax.swing.JLabel fecha;
+  private javax.swing.JLabel frase;
+  private javax.swing.JLabel historialImg;
+  private javax.swing.JLabel historialTexto;
+  private javax.swing.JPanel logoBg;
+  private javax.swing.JLabel mesasImg;
+  private javax.swing.JLabel mesasTexto;
+  private javax.swing.JLabel meserosImg;
+  private javax.swing.JLabel meserosTexto;
+  private javax.swing.JLabel pedidosImg;
+  private javax.swing.JLabel pedidosTexto;
+  private javax.swing.JPanel pnlAcento;
+  private javax.swing.JLabel principalImg;
+  private javax.swing.JLabel principalTexto;
+  private javax.swing.JLabel productosImg;
+  private javax.swing.JLabel productosTexto;
+  private javax.swing.JLabel reservasImg;
+  private javax.swing.JLabel reservasTexto;
+  private javax.swing.JLabel restoLogo;
+  private javax.swing.JPanel tabHistorial;
+  private javax.swing.JPanel tabMesas;
+  private javax.swing.JPanel tabMeseros;
+  private javax.swing.JPanel tabPedidos;
+  private javax.swing.JPanel tabPrincipal;
+  private javax.swing.JPanel tabProductos;
+  private javax.swing.JPanel tabReservas;
+  // End of variables declaration//GEN-END:variables
 }
