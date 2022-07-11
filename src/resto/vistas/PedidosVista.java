@@ -1,5 +1,6 @@
 package resto.vistas;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 
@@ -108,6 +109,9 @@ public class PedidosVista extends javax.swing.JPanel {
       }
       public void mouseExited(java.awt.event.MouseEvent evt) {
         btnDetalleMouseExited(evt);
+      }
+      public void mousePressed(java.awt.event.MouseEvent evt) {
+        btnDetalleMousePressed(evt);
       }
     });
 
@@ -232,6 +236,17 @@ public class PedidosVista extends javax.swing.JPanel {
   private void btnCobrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCobrarMouseExited
     btnCobrar.setBackground(Color.decode("#F1CFB2"));
   }//GEN-LAST:event_btnCobrarMouseExited
+
+  private void btnDetalleMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDetalleMousePressed
+    DetalleDelPedido dp = new DetalleDelPedido();
+    dp.setSize(780, 530);
+    dp.setLocation(0, 0);
+    
+    bg.removeAll();
+    bg.add(dp, BorderLayout.CENTER);
+    bg.revalidate();
+    bg.repaint();
+  }//GEN-LAST:event_btnDetalleMousePressed
 
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
