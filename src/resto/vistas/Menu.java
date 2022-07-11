@@ -691,12 +691,12 @@ public class Menu extends javax.swing.JFrame {
   private void tabPedidosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabPedidosMousePressed
     setearSeleccionado(tabPedidos);
 
-    VistaPrincipal vp = new VistaPrincipal();
-    vp.setSize(780, 530);
-    vp.setLocation(0, 0);
+    PedidosVista pv = new PedidosVista();
+    pv.setSize(780, 530);
+    pv.setLocation(0, 0);
 
     contenido.removeAll();
-    contenido.add(vp, BorderLayout.CENTER);
+    contenido.add(pv, BorderLayout.CENTER);
     contenido.revalidate();
     contenido.repaint();
   }//GEN-LAST:event_tabPedidosMousePressed
