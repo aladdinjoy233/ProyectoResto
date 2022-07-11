@@ -68,7 +68,7 @@ public class AgusMain {
         }
         
         //creo un mesero para modificar uno ya existente
-        Mesero m6 = new Mesero(3,"Edgar","Saltibanez",73890173,2058371,true);
+        Mesero m6 = new Mesero(3,"Edder","Santibanez",73890173,2058371,true);
         
         System.out.println("\n----- Modificando mesero... -----\n");
         if(md.modificarMesero(m6)){
