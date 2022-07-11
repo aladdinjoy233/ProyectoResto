@@ -730,12 +730,12 @@ public class Menu extends javax.swing.JFrame {
   private void tabMeserosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMeserosMousePressed
     setearSeleccionado(tabMeseros);
 
-    VistaPrincipal vp = new VistaPrincipal();
-    vp.setSize(780, 530);
-    vp.setLocation(0, 0);
+    MeseroVista mv = new MeseroVista();
+    mv.setSize(780, 530);
+    mv.setLocation(0, 0);
 
     contenido.removeAll();
-    contenido.add(vp, BorderLayout.CENTER);
+    contenido.add(mv, BorderLayout.CENTER);
     contenido.revalidate();
     contenido.repaint();
   }//GEN-LAST:event_tabMeserosMousePressed
