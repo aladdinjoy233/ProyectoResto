@@ -198,6 +198,8 @@ public class ReservaData {
         return borrado;
     }
 
+    
+    
     public boolean modificarReserva(Reserva reserva) {
         boolean modificado = false;
 
@@ -250,5 +252,47 @@ public class ReservaData {
         }
 
     }
+    
+     public ArrayList<Reserva> obtenerReservasInactivas() {
 
+        ArrayList<Reserva> reservas = new ArrayList<>();
+        Reserva reserva;
+        Mesa mesa;
+
+        String sql = "SELECT * FROM reserva WHERE activo = 0";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                reserva = new Reserva();
+                mesa = new Mesa();
+
+                reserva.setIdReserva(rs.getInt("idReserva"));
+
+                mesa = md.obtenerMesa(rs.getInt("numMesa"));
+
+                reserva.setMesa(mesa);
+                reserva.setNombre(rs.getString("nombre"));
+                reserva.setDni(rs.getLong("dni"));
+                reserva.setFecha(rs.getDate("fecha").toLocalDate());
+                reserva.setHora(rs.getTime("hora").toLocalTime());
+                reserva.setActivo(rs.getBoolean("activo"));
+
+                reservas.add(reserva);
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al obtener reservas" + ex);
+        }
+
+        return reservas;
+     }
+     
+     
 }
