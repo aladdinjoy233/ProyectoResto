@@ -717,12 +717,12 @@ public class Menu extends javax.swing.JFrame {
   private void tabMesasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMesasMousePressed
     setearSeleccionado(tabMesas);
 
-    VistaPrincipal vp = new VistaPrincipal();
-    vp.setSize(780, 530);
-    vp.setLocation(0, 0);
+    VistaCrearMesas vcm = new VistaCrearMesas(con);
+    vcm.setSize(780, 530);
+    vcm.setLocation(0, 0);
 
     contenido.removeAll();
-    contenido.add(vp, BorderLayout.CENTER);
+    contenido.add(vcm, BorderLayout.CENTER);
     contenido.revalidate();
     contenido.repaint();
   }//GEN-LAST:event_tabMesasMousePressed
