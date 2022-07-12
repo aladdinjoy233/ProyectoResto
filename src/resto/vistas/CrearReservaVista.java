@@ -283,8 +283,7 @@ public class CrearReservaVista extends javax.swing.JPanel {
             String fecha = formato.format(jDfecha.getDate());
             LocalDate fechaReserva = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 
-//      LocalTime hora = LocalTime.parse((String)jFhora.getText());
-            LocalTime hora = LocalTime.now();
+            LocalTime hora = LocalTime.parse((String)jFhora.getText());
 
             int cantidad = Integer.parseInt(jTcantidad.getText());
             ArrayList <Mesa> mesas = md.buscarMesaXcapacidad(cantidad);
