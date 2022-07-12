@@ -6,10 +6,12 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import resto.dao.Conexion;
+import resto.dao.MesaData;
 import resto.dao.ReservaData;
 import resto.entidades.Mesa;
 import resto.entidades.Reserva;
@@ -19,11 +21,13 @@ public class CrearReservaVista extends javax.swing.JPanel {
     private javax.swing.JPanel tabSeleccionada;
     private Conexion con;
     private ReservaData rd;
+    private MesaData md;
 
     public CrearReservaVista(Conexion con) {
         initComponents();
         con = new Conexion();
         rd = new ReservaData(con);
+        md = new MesaData(con);
     }
 
     @SuppressWarnings("unchecked")
@@ -283,10 +287,9 @@ public class CrearReservaVista extends javax.swing.JPanel {
             LocalTime hora = LocalTime.now();
 
             int cantidad = Integer.parseInt(jTcantidad.getText());
+            ArrayList <Mesa> mesas = md.buscarMesaXcapacidad(cantidad);
 
-            Mesa mesa = new Mesa(1, cantidad, true, true); //cambiarlo por el metodo que tiene q hacer edder
-//ArrayList <Mesa> mesas = obtenerMesaPorCantidad(cantidad);
-// Mesa mesa = mesas.get(0);
+            Mesa mesa = mesas.get(0);
 
             Reserva reserva = new Reserva(mesa, nombre, dni, fechaReserva, hora, estado);
 
