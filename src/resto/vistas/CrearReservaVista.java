@@ -1,4 +1,3 @@
-
 package resto.vistas;
 
 import java.awt.BorderLayout;
@@ -20,7 +19,7 @@ public class CrearReservaVista extends javax.swing.JPanel {
     private javax.swing.JPanel tabSeleccionada;
     private Conexion con;
     private ReservaData rd;
-    
+
     public CrearReservaVista(Conexion con) {
         initComponents();
         con = new Conexion();
@@ -271,38 +270,42 @@ public class CrearReservaVista extends javax.swing.JPanel {
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
         // TODO add your handling code here:
-        try{
-        String nombre = jTnombre.getText();
-        Long dni = Long.parseLong(jTdni.getText());
-        Boolean estado = jCactivo.isSelected();
-        
-        SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-        String fecha = formato.format(jDfecha.getDate());
-        LocalDate fechaReserva = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        
-        
-        LocalTime hora = LocalTime.parse(jFhora.getText());
-        int cantidad = Integer.parseInt(jTcantidad.getText());
-        
-        Mesa mesa = new Mesa(1,cantidad, true, true);
-        Reserva reserva = new Reserva(mesa, nombre, dni, fechaReserva, hora, estado);
-        
-        rd.agregarReserva(reserva);
-        
-        }catch(NumberFormatException ex){
-             JOptionPane.showMessageDialog(null, "Debe introducir un numero");
-        }catch(NullPointerException ex){
-             JOptionPane.showMessageDialog(null, "Debe completar todos los campos");
+        try {
+            String nombre = jTnombre.getText();
+            Long dni = Long.parseLong(jTdni.getText());
+            Boolean estado = jCactivo.isSelected();
+
+            SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+            String fecha = formato.format(jDfecha.getDate());
+            LocalDate fechaReserva = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+
+//      LocalTime hora = LocalTime.parse((String)jFhora.getText());
+            LocalTime hora = LocalTime.now();
+
+            int cantidad = Integer.parseInt(jTcantidad.getText());
+
+            Mesa mesa = new Mesa(1, cantidad, true, true); //cambiarlo por el metodo que tiene q hacer edder
+//ArrayList <Mesa> mesas = obtenerMesaPorCantidad(cantidad);
+// Mesa mesa = mesas.get(0);
+
+            Reserva reserva = new Reserva(mesa, nombre, dni, fechaReserva, hora, estado);
+
+            rd.agregarReserva(reserva);
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Debe introducir un numero");
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(null, "Debe completar todos los campos");
         }
     }//GEN-LAST:event_jPanel1MouseClicked
 
-     void setearSeleccionado(JPanel panel) {
+    void setearSeleccionado(JPanel panel) {
         panel.setBackground(Color.decode("#F1CFB2"));
         tabSeleccionada = panel;
     }
-    
+
     private void btnVolverMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVolverMousePressed
-     
+
     }//GEN-LAST:event_btnVolverMousePressed
 
     private void atrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atrasMouseClicked
@@ -325,16 +328,16 @@ public class CrearReservaVista extends javax.swing.JPanel {
         limpiarCampos();
     }//GEN-LAST:event_jPanel2MousePressed
 
-  private void limpiarCampos(){
-      jTnombre.setText("");
-      jTdni.setText("");
-      jTcantidad.setText("");
-      jFhora.setText("");
-      jDfecha.setDate(new Date());
-      jCactivo.setSelected(true);
-      
-  }
-    
+    private void limpiarCampos() {
+        jTnombre.setText("");
+        jTdni.setText("");
+        jTcantidad.setText("");
+        jFhora.setText("");
+        jDfecha.setDate(new Date());
+        jCactivo.setSelected(true);
+
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel atras;
