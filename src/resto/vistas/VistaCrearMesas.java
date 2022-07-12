@@ -5,17 +5,25 @@
  */
 package resto.vistas;
 
+import java.awt.Color;
+import javax.swing.JOptionPane;
+import resto.dao.Conexion;
+import resto.dao.MesaData;
+import resto.entidades.Mesa;
+
 /**
  *
  * @author edder
  */
 public class VistaCrearMesas extends javax.swing.JPanel {
+    private MesaData mesadata;
 
     /**
      * Creates new form VistaCrearMesas
      */
-    public VistaCrearMesas() {
+    public VistaCrearMesas(Conexion coneccion) {
         initComponents();
+        mesadata = new MesaData(coneccion);
     }
 
     /**
@@ -29,58 +37,74 @@ public class VistaCrearMesas extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTCapacidad = new javax.swing.JTextField();
+        cMcapacidad = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        cMmesaActiva = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        cMbtnAgregar = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        cMnumMesa = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        cMestado = new javax.swing.JCheckBox();
+        jLabel5 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        cMbtnNuevo = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        cMbtnExit = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(240, 239, 239));
         setPreferredSize(new java.awt.Dimension(780, 530));
 
-        jPanel1.setBackground(new java.awt.Color(240, 239, 239));
+        jPanel1.setBackground(new java.awt.Color(241, 233, 222));
 
         jLabel1.setFont(new java.awt.Font("DialogInput", 1, 18)); // NOI18N
         jLabel1.setText("Agregar mesa nueva");
 
-        jTCapacidad.setBackground(new java.awt.Color(241, 207, 178));
-        jTCapacidad.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        cMcapacidad.setBackground(new java.awt.Color(241, 207, 178));
+        cMcapacidad.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel2.setText("Capacidad");
 
-        jCheckBox1.setBackground(new java.awt.Color(241, 207, 178));
-        jCheckBox1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jCheckBox1.setText("Activo");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        cMmesaActiva.setBackground(new java.awt.Color(241, 207, 178));
+        cMmesaActiva.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        cMmesaActiva.setSelected(true);
+        cMmesaActiva.setText("Activo");
+        cMmesaActiva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                cMmesaActivaActionPerformed(evt);
             }
         });
 
         jPanel2.setBackground(new java.awt.Color(241, 207, 178));
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel3.setText("Agregar");
-        jLabel3.setAlignmentY(0.0F);
+        cMbtnAgregar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        cMbtnAgregar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cMbtnAgregar.setText("Agregar");
+        cMbtnAgregar.setAlignmentY(0.0F);
+        cMbtnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cMbtnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cMbtnAgregarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cMbtnAgregarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cMbtnAgregarMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel3)
-                .addContainerGap(22, Short.MAX_VALUE))
+            .addComponent(cMbtnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(cMbtnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
         );
 
         jPanel3.setBackground(new java.awt.Color(241, 207, 178));
@@ -90,15 +114,98 @@ public class VistaCrearMesas extends javax.swing.JPanel {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resto/img/mesaImg.png"))); // NOI18N
 
+        cMnumMesa.setEditable(false);
+        cMnumMesa.setBackground(new java.awt.Color(241, 207, 178));
+        cMnumMesa.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        cMnumMesa.setBorder(null);
+        cMnumMesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cMnumMesaActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel3.setText("Mesa N°");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cMnumMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cMnumMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        cMestado.setBackground(new java.awt.Color(241, 207, 178));
+        cMestado.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        cMestado.setSelected(true);
+        cMestado.setText("Estado");
+        cMestado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cMestadoActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resto/img/iconoSillaMesa.png"))); // NOI18N
+
+        jPanel4.setBackground(new java.awt.Color(241, 207, 178));
+
+        cMbtnNuevo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        cMbtnNuevo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cMbtnNuevo.setText("Nueva Mesa");
+        cMbtnNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cMbtnNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cMbtnNuevoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cMbtnNuevoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cMbtnNuevoMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cMbtnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cMbtnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+        );
+
+        jPanel5.setBackground(new java.awt.Color(241, 207, 178));
+
+        cMbtnExit.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        cMbtnExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cMbtnExit.setText("Salir");
+        cMbtnExit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cMbtnExit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cMbtnExit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -108,38 +215,50 @@ public class VistaCrearMesas extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
+                        .addGap(1, 1, 1)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(85, 85, 85)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTCapacidad)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jCheckBox1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(176, 176, 176)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cMmesaActiva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cMcapacidad)
+                                .addComponent(cMestado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(148, 148, 148)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(237, Short.MAX_VALUE))
+                .addContainerGap(169, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(5, 5, 5)
-                        .addComponent(jTCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cMcapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cMestado, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)
+                        .addComponent(cMmesaActiva, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(267, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(128, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -156,20 +275,85 @@ public class VistaCrearMesas extends javax.swing.JPanel {
         getAccessibleContext().setAccessibleParent(this);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void cMmesaActivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cMmesaActivaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_cMmesaActivaActionPerformed
+
+    private void cMbtnAgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cMbtnAgregarMouseEntered
+        // TODO add your handling code here:
+        cMbtnAgregar.setBackground(new Color(217, 177, 142));
+    }//GEN-LAST:event_cMbtnAgregarMouseEntered
+
+    private void cMbtnAgregarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cMbtnAgregarMouseExited
+        // TODO add your handling code here:
+        cMbtnAgregar.setBackground(new Color(241, 207, 178));
+    }//GEN-LAST:event_cMbtnAgregarMouseExited
+
+    private void cMbtnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cMbtnAgregarMouseClicked
+        // TODO add your handling code here:
+        try {
+            //capturar datos del formulario
+            int capacidad = Integer.parseInt(cMcapacidad.getText());
+            boolean estado = cMestado.isEnabled();
+            boolean activo = cMmesaActiva.isEnabled();
+            //crear una mesa
+            Mesa mesa = new Mesa(capacidad, estado, activo);
+            //enviar a la BD la mesa
+            if(mesadata.crearMesa(mesa)){
+                JOptionPane.showMessageDialog(null, "Se a creado una nueva Mesa.");
+                cMnumMesa.setText(mesa.getNumMesa()+"");
+            }
+            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al Crear una Nueva Mesa. "+ ex);
+        }
+        
+    }//GEN-LAST:event_cMbtnAgregarMouseClicked
+
+    private void cMestadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cMestadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cMestadoActionPerformed
+
+    private void cMnumMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cMnumMesaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cMnumMesaActionPerformed
+
+    private void cMbtnNuevoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cMbtnNuevoMouseEntered
+        // TODO add your handling code here:
+        cMbtnNuevo.setBackground(new Color(217, 177, 142));
+    }//GEN-LAST:event_cMbtnNuevoMouseEntered
+
+    private void cMbtnNuevoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cMbtnNuevoMouseExited
+        // TODO add your handling code here:
+        cMbtnNuevo.setBackground(new Color(241, 207, 178));
+    }//GEN-LAST:event_cMbtnNuevoMouseExited
+
+    private void cMbtnNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cMbtnNuevoMouseClicked
+        // TODO add your handling code here:
+        cMnumMesa.setText("");
+        cMcapacidad.setText("");
+        cMestado.setSelected(true);
+        cMmesaActiva.setSelected(true);
+    }//GEN-LAST:event_cMbtnNuevoMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JLabel cMbtnAgregar;
+    private javax.swing.JLabel cMbtnExit;
+    private javax.swing.JLabel cMbtnNuevo;
+    private javax.swing.JTextField cMcapacidad;
+    private javax.swing.JCheckBox cMestado;
+    private javax.swing.JCheckBox cMmesaActiva;
+    private javax.swing.JTextField cMnumMesa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTCapacidad;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     // End of variables declaration//GEN-END:variables
 }
