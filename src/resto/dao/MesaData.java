@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 import resto.entidades.Mesa;
 
@@ -46,30 +47,31 @@ public class MesaData {
 
     public boolean crearMesa(Mesa mesa) {
         boolean result = true;
-        if (buscarMesa(mesa.getNumMesa())) {
-            JOptionPane.showMessageDialog(null, "La Mesa N°" + mesa.getNumMesa() + " ya Existe");
-            return false;
-        }
-        String sql = "Insert Into mesa(numMesa, capacidad, estado, activo) VALUES (?,?,?,?)";
+
+        String sql = "Insert Into mesa(capacidad, estado, activo) VALUES (?,?,?)";
 
         try {
-            PreparedStatement ps = coneccion.prepareStatement(sql);
+            PreparedStatement ps = coneccion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            ps.setInt(1, mesa.getNumMesa());
-            ps.setInt(2, mesa.getCapacidad());
-            ps.setBoolean(3, mesa.isEstado());
-            ps.setBoolean(4, mesa.isActivo());
+            ps.setInt(1, mesa.getCapacidad());
+            ps.setBoolean(2, mesa.isEstado());
+            ps.setBoolean(3, mesa.isActivo());
 
-            if (ps.executeUpdate() != 0) {
-                result = true;
-                JOptionPane.showMessageDialog(null, "La Mesa N° " + mesa.getNumMesa() + " se Creo Correctamente");
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+
+            if (rs.next()) {
+                mesa.setNumMesa(rs.getInt(1));
+                JOptionPane.showMessageDialog(null, "La Mesa N° " + mesa.getNumMesa() + " se Creo Correctamente. ");
+            } else {
+                result = false;
             }
 
             ps.close();
 
         } catch (SQLException ex) {
             result = false;
-            JOptionPane.showMessageDialog(null, "Error al crear la Mesa N°" + mesa.getNumMesa());
+            JOptionPane.showMessageDialog(null, "Error al crear la Mesa. " + ex);
         }
 
         return result;
@@ -135,7 +137,7 @@ public class MesaData {
 
         try {
             PreparedStatement ps = coneccion.prepareStatement(sql);
-            
+
             ps.setInt(1, numMesa);
 
             ResultSet rs = ps.executeQuery();
@@ -145,11 +147,11 @@ public class MesaData {
                 mesa.setCapacidad(rs.getInt("capacidad"));
                 mesa.setEstado(rs.getBoolean("estado"));
                 mesa.setActivo(rs.getBoolean("activo"));
-             
+
             } else {
                 JOptionPane.showMessageDialog(null, "La Mesa " + numMesa + " no existe.");
             }
-            
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al obtener la Mesa " + ex);
         }

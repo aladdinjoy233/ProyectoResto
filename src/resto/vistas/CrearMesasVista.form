@@ -29,20 +29,20 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+          <Component id="escritorio" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+          <Component id="escritorio" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="jPanel1">
+    <Container class="javax.swing.JPanel" name="escritorio">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="de" green="e9" red="f1" type="rgb"/>
+          <Color blue="ef" green="ef" red="f0" type="rgb"/>
         </Property>
       </Properties>
 
@@ -52,7 +52,9 @@
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="cMVatras" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" pref="218" max="-2" attributes="0"/>
@@ -60,15 +62,12 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jPanel5" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jPanel2" max="32767" attributes="0"/>
-                                  <Component id="jLabel2" min="-2" pref="92" max="-2" attributes="0"/>
-                                  <Component id="cMmesaActiva" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="cMcapacidad" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="cMestado" max="32767" attributes="0"/>
-                                  <Component id="jPanel4" alignment="0" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="jPanel2" max="32767" attributes="0"/>
+                              <Component id="jLabel2" min="-2" pref="92" max="-2" attributes="0"/>
+                              <Component id="cMmesaActiva" alignment="0" max="32767" attributes="0"/>
+                              <Component id="cMcapacidad" alignment="0" max="32767" attributes="0"/>
+                              <Component id="cMestado" max="32767" attributes="0"/>
+                              <Component id="jPanel4" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="148" max="-2" attributes="0"/>
                           <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
@@ -81,10 +80,18 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel1" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
-                      <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel1" min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="cMVatras" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -103,9 +110,7 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="128" max="32767" attributes="0"/>
+                  <EmptySpace pref="174" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -125,14 +130,14 @@
               <Color blue="b2" green="cf" red="f1" type="rgb"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="12" style="1"/>
+              <Font name="Dialog" size="12" style="2"/>
             </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="12" style="1"/>
+              <Font name="Dialog" size="12" style="2"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Capacidad"/>
           </Properties>
@@ -143,7 +148,7 @@
               <Color blue="b2" green="cf" red="f1" type="rgb"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="12" style="1"/>
+              <Font name="Dialog" size="12" style="2"/>
             </Property>
             <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Activo"/>
@@ -175,7 +180,7 @@
             <Component class="javax.swing.JLabel" name="cMbtnAgregar">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Dialog" size="12" style="1"/>
+                  <Font name="Dialog" size="12" style="2"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="Agregar"/>
@@ -245,7 +250,7 @@
                   <Color blue="b2" green="cf" red="f1" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Dialog" size="12" style="1"/>
+                  <Font name="Dialog" size="12" style="2"/>
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
@@ -258,7 +263,7 @@
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Dialog" size="12" style="1"/>
+                  <Font name="Dialog" size="12" style="2"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Mesa N&#xb0;"/>
               </Properties>
@@ -271,7 +276,7 @@
               <Color blue="b2" green="cf" red="f1" type="rgb"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="12" style="1"/>
+              <Font name="Dialog" size="12" style="2"/>
             </Property>
             <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Estado"/>
@@ -310,7 +315,7 @@
             <Component class="javax.swing.JLabel" name="cMbtnNuevo">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Dialog" size="12" style="1"/>
+                  <Font name="Dialog" size="12" style="2"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="Nueva Mesa"/>
@@ -326,7 +331,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="jPanel5">
+        <Container class="javax.swing.JPanel" name="cMVatras">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="b2" green="cf" red="f1" type="rgb"/>
@@ -336,27 +341,29 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="cMbtnExit" alignment="1" pref="160" max="32767" attributes="0"/>
+                  <Component id="cMVbtnVolver" alignment="0" pref="39" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="cMbtnExit" alignment="1" pref="38" max="32767" attributes="0"/>
+                  <Component id="cMVbtnVolver" alignment="0" pref="39" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="cMbtnExit">
+            <Component class="javax.swing.JLabel" name="cMVbtnVolver">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Dialog" size="12" style="1"/>
-                </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Salir"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/resto/img/iconoAtras.png"/>
+                </Property>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Cursor de Mano"/>
+                  <Color id="Cursor Por defecto"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cMVbtnVolverMousePressed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

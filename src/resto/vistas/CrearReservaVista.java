@@ -17,7 +17,7 @@ import resto.entidades.Reserva;
 
 public class CrearReservaVista extends javax.swing.JPanel {
 
-     private javax.swing.JPanel tabSeleccionada;
+    private javax.swing.JPanel tabSeleccionada;
     private Conexion con;
     private ReservaData rd;
     

@@ -5,8 +5,10 @@
  */
 package resto.vistas;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import resto.dao.Conexion;
 import resto.dao.MesaData;
 import resto.entidades.Mesa;
@@ -15,15 +17,17 @@ import resto.entidades.Mesa;
  *
  * @author edder
  */
-public class VistaCrearMesas extends javax.swing.JPanel {
+public class CrearMesasVista extends javax.swing.JPanel {
+
     private MesaData mesadata;
 
     /**
      * Creates new form VistaCrearMesas
      */
-    public VistaCrearMesas(Conexion coneccion) {
+    public CrearMesasVista(Conexion coneccion) {
         initComponents();
         mesadata = new MesaData(coneccion);
+
     }
 
     /**
@@ -35,7 +39,7 @@ public class VistaCrearMesas extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        escritorio = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         cMcapacidad = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -50,25 +54,25 @@ public class VistaCrearMesas extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         cMbtnNuevo = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        cMbtnExit = new javax.swing.JLabel();
+        cMVatras = new javax.swing.JPanel();
+        cMVbtnVolver = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(240, 239, 239));
         setPreferredSize(new java.awt.Dimension(780, 530));
 
-        jPanel1.setBackground(new java.awt.Color(241, 233, 222));
+        escritorio.setBackground(new java.awt.Color(240, 239, 239));
 
         jLabel1.setFont(new java.awt.Font("DialogInput", 1, 18)); // NOI18N
         jLabel1.setText("Agregar mesa nueva");
 
         cMcapacidad.setBackground(new java.awt.Color(241, 207, 178));
-        cMcapacidad.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        cMcapacidad.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         jLabel2.setText("Capacidad");
 
         cMmesaActiva.setBackground(new java.awt.Color(241, 207, 178));
-        cMmesaActiva.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        cMmesaActiva.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         cMmesaActiva.setSelected(true);
         cMmesaActiva.setText("Activo");
         cMmesaActiva.addActionListener(new java.awt.event.ActionListener() {
@@ -79,7 +83,7 @@ public class VistaCrearMesas extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(241, 207, 178));
 
-        cMbtnAgregar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        cMbtnAgregar.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         cMbtnAgregar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cMbtnAgregar.setText("Agregar");
         cMbtnAgregar.setAlignmentY(0.0F);
@@ -116,7 +120,7 @@ public class VistaCrearMesas extends javax.swing.JPanel {
 
         cMnumMesa.setEditable(false);
         cMnumMesa.setBackground(new java.awt.Color(241, 207, 178));
-        cMnumMesa.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        cMnumMesa.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         cMnumMesa.setBorder(null);
         cMnumMesa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,7 +128,7 @@ public class VistaCrearMesas extends javax.swing.JPanel {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         jLabel3.setText("Mesa N°");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -150,7 +154,7 @@ public class VistaCrearMesas extends javax.swing.JPanel {
         );
 
         cMestado.setBackground(new java.awt.Color(241, 207, 178));
-        cMestado.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        cMestado.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         cMestado.setSelected(true);
         cMestado.setText("Estado");
         cMestado.addActionListener(new java.awt.event.ActionListener() {
@@ -163,7 +167,7 @@ public class VistaCrearMesas extends javax.swing.JPanel {
 
         jPanel4.setBackground(new java.awt.Color(241, 207, 178));
 
-        cMbtnNuevo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        cMbtnNuevo.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         cMbtnNuevo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cMbtnNuevo.setText("Nueva Mesa");
         cMbtnNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -190,60 +194,69 @@ public class VistaCrearMesas extends javax.swing.JPanel {
             .addComponent(cMbtnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
         );
 
-        jPanel5.setBackground(new java.awt.Color(241, 207, 178));
+        cMVatras.setBackground(new java.awt.Color(241, 207, 178));
 
-        cMbtnExit.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        cMbtnExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cMbtnExit.setText("Salir");
-        cMbtnExit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cMVbtnVolver.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cMVbtnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resto/img/iconoAtras.png"))); // NOI18N
+        cMVbtnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        cMVbtnVolver.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                cMVbtnVolverMousePressed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cMbtnExit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+        javax.swing.GroupLayout cMVatrasLayout = new javax.swing.GroupLayout(cMVatras);
+        cMVatras.setLayout(cMVatrasLayout);
+        cMVatrasLayout.setHorizontalGroup(
+            cMVatrasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cMVbtnVolver, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cMbtnExit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+        cMVatrasLayout.setVerticalGroup(
+            cMVatrasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cMVbtnVolver, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
+        javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
+        escritorio.setLayout(escritorioLayout);
+        escritorioLayout.setHorizontalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(escritorioLayout.createSequentialGroup()
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(escritorioLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(cMVatras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(80, 80, 80)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(escritorioLayout.createSequentialGroup()
                         .addGap(85, 85, 85)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cMmesaActiva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cMcapacidad)
-                                .addComponent(cMestado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cMmesaActiva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cMcapacidad)
+                            .addComponent(cMestado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(148, 148, 148)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(169, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+        escritorioLayout.setVerticalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(escritorioLayout.createSequentialGroup()
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(escritorioLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)))
+                    .addGroup(escritorioLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(cMVatras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(escritorioLayout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(5, 5, 5)
                         .addComponent(cMcapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -256,20 +269,18 @@ public class VistaCrearMesas extends javax.swing.JPanel {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(174, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         getAccessibleContext().setAccessibleParent(this);
@@ -299,15 +310,14 @@ public class VistaCrearMesas extends javax.swing.JPanel {
             //crear una mesa
             Mesa mesa = new Mesa(capacidad, estado, activo);
             //enviar a la BD la mesa
-            if(mesadata.crearMesa(mesa)){
-                JOptionPane.showMessageDialog(null, "Se a creado una nueva Mesa.");
-                cMnumMesa.setText(mesa.getNumMesa()+"");
+            if (mesadata.crearMesa(mesa)) {
+                cMnumMesa.setText(mesa.getNumMesa() + "");
             }
-            
+
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error al Crear una Nueva Mesa. "+ ex);
+            JOptionPane.showMessageDialog(null, "Error al Crear una Nueva Mesa. " + ex);
         }
-        
+
     }//GEN-LAST:event_cMbtnAgregarMouseClicked
 
     private void cMestadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cMestadoActionPerformed
@@ -336,24 +346,37 @@ public class VistaCrearMesas extends javax.swing.JPanel {
         cMmesaActiva.setSelected(true);
     }//GEN-LAST:event_cMbtnNuevoMouseClicked
 
+    private void cMVbtnVolverMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cMVbtnVolverMousePressed
+        // TODO add your handling code here:
+        Conexion coneccion = new Conexion();
+        MesaVista mv = new MesaVista(coneccion);
+        mv.setSize(780, 530);
+        mv.setLocation(0, 0);
+
+        escritorio.removeAll();
+        escritorio.add(mv, BorderLayout.CENTER);
+        escritorio.revalidate();
+        escritorio.repaint();
+    }//GEN-LAST:event_cMVbtnVolverMousePressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel cMVatras;
+    private javax.swing.JLabel cMVbtnVolver;
     private javax.swing.JLabel cMbtnAgregar;
-    private javax.swing.JLabel cMbtnExit;
     private javax.swing.JLabel cMbtnNuevo;
     private javax.swing.JTextField cMcapacidad;
     private javax.swing.JCheckBox cMestado;
     private javax.swing.JCheckBox cMmesaActiva;
     private javax.swing.JTextField cMnumMesa;
+    private javax.swing.JPanel escritorio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     // End of variables declaration//GEN-END:variables
 }
