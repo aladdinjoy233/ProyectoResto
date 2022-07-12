@@ -8,7 +8,6 @@ package resto.vistas;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import resto.dao.Conexion;
 import resto.dao.MesaData;
 import resto.entidades.Mesa;

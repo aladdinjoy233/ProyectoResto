@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import resto.entidades.Mesa;
 
@@ -157,6 +158,85 @@ public class MesaData {
         }
 
         return mesa;
+    }
+
+    public ArrayList <Mesa> listadoMesas() {
+        ArrayList<Mesa> mesas = new ArrayList();
+        String sql = "SELECT * FROM mesa;";
+
+        try {
+            PreparedStatement ps = coneccion.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            Mesa mesa;
+
+            if (!rs.next()) {
+                JOptionPane.showMessageDialog(null, "No hay Mesas en la base de datos");
+                ps.close();
+                return mesas;
+            }
+            
+            rs.previous();
+
+      while (rs.next()) {
+        mesa = new Mesa();
+
+        mesa.setNumMesa(rs.getInt("numMesa"));
+        mesa.setCapacidad(rs.getInt("capacidad"));
+        mesa.setActivo(rs.getBoolean("estado"));
+        mesa.setActivo(rs.getBoolean("activo"));
+
+        mesas.add(mesa);
+      }
+
+      ps.close();
+      
+        } catch (SQLException ex) {
+      JOptionPane.showMessageDialog(null, "Error al obtener las Mesas " + ex);
+    }
+
+        return mesas;
+    }
+    
+    public ArrayList <Mesa> buscarMesaXcapacidad(int capacidad){
+        ArrayList <Mesa> mesas = new ArrayList();
+        
+        String sql = "SELECT * FROM mesa WHERE capacidad >= ?;";
+        
+        try {
+            PreparedStatement ps = coneccion.prepareStatement(sql);
+            
+            ps.setInt(1, capacidad);
+            
+            ResultSet rs = ps.executeQuery();
+            Mesa mesa;
+
+            if (!rs.next()) {
+                JOptionPane.showMessageDialog(null, "No hay Mesas en la base de datos");
+                ps.close();
+                return mesas;
+            }
+            
+            rs.previous();
+
+      while (rs.next()) {
+        mesa = new Mesa();
+
+        mesa.setNumMesa(rs.getInt("numMesa"));
+        mesa.setCapacidad(rs.getInt("capacidad"));
+        mesa.setActivo(rs.getBoolean("estado"));
+        mesa.setActivo(rs.getBoolean("activo"));
+
+        mesas.add(mesa);
+      }
+
+      ps.close();
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al consultar las Mesas" + ex);
+        }
+        
+        return mesas;
     }
 
 }

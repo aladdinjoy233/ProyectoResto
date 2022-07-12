@@ -26,8 +26,8 @@ public class EdderMain {
         //System.out.println(md.buscarMesa(10));
         
         //Crear Mesa
-        Mesa tabla3 = new Mesa(5, true, true);
-        System.out.println(md.crearMesa(tabla3));
+        //Mesa tabla3 = new Mesa(5, true, true);
+       //System.out.println(md.crearMesa(tabla3));
         
         //Modificar Mesa
         //m.setNumMesa(9);
@@ -39,7 +39,10 @@ public class EdderMain {
         //md.borrarMesa(m);
         
         //Obtener Una Mesa
-        System.out.println(md.obtenerMesa(12));
+        //System.out.println(md.obtenerMesa(12));
+        
+        //listado de mesas
+        System.out.println(md.listadoMesas());
     }
     
 }
