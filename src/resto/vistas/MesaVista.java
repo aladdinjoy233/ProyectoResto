@@ -42,11 +42,11 @@ public class MesaVista extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaMesas = new resto.componentes.TablaPersonalizada();
         jpFondoAgregar = new javax.swing.JPanel();
-        jbAgregar = new javax.swing.JLabel();
+        mVbtnAgregar = new javax.swing.JLabel();
         jpFondoActualizar = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        mVbtnActualizar = new javax.swing.JLabel();
         jpFondoBorrar = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        mVbtnBorrar = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(780, 530));
@@ -76,19 +76,19 @@ public class MesaVista extends javax.swing.JPanel {
 
         jpFondoAgregar.setBackground(new java.awt.Color(241, 207, 178));
 
-        jbAgregar.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
-        jbAgregar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jbAgregar.setText("Agregar Mesa");
-        jbAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jbAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+        mVbtnAgregar.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        mVbtnAgregar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mVbtnAgregar.setText("Agregar Mesa");
+        mVbtnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mVbtnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbAgregarMouseClicked(evt);
+                mVbtnAgregarMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jbAgregarMouseEntered(evt);
+                mVbtnAgregarMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jbAgregarMouseExited(evt);
+                mVbtnAgregarMouseExited(evt);
             }
         });
 
@@ -96,24 +96,24 @@ public class MesaVista extends javax.swing.JPanel {
         jpFondoAgregar.setLayout(jpFondoAgregarLayout);
         jpFondoAgregarLayout.setHorizontalGroup(
             jpFondoAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jbAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+            .addComponent(mVbtnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
         );
         jpFondoAgregarLayout.setVerticalGroup(
             jpFondoAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jbAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+            .addComponent(mVbtnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
         );
 
         jpFondoActualizar.setBackground(new java.awt.Color(241, 207, 178));
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Actualizar Mesa");
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        mVbtnActualizar.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        mVbtnActualizar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mVbtnActualizar.setText("Actualizar Mesa");
+        mVbtnActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel2MouseEntered(evt);
+                mVbtnActualizarMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel2MouseExited(evt);
+                mVbtnActualizarMouseExited(evt);
             }
         });
 
@@ -121,24 +121,24 @@ public class MesaVista extends javax.swing.JPanel {
         jpFondoActualizar.setLayout(jpFondoActualizarLayout);
         jpFondoActualizarLayout.setHorizontalGroup(
             jpFondoActualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+            .addComponent(mVbtnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
         );
         jpFondoActualizarLayout.setVerticalGroup(
             jpFondoActualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mVbtnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jpFondoBorrar.setBackground(new java.awt.Color(241, 207, 178));
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Borrar Mesa");
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        mVbtnBorrar.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        mVbtnBorrar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mVbtnBorrar.setText("Borrar Mesa");
+        mVbtnBorrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel3MouseEntered(evt);
+                mVbtnBorrarMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel3MouseExited(evt);
+                mVbtnBorrarMouseExited(evt);
             }
         });
 
@@ -146,11 +146,11 @@ public class MesaVista extends javax.swing.JPanel {
         jpFondoBorrar.setLayout(jpFondoBorrarLayout);
         jpFondoBorrarLayout.setHorizontalGroup(
             jpFondoBorrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+            .addComponent(mVbtnBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
         );
         jpFondoBorrarLayout.setVerticalGroup(
             jpFondoBorrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mVbtnBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jLabel4.setFont(new java.awt.Font("Dialog", 3, 20)); // NOI18N
@@ -205,35 +205,35 @@ public class MesaVista extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbAgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbAgregarMouseEntered
+    private void mVbtnAgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mVbtnAgregarMouseEntered
         jpFondoAgregar.setBackground(Color.decode("#D9B18E"));
         
-    }//GEN-LAST:event_jbAgregarMouseEntered
+    }//GEN-LAST:event_mVbtnAgregarMouseEntered
 
-    private void jbAgregarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbAgregarMouseExited
+    private void mVbtnAgregarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mVbtnAgregarMouseExited
        jpFondoAgregar.setBackground(Color.decode("#F1CFB2"));
        
-    }//GEN-LAST:event_jbAgregarMouseExited
+    }//GEN-LAST:event_mVbtnAgregarMouseExited
 
-    private void jLabel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseEntered
+    private void mVbtnActualizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mVbtnActualizarMouseEntered
        jpFondoActualizar.setBackground(Color.decode("#D9B18E"));
        
-    }//GEN-LAST:event_jLabel2MouseEntered
+    }//GEN-LAST:event_mVbtnActualizarMouseEntered
 
-    private void jLabel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseExited
+    private void mVbtnActualizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mVbtnActualizarMouseExited
        jpFondoActualizar.setBackground(Color.decode("#F1CFB2"));
        
-    }//GEN-LAST:event_jLabel2MouseExited
+    }//GEN-LAST:event_mVbtnActualizarMouseExited
 
-    private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
+    private void mVbtnBorrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mVbtnBorrarMouseEntered
         jpFondoBorrar.setBackground(Color.decode("#D9B18E"));
-    }//GEN-LAST:event_jLabel3MouseEntered
+    }//GEN-LAST:event_mVbtnBorrarMouseEntered
 
-    private void jLabel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseExited
+    private void mVbtnBorrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mVbtnBorrarMouseExited
         jpFondoBorrar.setBackground(Color.decode("#F1CFB2"));
-    }//GEN-LAST:event_jLabel3MouseExited
+    }//GEN-LAST:event_mVbtnBorrarMouseExited
 
-    private void jbAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbAgregarMouseClicked
+    private void mVbtnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mVbtnAgregarMouseClicked
         Conexion coneccion = new Conexion();
         CrearMesasVista cmv = new CrearMesasVista(coneccion);
         
@@ -244,22 +244,22 @@ public class MesaVista extends javax.swing.JPanel {
         escritorio.add(cmv);
         escritorio.revalidate();
         escritorio.repaint();
-    }//GEN-LAST:event_jbAgregarMouseClicked
+    }//GEN-LAST:event_mVbtnAgregarMouseClicked
                                    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel escritorio;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel jbAgregar;
     private javax.swing.JPanel jpFondoActualizar;
     private javax.swing.JPanel jpFondoAgregar;
     private javax.swing.JPanel jpFondoBorrar;
+    private javax.swing.JLabel mVbtnActualizar;
+    private javax.swing.JLabel mVbtnAgregar;
+    private javax.swing.JLabel mVbtnBorrar;
     private resto.componentes.TablaPersonalizada tablaMesas;
     // End of variables declaration//GEN-END:variables
 }

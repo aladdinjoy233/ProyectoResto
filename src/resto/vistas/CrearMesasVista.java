@@ -43,7 +43,7 @@ public class CrearMesasVista extends javax.swing.JPanel {
         cMcapacidad = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         cMmesaActiva = new javax.swing.JCheckBox();
-        jPanel2 = new javax.swing.JPanel();
+        mVfondoAgregar = new javax.swing.JPanel();
         cMbtnAgregar = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -51,7 +51,7 @@ public class CrearMesasVista extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         cMestado = new javax.swing.JCheckBox();
         jLabel5 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
+        mVfondoNuevaMesa = new javax.swing.JPanel();
         cMbtnNuevo = new javax.swing.JLabel();
         cMVatras = new javax.swing.JPanel();
         cMVbtnVolver = new javax.swing.JLabel();
@@ -80,7 +80,7 @@ public class CrearMesasVista extends javax.swing.JPanel {
             }
         });
 
-        jPanel2.setBackground(new java.awt.Color(241, 207, 178));
+        mVfondoAgregar.setBackground(new java.awt.Color(241, 207, 178));
 
         cMbtnAgregar.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         cMbtnAgregar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -99,14 +99,14 @@ public class CrearMesasVista extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout mVfondoAgregarLayout = new javax.swing.GroupLayout(mVfondoAgregar);
+        mVfondoAgregar.setLayout(mVfondoAgregarLayout);
+        mVfondoAgregarLayout.setHorizontalGroup(
+            mVfondoAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(cMbtnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        mVfondoAgregarLayout.setVerticalGroup(
+            mVfondoAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(cMbtnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
         );
 
@@ -164,7 +164,7 @@ public class CrearMesasVista extends javax.swing.JPanel {
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resto/img/iconoSillaMesa.png"))); // NOI18N
 
-        jPanel4.setBackground(new java.awt.Color(241, 207, 178));
+        mVfondoNuevaMesa.setBackground(new java.awt.Color(241, 207, 178));
 
         cMbtnNuevo.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         cMbtnNuevo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -182,14 +182,14 @@ public class CrearMesasVista extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout mVfondoNuevaMesaLayout = new javax.swing.GroupLayout(mVfondoNuevaMesa);
+        mVfondoNuevaMesa.setLayout(mVfondoNuevaMesaLayout);
+        mVfondoNuevaMesaLayout.setHorizontalGroup(
+            mVfondoNuevaMesaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(cMbtnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        mVfondoNuevaMesaLayout.setVerticalGroup(
+            mVfondoNuevaMesaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(cMbtnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
         );
 
@@ -197,8 +197,14 @@ public class CrearMesasVista extends javax.swing.JPanel {
 
         cMVbtnVolver.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cMVbtnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resto/img/iconoAtras.png"))); // NOI18N
-        cMVbtnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        cMVbtnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cMVbtnVolver.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cMVbtnVolverMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cMVbtnVolverMouseExited(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 cMVbtnVolverMousePressed(evt);
             }
@@ -231,12 +237,12 @@ public class CrearMesasVista extends javax.swing.JPanel {
                     .addGroup(escritorioLayout.createSequentialGroup()
                         .addGap(85, 85, 85)
                         .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(mVfondoAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cMmesaActiva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cMcapacidad)
                             .addComponent(cMestado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(mVfondoNuevaMesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(148, 148, 148)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(169, Short.MAX_VALUE))
@@ -264,10 +270,10 @@ public class CrearMesasVista extends javax.swing.JPanel {
                         .addGap(19, 19, 19)
                         .addComponent(cMmesaActiva, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(mVfondoAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mVfondoNuevaMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(174, Short.MAX_VALUE))
         );
 
@@ -291,12 +297,12 @@ public class CrearMesasVista extends javax.swing.JPanel {
 
     private void cMbtnAgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cMbtnAgregarMouseEntered
         // TODO add your handling code here:
-        cMbtnAgregar.setBackground(new Color(217, 177, 142));
+        mVfondoAgregar.setBackground(Color.decode("#D9B18E"));
     }//GEN-LAST:event_cMbtnAgregarMouseEntered
 
     private void cMbtnAgregarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cMbtnAgregarMouseExited
         // TODO add your handling code here:
-        cMbtnAgregar.setBackground(new Color(241, 207, 178));
+        mVfondoAgregar.setBackground(Color.decode("#F1CFB2"));
     }//GEN-LAST:event_cMbtnAgregarMouseExited
 
     private void cMbtnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cMbtnAgregarMouseClicked
@@ -314,7 +320,7 @@ public class CrearMesasVista extends javax.swing.JPanel {
             }
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error al Crear una Nueva Mesa. " + ex);
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese la Capacidad de la Nueva Mesa. ");
         }
 
     }//GEN-LAST:event_cMbtnAgregarMouseClicked
@@ -329,12 +335,12 @@ public class CrearMesasVista extends javax.swing.JPanel {
 
     private void cMbtnNuevoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cMbtnNuevoMouseEntered
         // TODO add your handling code here:
-        cMbtnNuevo.setBackground(new Color(217, 177, 142));
+        mVfondoNuevaMesa.setBackground(new Color(217, 177, 142));
     }//GEN-LAST:event_cMbtnNuevoMouseEntered
 
     private void cMbtnNuevoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cMbtnNuevoMouseExited
         // TODO add your handling code here:
-        cMbtnNuevo.setBackground(new Color(241, 207, 178));
+        mVfondoNuevaMesa.setBackground(new Color(241, 207, 178));
     }//GEN-LAST:event_cMbtnNuevoMouseExited
 
     private void cMbtnNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cMbtnNuevoMouseClicked
@@ -358,6 +364,16 @@ public class CrearMesasVista extends javax.swing.JPanel {
         escritorio.repaint();
     }//GEN-LAST:event_cMVbtnVolverMousePressed
 
+    private void cMVbtnVolverMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cMVbtnVolverMouseEntered
+        // TODO add your handling code here:
+        cMVatras.setBackground(new Color(217, 177, 142));
+    }//GEN-LAST:event_cMVbtnVolverMouseEntered
+
+    private void cMVbtnVolverMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cMVbtnVolverMouseExited
+        // TODO add your handling code here:
+        cMVatras.setBackground(new Color(241, 207, 178));
+    }//GEN-LAST:event_cMVbtnVolverMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel cMVatras;
@@ -374,8 +390,8 @@ public class CrearMesasVista extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel mVfondoAgregar;
+    private javax.swing.JPanel mVfondoNuevaMesa;
     // End of variables declaration//GEN-END:variables
 }

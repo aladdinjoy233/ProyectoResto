@@ -62,12 +62,12 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jPanel2" max="32767" attributes="0"/>
+                              <Component id="mVfondoAgregar" max="32767" attributes="0"/>
                               <Component id="jLabel2" min="-2" pref="92" max="-2" attributes="0"/>
                               <Component id="cMmesaActiva" alignment="0" max="32767" attributes="0"/>
                               <Component id="cMcapacidad" alignment="0" max="32767" attributes="0"/>
                               <Component id="cMestado" max="32767" attributes="0"/>
-                              <Component id="jPanel4" alignment="0" max="32767" attributes="0"/>
+                              <Component id="mVfondoNuevaMesa" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="148" max="-2" attributes="0"/>
                           <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
@@ -104,12 +104,12 @@
                           <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                           <Component id="cMmesaActiva" min="-2" pref="35" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                          <Component id="mVfondoAgregar" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jPanel3" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
+                  <Component id="mVfondoNuevaMesa" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="174" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -157,7 +157,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cMmesaActivaActionPerformed"/>
           </Events>
         </Component>
-        <Container class="javax.swing.JPanel" name="jPanel2">
+        <Container class="javax.swing.JPanel" name="mVfondoAgregar">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="b2" green="cf" red="f1" type="rgb"/>
@@ -292,7 +292,7 @@
             </Property>
           </Properties>
         </Component>
-        <Container class="javax.swing.JPanel" name="jPanel4">
+        <Container class="javax.swing.JPanel" name="mVfondoNuevaMesa">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="b2" green="cf" red="f1" type="rgb"/>
@@ -358,10 +358,12 @@
                   <Image iconType="3" name="/resto/img/iconoAtras.png"/>
                 </Property>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Cursor Por defecto"/>
+                  <Color id="Cursor de Mano"/>
                 </Property>
               </Properties>
               <Events>
+                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cMVbtnVolverMouseEntered"/>
+                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cMVbtnVolverMouseExited"/>
                 <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cMVbtnVolverMousePressed"/>
               </Events>
             </Component>

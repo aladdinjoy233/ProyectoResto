@@ -42,7 +42,7 @@ public class EdderMain {
         //System.out.println(md.obtenerMesa(12));
         
         //listado de mesas
-        System.out.println(md.listadoMesas());
+        System.out.println(md.buscarMesaXcapacidad(5));
     }
     
 }
