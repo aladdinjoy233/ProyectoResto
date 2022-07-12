@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Window;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import resto.dao.Conexion;
 
 /**
  *
@@ -242,9 +243,9 @@ public class MesasAsignadasVista extends javax.swing.JPanel {
     private void jbtnAgregarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnAgregarMouseExited
         jbtnAgregar.setBackground(Color.decode("#F1CFB2"));
     }//GEN-LAST:event_jbtnAgregarMouseExited
-
+    private Conexion con;
     private void jlFlechaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlFlechaMouseClicked
-        MeseroVista mv = new MeseroVista();
+        MeseroVista mv = new MeseroVista( con);
         
         mv.setSize(780, 530);
         mv.setLocation(0, 0);   

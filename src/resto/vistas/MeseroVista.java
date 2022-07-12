@@ -1,15 +1,28 @@
 package resto.vistas;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import javax.swing.table.DefaultTableModel;
+import resto.dao.Conexion;
+import resto.dao.MeseroData;
+import resto.entidades.Mesero;
 
 public class MeseroVista extends javax.swing.JPanel {
 
-  public MeseroVista() {
+    private DefaultTableModel model;
+    private MeseroData md;
+    
+  public MeseroVista(Conexion con) {
     initComponents();
     
+    md = new MeseroData(con);
+    
     tablaPersonalizada1.arreglarTabla(jScrollPane1);
-    DefaultTableModel model = (DefaultTableModel) tablaPersonalizada1.getModel();
+    model = (DefaultTableModel) tablaPersonalizada1.getModel();
+    
+    verMeserosActivos();
     
   }
 
@@ -42,12 +55,12 @@ public class MeseroVista extends javax.swing.JPanel {
                 "Nombre", "Apellido", "DNI", "Telefono", "Activo"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
             }
         });
         jScrollPane1.setViewportView(tablaPersonalizada1);
@@ -60,6 +73,11 @@ public class MeseroVista extends javax.swing.JPanel {
         jcbInactivos.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
         jcbInactivos.setForeground(new java.awt.Color(114, 63, 50));
         jcbInactivos.setText("Ver meseros inactivos");
+        jcbInactivos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbInactivosActionPerformed(evt);
+            }
+        });
 
         jbtnAgregar.setBackground(new java.awt.Color(241, 207, 178));
         jbtnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -230,6 +248,60 @@ public class MeseroVista extends javax.swing.JPanel {
         escritorio.repaint();
     }//GEN-LAST:event_jbtnVerMouseClicked
 
+    private void jcbInactivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbInactivosActionPerformed
+        botonInactivos();
+    }//GEN-LAST:event_jcbInactivosActionPerformed
+
+    private void borrarFilas(){
+        int a = model.getRowCount() - 1;
+        
+        for (int i = a; i > -1 ; i--){
+            model.removeRow(i);
+        }
+    }
+    
+    private void verMeserosActivos(){
+        borrarFilas();
+        
+        ArrayList<Mesero> lista = md.obtenerMeseros();
+        
+        Collections.sort(lista, new Comparator<Mesero>(){ //ordenar meseros por el nombre
+            @Override
+            public int compare(Mesero m, Mesero m1){
+                return m.getNombre().compareTo(m1.getNombre());
+            }
+        });
+        
+        for(Mesero m : lista){
+            model.addRow(new Object[]{m.getNombre(),m.getApellido(),m.getDni(),m.getTelefono(),m.isActivo()});
+        }
+        
+    }
+    
+    private void verTodosMeseros(){
+        borrarFilas();
+        
+        ArrayList<Mesero> lista = md.obtenerTodosMeseros();
+        
+        Collections.sort(lista, new Comparator<Mesero>(){ //ordenar meseros por el nombre
+            @Override
+            public int compare(Mesero m, Mesero m1){
+                return m.getNombre().compareTo(m1.getNombre());
+            }
+        });
+        
+        for(Mesero m : lista){
+            model.addRow(new Object[]{m.getNombre(),m.getApellido(),m.getDni(),m.getTelefono(),m.isActivo()});
+        }        
+    }
+    
+    private void botonInactivos(){
+        if(jcbInactivos.isSelected()){
+          verTodosMeseros();
+        } else{
+          verMeserosActivos();
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel escritorio;
