@@ -351,11 +351,11 @@ public class ReservaVista extends javax.swing.JPanel {
         try {
 
             int numMesa = (int) jTable.getValueAt(filaSeleccionada, 0);
-            LocalDate fecha = LocalDate.parse((String)jTable.getValueAt(filaSeleccionada, 1));
+            LocalDate fecha = LocalDate.parse(jTable.getValueAt(filaSeleccionada, 1).toString());
             
-//            String horaStr =  (String) jTable.getValueAt(filaSeleccionada, 2);
+//            String horaStr =  (String) ;
 //            LocalTime hora = LocalTime.parse(horaStr);
-            LocalTime hora = LocalTime.now();
+            LocalTime hora = LocalTime.parse(jTable.getValueAt(filaSeleccionada, 2).toString());
             
             Long dni = (Long) jTable.getValueAt(filaSeleccionada, 3);
             Boolean estado = (Boolean) jTable.getValueAt(filaSeleccionada, 4);
