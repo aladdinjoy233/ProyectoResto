@@ -118,6 +118,9 @@ public class MeseroVista extends javax.swing.JPanel {
         jbtnVer.setBackground(new java.awt.Color(241, 207, 178));
         jbtnVer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnVer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtnVerMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jbtnVerMouseEntered(evt);
             }
@@ -214,6 +217,18 @@ public class MeseroVista extends javax.swing.JPanel {
     private void jbtnVerMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnVerMouseExited
         jbtnVer.setBackground(Color.decode("#F1CFB2"));
     }//GEN-LAST:event_jbtnVerMouseExited
+
+    private void jbtnVerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnVerMouseClicked
+        MesasAsignadasVista ma = new MesasAsignadasVista();
+        
+        ma.setSize(780, 530);
+        ma.setLocation(0, 0);   
+        
+        escritorio.removeAll();
+        escritorio.add(ma);
+        escritorio.revalidate();
+        escritorio.repaint();
+    }//GEN-LAST:event_jbtnVerMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
