@@ -6,25 +6,71 @@
 package resto.vistas;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 import resto.dao.Conexion;
 import resto.dao.MesaData;
+import resto.entidades.Mesa;
 
 /**
  *
- * @author Valeria
+ * @author Edder
  */
 public class MesaVista extends javax.swing.JPanel {
 
+    //Atributos
     private MesaData mesadata;
-    Conexion coneccion; 
+    private DefaultTableModel model;
+
     /**
-     * Creates new form ProductoVista
+     * Creates new form MesaVista
      */
+    //Constructor
     public MesaVista(Conexion coneccion) {
         initComponents();
         mesadata = new MesaData(coneccion);
-        coneccion = new Conexion();
-        tablaMesas.arreglarTabla(jScrollPane2);
+        model = (DefaultTableModel) tablaMesas.getModel();
+        tablaMesas.arreglarTabla(jScrollPane);
+        verActivas();
+    }
+
+    public void armarCabeceraTabla() {
+
+        ArrayList<Object> columns = new ArrayList();
+        columns.add("N° de Mesa");
+        columns.add("Capacidad");
+        columns.add("Ocupado");
+        columns.add("Activo");
+
+        for (Object it : columns) {
+            model.addColumn(it);
+        }
+        tablaMesas.setModel(model);
+    }
+
+    private void borrarFilas() {
+        int a = model.getRowCount() - 1;
+        for (int i = a; i > -1; i--) {
+            model.removeRow(i);
+        }
+    }
+
+    private void verInactivas() {
+        borrarFilas();
+        ArrayList<Mesa> mesas = mesadata.listadoMesasInactivas();
+
+        for (Mesa m : mesas) {
+            model.addRow(new Object[]{m.getNumMesa(), m.getCapacidad(), m.isEstado(), m.isActivo()});
+        }
+    }
+
+    private void verActivas() {
+        borrarFilas();
+        ArrayList<Mesa> mesas = mesadata.listadoMesasActivas();
+
+        for (Mesa m : mesas) {
+            model.addRow(new Object[]{m.getNumMesa(), m.getCapacidad(), m.isEstado(), m.isActivo()});
+        }
     }
 
     /**
@@ -36,10 +82,8 @@ public class MesaVista extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPopupMenu1 = new javax.swing.JPopupMenu();
-        jPopupMenu2 = new javax.swing.JPopupMenu();
         escritorio = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane = new javax.swing.JScrollPane();
         tablaMesas = new resto.componentes.TablaPersonalizada();
         jpFondoAgregar = new javax.swing.JPanel();
         mVbtnAgregar = new javax.swing.JLabel();
@@ -48,6 +92,7 @@ public class MesaVista extends javax.swing.JPanel {
         jpFondoBorrar = new javax.swing.JPanel();
         mVbtnBorrar = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        mVmesasInactivas = new javax.swing.JCheckBox();
 
         setPreferredSize(new java.awt.Dimension(780, 530));
 
@@ -65,14 +110,14 @@ public class MesaVista extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Boolean.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(tablaMesas);
+        jScrollPane.setViewportView(tablaMesas);
 
         jpFondoAgregar.setBackground(new java.awt.Color(241, 207, 178));
 
@@ -109,6 +154,9 @@ public class MesaVista extends javax.swing.JPanel {
         mVbtnActualizar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         mVbtnActualizar.setText("Actualizar Mesa");
         mVbtnActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mVbtnActualizarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 mVbtnActualizarMouseEntered(evt);
             }
@@ -157,40 +205,51 @@ public class MesaVista extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(114, 63, 50));
         jLabel4.setText("Mesas");
 
+        mVmesasInactivas.setFont(new java.awt.Font("Dialog", 3, 12)); // NOI18N
+        mVmesasInactivas.setText("Mostrar Mesas Inactivas");
+        mVmesasInactivas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mVmesasInactivasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(escritorioLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(escritorioLayout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(escritorioLayout.createSequentialGroup()
-                                .addComponent(jpFondoAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jpFondoActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jpFondoBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(escritorioLayout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(jLabel4)))
+                        .addComponent(jpFondoAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jpFondoActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jpFondoBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(47, Short.MAX_VALUE))
+            .addGroup(escritorioLayout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(mVmesasInactivas)
+                .addGap(59, 59, 59))
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(escritorioLayout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addComponent(jLabel4)
+                .addGap(83, 83, 83)
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(mVmesasInactivas))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jpFondoAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jpFondoActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jpFondoBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -207,22 +266,22 @@ public class MesaVista extends javax.swing.JPanel {
 
     private void mVbtnAgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mVbtnAgregarMouseEntered
         jpFondoAgregar.setBackground(Color.decode("#D9B18E"));
-        
+
     }//GEN-LAST:event_mVbtnAgregarMouseEntered
 
     private void mVbtnAgregarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mVbtnAgregarMouseExited
-       jpFondoAgregar.setBackground(Color.decode("#F1CFB2"));
-       
+        jpFondoAgregar.setBackground(Color.decode("#F1CFB2"));
+
     }//GEN-LAST:event_mVbtnAgregarMouseExited
 
     private void mVbtnActualizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mVbtnActualizarMouseEntered
-       jpFondoActualizar.setBackground(Color.decode("#D9B18E"));
-       
+        jpFondoActualizar.setBackground(Color.decode("#D9B18E"));
+
     }//GEN-LAST:event_mVbtnActualizarMouseEntered
 
     private void mVbtnActualizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mVbtnActualizarMouseExited
-       jpFondoActualizar.setBackground(Color.decode("#F1CFB2"));
-       
+        jpFondoActualizar.setBackground(Color.decode("#F1CFB2"));
+
     }//GEN-LAST:event_mVbtnActualizarMouseExited
 
     private void mVbtnBorrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mVbtnBorrarMouseEntered
@@ -236,30 +295,42 @@ public class MesaVista extends javax.swing.JPanel {
     private void mVbtnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mVbtnAgregarMouseClicked
         Conexion coneccion = new Conexion();
         CrearMesasVista cmv = new CrearMesasVista(coneccion);
-        
+
         cmv.setSize(780, 530);
         cmv.setLocation(0, 0);
-        
+
         escritorio.removeAll();
         escritorio.add(cmv);
         escritorio.revalidate();
         escritorio.repaint();
     }//GEN-LAST:event_mVbtnAgregarMouseClicked
-                                   
+
+    private void mVmesasInactivasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mVmesasInactivasActionPerformed
+        // TODO add your handling code here:
+        if (mVmesasInactivas.isSelected()) {
+            verInactivas();
+        } else {
+            verActivas();
+        }
+    }//GEN-LAST:event_mVmesasInactivasActionPerformed
+
+    private void mVbtnActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mVbtnActualizarMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_mVbtnActualizarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel escritorio;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPopupMenu jPopupMenu1;
-    private javax.swing.JPopupMenu jPopupMenu2;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JPanel jpFondoActualizar;
     private javax.swing.JPanel jpFondoAgregar;
     private javax.swing.JPanel jpFondoBorrar;
     private javax.swing.JLabel mVbtnActualizar;
     private javax.swing.JLabel mVbtnAgregar;
     private javax.swing.JLabel mVbtnBorrar;
+    private javax.swing.JCheckBox mVmesasInactivas;
     private resto.componentes.TablaPersonalizada tablaMesas;
     // End of variables declaration//GEN-END:variables
 }

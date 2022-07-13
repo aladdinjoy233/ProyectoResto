@@ -127,7 +127,7 @@
         <Component class="javax.swing.JTextField" name="cMcapacidad">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="b2" green="cf" red="f1" type="rgb"/>
+              <Color blue="ef" green="ef" red="f0" type="rgb"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="12" style="2"/>
@@ -145,7 +145,7 @@
         <Component class="javax.swing.JCheckBox" name="cMmesaActiva">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="b2" green="cf" red="f1" type="rgb"/>
+              <Color blue="ef" green="ef" red="f0" type="rgb"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="12" style="2"/>
@@ -273,7 +273,7 @@
         <Component class="javax.swing.JCheckBox" name="cMestado">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="b2" green="cf" red="f1" type="rgb"/>
+              <Color blue="ef" green="ef" red="f0" type="rgb"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="12" style="2"/>

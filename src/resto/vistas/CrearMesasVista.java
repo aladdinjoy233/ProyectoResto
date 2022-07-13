@@ -64,13 +64,13 @@ public class CrearMesasVista extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("DialogInput", 1, 18)); // NOI18N
         jLabel1.setText("Agregar mesa nueva");
 
-        cMcapacidad.setBackground(new java.awt.Color(241, 207, 178));
+        cMcapacidad.setBackground(new java.awt.Color(240, 239, 239));
         cMcapacidad.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         jLabel2.setText("Capacidad");
 
-        cMmesaActiva.setBackground(new java.awt.Color(241, 207, 178));
+        cMmesaActiva.setBackground(new java.awt.Color(240, 239, 239));
         cMmesaActiva.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         cMmesaActiva.setSelected(true);
         cMmesaActiva.setText("Activo");
@@ -152,7 +152,7 @@ public class CrearMesasVista extends javax.swing.JPanel {
                 .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        cMestado.setBackground(new java.awt.Color(241, 207, 178));
+        cMestado.setBackground(new java.awt.Color(240, 239, 239));
         cMestado.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         cMestado.setSelected(true);
         cMestado.setText("Estado");
@@ -310,8 +310,8 @@ public class CrearMesasVista extends javax.swing.JPanel {
         try {
             //capturar datos del formulario
             int capacidad = Integer.parseInt(cMcapacidad.getText());
-            boolean estado = cMestado.isEnabled();
-            boolean activo = cMmesaActiva.isEnabled();
+            boolean estado = cMestado.isSelected();
+            boolean activo = cMmesaActiva.isSelected();
             //crear una mesa
             Mesa mesa = new Mesa(capacidad, estado, activo);
             //enviar a la BD la mesa

@@ -113,23 +113,25 @@ public class MesaData {
             return false;
         }
 
-        String sql = "DELETE FROM mesa WHERE numMesa = ?";
+        String sql = "UPDATE mesa SET activo = 0 WHERE numMesa = ?";
         try {
-            PreparedStatement ps = coneccion.prepareStatement(sql);
 
-            ps.setInt(1, mesa.getNumMesa());
+      PreparedStatement ps = coneccion.prepareStatement(sql);
 
-            if (ps.executeUpdate() != 0) {
-                result = true;
-                JOptionPane.showMessageDialog(null, "La Mesa N° " + mesa.getNumMesa() + " se a Borrado Correctamente");
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al Borrar la Mesa.");
-        }
+      ps.setInt(1, mesa.getNumMesa());
 
-        return result;
+      if (ps.executeUpdate() != 0) {
+        result = true;
+      }
+
+      ps.close();
+
+    } catch (SQLException ex) {
+      JOptionPane.showMessageDialog(null, "Error al obtener una Mesa" + ex);
     }
+
+    return result;
+  }
 
     public Mesa obtenerMesa(int numMesa) {
         Mesa mesa = new Mesa();
@@ -160,9 +162,9 @@ public class MesaData {
         return mesa;
     }
 
-    public ArrayList <Mesa> listadoMesas() {
+    public ArrayList <Mesa> listadoMesasActivas() {
         ArrayList<Mesa> mesas = new ArrayList();
-        String sql = "SELECT * FROM mesa;";
+        String sql = "SELECT * FROM mesa WHERE activo = 1;";
 
         try {
             PreparedStatement ps = coneccion.prepareStatement(sql);
@@ -183,7 +185,7 @@ public class MesaData {
 
         mesa.setNumMesa(rs.getInt("numMesa"));
         mesa.setCapacidad(rs.getInt("capacidad"));
-        mesa.setActivo(rs.getBoolean("estado"));
+        mesa.setEstado(rs.getBoolean("estado"));
         mesa.setActivo(rs.getBoolean("activo"));
 
         mesas.add(mesa);
@@ -197,6 +199,45 @@ public class MesaData {
 
         return mesas;
     }
+    
+    public ArrayList <Mesa> listadoMesasInactivas() {
+        ArrayList<Mesa> mesas = new ArrayList();
+        String sql = "SELECT * FROM mesa WHERE activo = 0;";
+
+        try {
+            PreparedStatement ps = coneccion.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            Mesa mesa;
+
+            if (!rs.next()) {
+                JOptionPane.showMessageDialog(null, "No hay Mesas en la base de datos");
+                ps.close();
+                return mesas;
+            }
+            
+            rs.previous();
+
+      while (rs.next()) {
+        mesa = new Mesa();
+
+        mesa.setNumMesa(rs.getInt("numMesa"));
+        mesa.setCapacidad(rs.getInt("capacidad"));
+        mesa.setEstado(rs.getBoolean("estado"));
+        mesa.setActivo(rs.getBoolean("activo"));
+
+        mesas.add(mesa);
+      }
+
+      ps.close();
+      
+        } catch (SQLException ex) {
+      JOptionPane.showMessageDialog(null, "Error al obtener las Mesas " + ex);
+    }
+
+        return mesas;
+    }
+    
     
     public ArrayList <Mesa> buscarMesaXcapacidad(int capacidad){
         ArrayList <Mesa> mesas = new ArrayList();
@@ -224,7 +265,7 @@ public class MesaData {
 
         mesa.setNumMesa(rs.getInt("numMesa"));
         mesa.setCapacidad(rs.getInt("capacidad"));
-        mesa.setActivo(rs.getBoolean("estado"));
+        mesa.setEstado(rs.getBoolean("estado"));
         mesa.setActivo(rs.getBoolean("activo"));
 
         mesas.add(mesa);

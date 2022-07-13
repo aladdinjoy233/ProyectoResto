@@ -30,19 +30,19 @@ public class EdderMain {
        //System.out.println(md.crearMesa(tabla3));
         
         //Modificar Mesa
-        //m.setNumMesa(9);
-        //m.setCapacidad(2);
-        //m.setEstado(false);
-        //m.setActivo(false);
+        m.setNumMesa(19);
+        m.setCapacidad(2);
+        m.setEstado(false);
+        m.setActivo(false);
         
         //Borrar la Mesa
-        //md.borrarMesa(m);
+        md.borrarMesa(m);
         
         //Obtener Una Mesa
         //System.out.println(md.obtenerMesa(12));
         
         //listado de mesas
-        System.out.println(md.buscarMesaXcapacidad(5));
+        System.out.println(md.listadoMesasActivas());
     }
     
 }
