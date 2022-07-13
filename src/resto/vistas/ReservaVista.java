@@ -349,7 +349,9 @@ public class ReservaVista extends javax.swing.JPanel {
         if (count == jTable.getRowCount()) {
             JOptionPane.showMessageDialog(null, "Actualizado correctamente");
         } else {
-            JOptionPane.showMessageDialog(null, "Solo se actualizaron "+count+" de"+jTable.getRowCount()+" reservas\nla fecha/hora debe ser proxima a la actual ");
+            JOptionPane.showMessageDialog(null, "Solo se actualizaron "+count+" de "+jTable.getRowCount()+
+                        " reservas\n1) La fecha/hora debe ser proxima a la actual");
+                        
         }
 
     }
