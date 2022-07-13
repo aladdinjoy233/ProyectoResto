@@ -35,13 +35,13 @@ public class MeseroVista extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaPersonalizada1 = new resto.componentes.TablaPersonalizada();
         jLabel1 = new javax.swing.JLabel();
-        jcbInactivos = new javax.swing.JCheckBox();
         jbtnAgregar = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jbtnActualizar = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jbtnVer = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        jcbActivo = new resto.componentes.CheckboxPersonalizada();
 
         setPreferredSize(new java.awt.Dimension(780, 530));
 
@@ -76,16 +76,6 @@ public class MeseroVista extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(114, 63, 50));
         jLabel1.setText("Meseros");
-
-        jcbInactivos.setBackground(new java.awt.Color(252, 252, 252));
-        jcbInactivos.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
-        jcbInactivos.setForeground(new java.awt.Color(114, 63, 50));
-        jcbInactivos.setText("Ver meseros inactivos");
-        jcbInactivos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbInactivosActionPerformed(evt);
-            }
-        });
 
         jbtnAgregar.setBackground(new java.awt.Color(241, 207, 178));
         jbtnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -174,6 +164,15 @@ public class MeseroVista extends javax.swing.JPanel {
             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
+        jcbActivo.setForeground(new java.awt.Color(114, 63, 50));
+        jcbActivo.setText("Ver meseros inactivos");
+        jcbActivo.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
+        jcbActivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbActivoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
@@ -185,7 +184,7 @@ public class MeseroVista extends javax.swing.JPanel {
                     .addGroup(escritorioLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jcbInactivos))
+                        .addComponent(jcbActivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(escritorioLayout.createSequentialGroup()
                         .addComponent(jbtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -200,7 +199,7 @@ public class MeseroVista extends javax.swing.JPanel {
                 .addGap(56, 56, 56)
                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jcbInactivos))
+                    .addComponent(jcbActivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
@@ -259,10 +258,6 @@ public class MeseroVista extends javax.swing.JPanel {
         escritorio.repaint();
     }//GEN-LAST:event_jbtnVerMouseClicked
 
-    private void jcbInactivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbInactivosActionPerformed
-        botonInactivos();
-    }//GEN-LAST:event_jcbInactivosActionPerformed
-
     private void jbtnActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnActualizarMouseClicked
         
         boolean meserosModificados = false;
@@ -313,13 +308,17 @@ public class MeseroVista extends javax.swing.JPanel {
         }
         
         
-        if(jcbInactivos.isSelected()){ //si se produjo algun error la tabla vuelve a la normalidad, sino se actualiza
+        if(jcbActivo.isSelected()){ //si se produjo algun error la tabla vuelve a la normalidad, sino se actualiza
             verTodosMeseros();
         } else{
             verMeserosActivos();
         }
                 
     }//GEN-LAST:event_jbtnActualizarMouseClicked
+
+    private void jcbActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbActivoActionPerformed
+        botonInactivos();
+    }//GEN-LAST:event_jcbActivoActionPerformed
 
     private void borrarFilas(){
         int a = model.getRowCount() - 1;
@@ -365,7 +364,7 @@ public class MeseroVista extends javax.swing.JPanel {
     }
     
     private void botonInactivos(){
-        if(jcbInactivos.isSelected()){
+        if(jcbActivo.isSelected()){
           verTodosMeseros();
         } else{
           verMeserosActivos();
@@ -382,7 +381,7 @@ public class MeseroVista extends javax.swing.JPanel {
     private javax.swing.JPanel jbtnActualizar;
     private javax.swing.JPanel jbtnAgregar;
     private javax.swing.JPanel jbtnVer;
-    private javax.swing.JCheckBox jcbInactivos;
+    private resto.componentes.CheckboxPersonalizada jcbActivo;
     private resto.componentes.TablaPersonalizada tablaPersonalizada1;
     // End of variables declaration//GEN-END:variables
 }

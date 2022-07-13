@@ -48,7 +48,7 @@
                       <Group type="102" attributes="0">
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jcbInactivos" min="-2" max="-2" attributes="0"/>
+                          <Component id="jcbActivo" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Component id="jbtnAgregar" min="-2" max="-2" attributes="0"/>
@@ -68,7 +68,7 @@
                   <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jcbInactivos" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jcbActivo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="278" max="-2" attributes="0"/>
@@ -157,23 +157,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Meseros"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JCheckBox" name="jcbInactivos">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="fc" green="fc" red="fc" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="14" style="2"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="32" green="3f" red="72" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Ver meseros inactivos"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbInactivosActionPerformed"/>
-          </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="jbtnAgregar">
           <Properties>
@@ -300,6 +283,20 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="resto.componentes.CheckboxPersonalizada" name="jcbActivo">
+          <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="32" green="3f" red="72" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Ver meseros inactivos"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="14" style="2"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbActivoActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>
