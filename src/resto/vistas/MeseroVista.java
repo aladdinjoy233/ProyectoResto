@@ -56,16 +56,9 @@ public class MeseroVista extends javax.swing.JPanel {
                 "ID", "Nombre", "Apellido", "DNI", "Telefono", "Activo"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
-            };
             boolean[] canEdit = new boolean [] {
                 false, true, true, true, true, true
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -80,6 +73,9 @@ public class MeseroVista extends javax.swing.JPanel {
         jbtnAgregar.setBackground(new java.awt.Color(241, 207, 178));
         jbtnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtnAgregarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jbtnAgregarMouseEntered(evt);
             }
@@ -272,7 +268,24 @@ public class MeseroVista extends javax.swing.JPanel {
             m.setApellido((String) model.getValueAt(i, 2));
             m.setDni((Long) model.getValueAt(i, 3));
             m.setTelefono((Long) model.getValueAt(i, 4));
-            m.setActivo((boolean) model.getValueAt(i, 5));
+            
+            String bool = (String) model.getValueAt(i, 5);
+            if(bool.equalsIgnoreCase("no")){
+                m.setActivo(false);
+            } else if(bool.equalsIgnoreCase("si")){
+                m.setActivo(true);
+            } else{
+                meserosModificados = false;
+                JOptionPane.showMessageDialog(this, "Error! Dato ingresado no valido en fila " + (i + 1));
+                
+                JOptionPane.showMessageDialog(this, "Para activar un mesero escribe si, para desactivarlo escribe no");
+                
+                if(i > 0){ //si no hubo errores antes aviso que se modificaron esos datos
+                    JOptionPane.showMessageDialog(this, "Se actualizaran solo los datos anteriores a la fila " + (i + 1));
+                }
+                
+                break;                
+            }            
             
             if(m.getNombre().trim().isEmpty()|| m.getApellido().trim().isEmpty()){ //valido que el nombre y el apellido no esten en blanco
                 meserosModificados = false;
@@ -320,6 +333,18 @@ public class MeseroVista extends javax.swing.JPanel {
         botonInactivos();
     }//GEN-LAST:event_jcbActivoActionPerformed
 
+    private void jbtnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnAgregarMouseClicked
+        AgregarMeseroVista am = new AgregarMeseroVista();
+        
+        am.setSize(780, 530);
+        am.setLocation(0, 0);   
+        
+        escritorio.removeAll();
+        escritorio.add(am);
+        escritorio.revalidate();
+        escritorio.repaint();
+    }//GEN-LAST:event_jbtnAgregarMouseClicked
+
     private void borrarFilas(){
         int a = model.getRowCount() - 1;
         
@@ -341,7 +366,7 @@ public class MeseroVista extends javax.swing.JPanel {
         });
         
         for(Mesero m : lista){
-            model.addRow(new Object[]{m.getIdMesero(),m.getNombre(),m.getApellido(),m.getDni(),m.getTelefono(),m.isActivo()});
+            model.addRow(new Object[]{m.getIdMesero(),m.getNombre(),m.getApellido(),m.getDni(),m.getTelefono(),(m.isActivo() ? "Si" : "No")});
         }
         
     }
@@ -359,7 +384,7 @@ public class MeseroVista extends javax.swing.JPanel {
         });
         
         for(Mesero m : lista){
-            model.addRow(new Object[]{m.getIdMesero(),m.getNombre(),m.getApellido(),m.getDni(),m.getTelefono(),m.isActivo()});
+            model.addRow(new Object[]{m.getIdMesero(),m.getNombre(),m.getApellido(),m.getDni(),m.getTelefono(),(m.isActivo() ? "Si" : "No")});
         }        
     }
     

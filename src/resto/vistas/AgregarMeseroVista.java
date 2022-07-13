@@ -1,27 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package resto.vistas;
 
 import java.awt.Color;
 import java.awt.Window;
 import javax.swing.SwingUtilities;
-import javax.swing.table.DefaultTableModel;
 import resto.dao.Conexion;
 
-/**
- *
- * @author UltrabookSamsung
- */
 public class AgregarMeseroVista extends javax.swing.JPanel {
 
-    /**
-     * Creates new form MesasAsignadasVista
-     */
+        private Conexion con;
+    
     public AgregarMeseroVista() {
         initComponents();
+        
+        con = new Conexion();
     }
 
     /**
@@ -208,7 +199,7 @@ public class AgregarMeseroVista extends javax.swing.JPanel {
             .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-    private Conexion con;
+
     private void jlFlechaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlFlechaMouseClicked
         MeseroVista mv = new MeseroVista( con);
         

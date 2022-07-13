@@ -103,7 +103,7 @@
                     <Column editable="true" title="Apellido" type="java.lang.Object"/>
                     <Column editable="true" title="DNI" type="java.lang.Object"/>
                     <Column editable="true" title="Telefono" type="java.lang.Object"/>
-                    <Column editable="true" title="Activo" type="java.lang.Boolean"/>
+                    <Column editable="true" title="Activo" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -168,6 +168,7 @@
             </Property>
           </Properties>
           <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jbtnAgregarMouseClicked"/>
             <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jbtnAgregarMouseEntered"/>
             <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jbtnAgregarMouseExited"/>
           </Events>
