@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import resto.dao.*;
@@ -16,7 +17,7 @@ import resto.entidades.Pedido;
 
 public class PedidosVista extends javax.swing.JPanel {
 
-  private boolean botonDetalleDesactivado;
+  boolean quiereDesactivados = false;
 
   private Conexion con;
   private PedidoData pedData;
@@ -34,11 +35,9 @@ public class PedidosVista extends javax.swing.JPanel {
     
     tablaPedidos.arreglarTabla(jScrollPane1);
 
-    cargarDatos(false);
+    cargarDatos(quiereDesactivados);
     
-    disableButton(btnDetalle, lblDetalle);
-    disableButton(btnModificar, lblModificar);
-    disableButton(btnCobrar, lblCobrar);
+    disableAll();
   }
 
   @SuppressWarnings("unchecked")
@@ -191,6 +190,9 @@ public class PedidosVista extends javax.swing.JPanel {
       public void mouseExited(java.awt.event.MouseEvent evt) {
         btnCobrarMouseExited(evt);
       }
+      public void mousePressed(java.awt.event.MouseEvent evt) {
+        btnCobrarMousePressed(evt);
+      }
     });
 
     lblCobrar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
@@ -309,14 +311,34 @@ public class PedidosVista extends javax.swing.JPanel {
   }//GEN-LAST:event_btnDetalleMouseExited
 
   private void btnCobrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCobrarMouseEntered
-    if (tablaPedidos.getSelectedRows().length == 1) {
-      btnCobrar.setBackground(Color.decode("#D9B18E"));
+    Pedido pedidoSeleccionada = null;
+
+    try {
+      pedidoSeleccionada = pedidos.get(tablaPedidos.getSelectedRow());
+
+      if (tablaPedidos.getSelectedRows().length == 1 && !pedidoSeleccionada.isPagado()) {
+        btnCobrar.setBackground(Color.decode("#D9B18E"));
+      }
+    } catch (ArrayIndexOutOfBoundsException ex) {
+      if (tablaPedidos.getSelectedRows().length == 1) {
+        btnCobrar.setBackground(Color.decode("#D9B18E"));
+      }
     }
   }//GEN-LAST:event_btnCobrarMouseEntered
 
   private void btnCobrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCobrarMouseExited
-    if (tablaPedidos.getSelectedRows().length == 1) {
-      btnCobrar.setBackground(Color.decode("#F1CFB2"));
+    Pedido pedidoSeleccionada = null;
+
+    try {
+      pedidoSeleccionada = pedidos.get(tablaPedidos.getSelectedRow());
+
+      if (tablaPedidos.getSelectedRows().length == 1 && !pedidoSeleccionada.isPagado()) {
+        btnCobrar.setBackground(Color.decode("#F1CFB2"));
+      }
+    } catch (ArrayIndexOutOfBoundsException ex) {
+      if (tablaPedidos.getSelectedRows().length == 1) {
+        btnCobrar.setBackground(Color.decode("#F1CFB2"));
+      }
     }
   }//GEN-LAST:event_btnCobrarMouseExited
 
@@ -338,36 +360,65 @@ public class PedidosVista extends javax.swing.JPanel {
   }//GEN-LAST:event_btnDetalleMousePressed
 
   private void checkboxInactivosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkboxInactivosMousePressed
-    if (checkboxInactivos.isSelected()) {
-      cargarDatos(false);
-    } else {
-      cargarDatos(true);
-    }
+
+    quiereDesactivados = !checkboxInactivos.isSelected();
+
+    cargarDatos(quiereDesactivados);
+
   }//GEN-LAST:event_checkboxInactivosMousePressed
 
   private void tablaPedidosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPedidosMousePressed
     if (tablaPedidos.getSelectedRows().length == 1) {
-      enableButton(btnDetalle, lblDetalle);
-      enableButton(btnModificar, lblModificar);
-      enableButton(btnCobrar, lblCobrar);
+      enableAll();
     } else {
-      disableButton(btnDetalle, lblDetalle);
-      disableButton(btnModificar, lblModificar);
-      disableButton(btnCobrar, lblCobrar);
+      disableAll();
+    }
+
+    Pedido pedidoSeleccionada = null;
+
+    try {
+      pedidoSeleccionada = pedidos.get(tablaPedidos.getSelectedRow());
+
+      if (pedidoSeleccionada.isPagado()) {
+        disableButton(btnCobrar, lblCobrar);
+      }
+    } catch (ArrayIndexOutOfBoundsException ex) {
     }
   }//GEN-LAST:event_tablaPedidosMousePressed
 
   private void tablaPedidosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPedidosMouseReleased
     if (tablaPedidos.getSelectedRows().length == 1) {
-      enableButton(btnDetalle, lblDetalle);
-      enableButton(btnModificar, lblModificar);
-      enableButton(btnCobrar, lblCobrar);
+      enableAll();
     } else {
-      disableButton(btnDetalle, lblDetalle);
-      disableButton(btnModificar, lblModificar);
-      disableButton(btnCobrar, lblCobrar);
+      disableAll();
+    }
+
+    Pedido pedidoSeleccionada = null;
+
+    try {
+      pedidoSeleccionada = pedidos.get(tablaPedidos.getSelectedRow());
+
+      if (pedidoSeleccionada.isPagado()) {
+        disableButton(btnCobrar, lblCobrar);
+      }
+    } catch (ArrayIndexOutOfBoundsException ex) {
     }
   }//GEN-LAST:event_tablaPedidosMouseReleased
+
+  private void btnCobrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCobrarMousePressed
+    
+    Pedido pedidoSeleccionada = pedidos.get(tablaPedidos.getSelectedRow());
+    
+    if (tablaPedidos.getSelectedRows().length != 1 || pedidoSeleccionada.isPagado()) {
+      return;
+    }
+    
+    int idPedidoSeleccionada = pedidos.get(tablaPedidos.getSelectedRow()).getIdPedido();
+    
+    pedData.cobrarPedido(idPedidoSeleccionada);
+    
+    cargarDatos(quiereDesactivados);
+  }//GEN-LAST:event_btnCobrarMousePressed
 
   private void cargarDatos(boolean conDesactivos) {
     
@@ -406,18 +457,30 @@ public class PedidosVista extends javax.swing.JPanel {
       });
 
     });
+    
+    disableAll();
   }
   
   public void disableButton(JPanel panel, JLabel label) {
     panel.setBackground(Color.LIGHT_GRAY);
     label.setForeground(Color.GRAY);
-//    botonDetalleDesactivado = true;
   }
   
   public void enableButton(JPanel panel, JLabel label) {
     panel.setBackground(Color.decode("#F1CFB2"));
     label.setForeground(Color.decode("#723F32"));
-//    botonDetalleDesactivado = false;
+  }
+  
+  public void disableAll() {
+    disableButton(btnDetalle, lblDetalle);
+    disableButton(btnModificar, lblModificar);
+    disableButton(btnCobrar, lblCobrar);
+  }
+  
+  public void enableAll() {
+    enableButton(btnDetalle, lblDetalle);
+    enableButton(btnModificar, lblModificar);
+    enableButton(btnCobrar, lblCobrar);
   }
 
   // Variables declaration - do not modify//GEN-BEGIN:variables

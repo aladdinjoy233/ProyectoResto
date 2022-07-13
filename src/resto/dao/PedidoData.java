@@ -175,4 +175,29 @@ public class PedidoData {
 
     return total;
   }
+
+  public boolean cobrarPedido(int id) {
+    boolean cobrado = false;
+
+    String sql = "UPDATE pedido SET pagado = 1 WHERE idPedido = ?";
+
+    try {
+
+      PreparedStatement ps = con.prepareStatement(sql);
+
+      ps.setInt(1, id);
+
+      if (ps.executeUpdate() != 0) {
+        cobrado = true;
+        JOptionPane.showMessageDialog(null, "El pedido fue cobrado con exito");
+      }
+
+      ps.close();
+
+    } catch (SQLException ex) {
+      JOptionPane.showMessageDialog(null, "Error al cobrar pedido " + ex);
+    }
+
+    return cobrado;
+  }
 }
