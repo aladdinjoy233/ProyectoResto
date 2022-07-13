@@ -21,6 +21,9 @@ public class ProductoData {
     public ProductoData(Conexion conexion) {
         con = conexion.getConexion();
     }
+
+    public ProductoData() {
+    }
     
     //Metodos
     public boolean existeProducto(Producto producto){

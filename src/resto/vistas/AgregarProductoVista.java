@@ -7,18 +7,23 @@ package resto.vistas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import javax.swing.JOptionPane;
+import resto.dao.Conexion;
+import resto.dao.ProductoData;
+import resto.entidades.Producto;
 
 /**
  *
  * @author Valeria
  */
 public class AgregarProductoVista extends javax.swing.JPanel {
-
-    /**
-     * Creates new form AgregarProductoVista
-     */
+    private Conexion con;
+    private ProductoData pd;
+    
     public AgregarProductoVista() {
         initComponents();
+        con = new Conexion();
+        pd = new ProductoData(con);
     }
 
     /**
@@ -35,15 +40,15 @@ public class AgregarProductoVista extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jtNombre = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jtPrecio = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jcbCategoria = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
+        jsStock = new javax.swing.JSpinner();
         jLabel6 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        jchActivo = new javax.swing.JCheckBox();
         jpFondoAgregar2 = new javax.swing.JPanel();
         jbAgregar2 = new javax.swing.JLabel();
 
@@ -71,36 +76,58 @@ public class AgregarProductoVista extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
         jLabel2.setText("Nombre");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtNombreFocusLost(evt);
+            }
+        });
+        jtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jtNombreActionPerformed(evt);
             }
         });
 
         jLabel4.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
         jLabel4.setText("Precio");
 
+        jtPrecio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtPrecioFocusLost(evt);
+            }
+        });
+
         jLabel5.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
         jLabel5.setText("Categoría");
 
-        jComboBox2.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        jComboBox2.setBorder(null);
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        jcbCategoria.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jcbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comidas", "Bebidas" }));
+        jcbCategoria.setSelectedIndex(-1);
+        jcbCategoria.setToolTipText("");
+        jcbCategoria.setBorder(null);
+        jcbCategoria.setName(""); // NOI18N
+        jcbCategoria.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbCategoriaFocusLost(evt);
+            }
+        });
+        jcbCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                jcbCategoriaActionPerformed(evt);
             }
         });
 
         jLabel3.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
         jLabel3.setText("Stock");
 
+        jsStock.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
         jLabel6.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
         jLabel6.setText("Activo");
 
-        jCheckBox1.setPreferredSize(new java.awt.Dimension(30, 30));
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        jchActivo.setPreferredSize(new java.awt.Dimension(30, 30));
+        jchActivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                jchActivoActionPerformed(evt);
             }
         });
 
@@ -109,8 +136,12 @@ public class AgregarProductoVista extends javax.swing.JPanel {
         jbAgregar2.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         jbAgregar2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jbAgregar2.setText("Agregar");
+        jbAgregar2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbAgregar2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jbAgregar2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbAgregar2MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jbAgregar2MouseEntered(evt);
             }
@@ -123,9 +154,7 @@ public class AgregarProductoVista extends javax.swing.JPanel {
         jpFondoAgregar2.setLayout(jpFondoAgregar2Layout);
         jpFondoAgregar2Layout.setHorizontalGroup(
             jpFondoAgregar2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpFondoAgregar2Layout.createSequentialGroup()
-                .addComponent(jbAgregar2, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jbAgregar2, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
         );
         jpFondoAgregar2Layout.setVerticalGroup(
             jpFondoAgregar2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,21 +176,21 @@ public class AgregarProductoVista extends javax.swing.JPanel {
                     .addGroup(escritorioLayout.createSequentialGroup()
                         .addGap(195, 195, 195)
                         .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
                             .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(escritorioLayout.createSequentialGroup()
                                     .addComponent(jLabel3)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jsStock, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel6)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jchActivo, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jcbCategoria, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(escritorioLayout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(jbVolver))
@@ -182,22 +211,22 @@ public class AgregarProductoVista extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addGap(9, 9, 9)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jcbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3)
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jsStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel6))
-                    .addComponent(jCheckBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jchActivo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jpFondoAgregar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52))
@@ -215,9 +244,9 @@ public class AgregarProductoVista extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jtNombreActionPerformed
 
     private void jbAgregar2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbAgregar2MouseEntered
         jpFondoAgregar2.setBackground(Color.decode("#D9B18E"));
@@ -228,7 +257,7 @@ public class AgregarProductoVista extends javax.swing.JPanel {
     }//GEN-LAST:event_jbAgregar2MouseExited
 
     private void jbVolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbVolverMouseClicked
-        ProductoVista prv = new ProductoVista();
+        ProductoVista prv = new ProductoVista(con);
         
         prv.setSize(780, 530);
         prv.setLocation(0, 0);
@@ -239,19 +268,95 @@ public class AgregarProductoVista extends javax.swing.JPanel {
         escritorio.repaint();
     }//GEN-LAST:event_jbVolverMouseClicked
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+    private void jcbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCategoriaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
+    }//GEN-LAST:event_jcbCategoriaActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void jchActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchActivoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_jchActivoActionPerformed
 
+    private void jtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtNombreFocusLost
+
+    }//GEN-LAST:event_jtNombreFocusLost
+
+    private void jtPrecioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtPrecioFocusLost
+      
+        
+    }//GEN-LAST:event_jtPrecioFocusLost
+
+    private void jbAgregar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbAgregar2MouseClicked
+        Producto p = new Producto();
+        String comest = "";
+        int com;
+        boolean insertar = true;
+   
+        if(jcbCategoria.getSelectedIndex()==-1){
+            JOptionPane.showMessageDialog(this, "Debe elegir una categoria para el producto.");
+            jcbCategoria.requestFocus();
+            insertar = false;   
+        }
+  
+        try{
+            String pre = jtPrecio.getText();
+            double precio = Double.parseDouble(pre);
+        }catch(NumberFormatException ex){
+           JOptionPane.showMessageDialog(this, "Debe ingresar un precio válido para el producto.");
+           jtPrecio.requestFocus();
+           insertar = false;
+        }
+        
+        if(jtNombre.getText().length()==0){
+            JOptionPane.showMessageDialog(this, "Debe ingresar un nombre para el producto.");
+            jtNombre.requestFocus();
+            insertar = false;
+        }
+
+        
+        if(insertar){
+            p.setNombre(jtNombre.getText());
+            p.setPrecio(Double.parseDouble(jtPrecio.getText()));
+
+            com = jcbCategoria.getSelectedIndex();
+            if(com == -1){
+                JOptionPane.showMessageDialog(this, "Debe seleccionar una categoria para el producto.");
+            }
+
+            comest = jcbCategoria.getSelectedItem().toString();    
+            if(comest.equals("Comidas")){
+                p.setComestible(true);
+            }else{
+                p.setComestible(false);
+            }
+
+            p.setStock((Integer)jsStock.getValue());
+            p.setActivo(jchActivo.isSelected());
+
+            pd.agregarProducto(p);
+            JOptionPane.showMessageDialog(this, "Producto agregado exitosamente.");
+            limpiarCampos(); 
+        }
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_jbAgregar2MouseClicked
+
+    private void jcbCategoriaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbCategoriaFocusLost
+        
+    }//GEN-LAST:event_jcbCategoriaFocusLost
+
+    private void limpiarCampos(){
+        jtNombre.setText("");
+        jtPrecio.setText("");
+        jcbCategoria.setSelectedIndex(-1);
+        jsStock.setValue(0);
+        jchActivo.setSelected(false);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel escritorio;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -259,11 +364,13 @@ public class AgregarProductoVista extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel jbAgregar2;
     private javax.swing.JLabel jbVolver;
+    private javax.swing.JComboBox<String> jcbCategoria;
+    private javax.swing.JCheckBox jchActivo;
     private javax.swing.JPanel jpFondoAgregar2;
+    private javax.swing.JSpinner jsStock;
+    private javax.swing.JTextField jtNombre;
+    private javax.swing.JTextField jtPrecio;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,6 +7,7 @@ package resto.vistas;
 
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import resto.dao.Conexion;
 
 /**
  *
@@ -17,7 +18,7 @@ public class ProductoVista extends javax.swing.JPanel {
     /**
      * Creates new form ProductoVista
      */
-    public ProductoVista() {
+    public ProductoVista(Conexion con) {
         initComponents();
         tablaProductos.arreglarTabla(jScrollPane2);
     }
@@ -43,11 +44,12 @@ public class ProductoVista extends javax.swing.JPanel {
         jpFondoBorrar = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        checkboxPersonalizada1 = new resto.componentes.CheckboxPersonalizada();
 
         setPreferredSize(new java.awt.Dimension(780, 530));
 
         escritorio.setBackground(new java.awt.Color(240, 239, 239));
+        escritorio.setEnabled(false);
 
         tablaProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -92,10 +94,12 @@ public class ProductoVista extends javax.swing.JPanel {
         );
 
         jpFondoActualizar.setBackground(new java.awt.Color(241, 207, 178));
+        jpFondoActualizar.setEnabled(false);
 
         jLabel2.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Actualizar Producto");
+        jLabel2.setEnabled(false);
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabel2MouseEntered(evt);
@@ -117,10 +121,12 @@ public class ProductoVista extends javax.swing.JPanel {
         );
 
         jpFondoBorrar.setBackground(new java.awt.Color(241, 207, 178));
+        jpFondoBorrar.setEnabled(false);
 
         jLabel3.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Borrar Producto");
+        jLabel3.setEnabled(false);
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabel3MouseEntered(evt);
@@ -145,38 +151,44 @@ public class ProductoVista extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(114, 63, 50));
         jLabel4.setText("Productos");
 
-        jCheckBox1.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
-        jCheckBox1.setText("Ver productos inactivos");
+        checkboxPersonalizada1.setText("Ver productos inactivos");
+        checkboxPersonalizada1.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        checkboxPersonalizada1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkboxPersonalizada1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(escritorioLayout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(escritorioLayout.createSequentialGroup()
-                        .addComponent(jpFondoAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jpFondoActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jpFondoBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(38, 38, 38)
+                        .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(escritorioLayout.createSequentialGroup()
+                                .addComponent(jpFondoAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jpFondoActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jpFondoBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(escritorioLayout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(checkboxPersonalizada1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(47, Short.MAX_VALUE))
-            .addGroup(escritorioLayout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jCheckBox1)
-                .addGap(55, 55, 55))
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(escritorioLayout.createSequentialGroup()
                 .addGap(67, 67, 67)
                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(checkboxPersonalizada1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
@@ -200,7 +212,7 @@ public class ProductoVista extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbAgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbAgregarMouseEntered
-        jpFondoAgregar.setBackground(Color.decode("#D9B18E"));
+       jpFondoAgregar.setBackground(Color.decode("#D9B18E"));
         
     }//GEN-LAST:event_jbAgregarMouseEntered
 
@@ -210,21 +222,31 @@ public class ProductoVista extends javax.swing.JPanel {
     }//GEN-LAST:event_jbAgregarMouseExited
 
     private void jLabel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseEntered
-       jpFondoActualizar.setBackground(Color.decode("#D9B18E"));
+        if(jpFondoActualizar.isEnabled()){
+            jpFondoActualizar.setBackground(Color.decode("#D9B18E"));
+        }
+        
        
     }//GEN-LAST:event_jLabel2MouseEntered
 
     private void jLabel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseExited
-       jpFondoActualizar.setBackground(Color.decode("#F1CFB2"));
-       
+        if(jpFondoActualizar.isEnabled()){
+            jpFondoActualizar.setBackground(Color.decode("#F1CFB2"));
+        }
     }//GEN-LAST:event_jLabel2MouseExited
 
     private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
-        jpFondoBorrar.setBackground(Color.decode("#D9B18E"));
+        if(jpFondoBorrar.isEnabled()){
+            jpFondoBorrar.setBackground(Color.decode("#D9B18E"));
+        }
+        
     }//GEN-LAST:event_jLabel3MouseEntered
 
     private void jLabel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseExited
-        jpFondoBorrar.setBackground(Color.decode("#F1CFB2"));
+         if(jpFondoBorrar.isEnabled()){
+            jpFondoBorrar.setBackground(Color.decode("#F1CFB2"));
+        }
+        
     }//GEN-LAST:event_jLabel3MouseExited
 
     private void jbAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbAgregarMouseClicked
@@ -238,12 +260,16 @@ public class ProductoVista extends javax.swing.JPanel {
         escritorio.revalidate();
         escritorio.repaint();
     }//GEN-LAST:event_jbAgregarMouseClicked
+
+    private void checkboxPersonalizada1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxPersonalizada1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkboxPersonalizada1ActionPerformed
                                    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private resto.componentes.CheckboxPersonalizada checkboxPersonalizada1;
     private javax.swing.JPanel escritorio;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

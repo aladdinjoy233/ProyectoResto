@@ -704,7 +704,7 @@ public class Menu extends javax.swing.JFrame {
   private void tabProductosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabProductosMousePressed
     setearSeleccionado(tabProductos);
 
-    ProductoVista prv = new ProductoVista();
+    ProductoVista prv = new ProductoVista(con);
     prv.setSize(780, 530);
     prv.setLocation(0, 0);
 
