@@ -122,6 +122,7 @@ public class MesaData {
 
       if (ps.executeUpdate() != 0) {
         result = true;
+        JOptionPane.showMessageDialog(null, "La Mesa se a Borrado. ");
       }
 
       ps.close();
