@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import resto.dao.Conexion;
 import resto.dao.MeseroData;
@@ -52,15 +53,22 @@ public class MeseroVista extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Nombre", "Apellido", "DNI", "Telefono", "Activo"
+                "ID", "Nombre", "Apellido", "DNI", "Telefono", "Activo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(tablaPersonalizada1);
@@ -109,6 +117,9 @@ public class MeseroVista extends javax.swing.JPanel {
         jbtnActualizar.setBackground(new java.awt.Color(241, 207, 178));
         jbtnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtnActualizarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jbtnActualizarMouseEntered(evt);
             }
@@ -252,6 +263,64 @@ public class MeseroVista extends javax.swing.JPanel {
         botonInactivos();
     }//GEN-LAST:event_jcbInactivosActionPerformed
 
+    private void jbtnActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnActualizarMouseClicked
+        
+        boolean meserosModificados = false;
+        
+        for(int i = 0; i < model.getRowCount(); i++){
+                
+            Mesero m = new Mesero();
+            
+            try{
+            m.setIdMesero((Integer) model.getValueAt(i, 0));
+            m.setNombre((String) model.getValueAt(i, 1));
+            m.setApellido((String) model.getValueAt(i, 2));
+            m.setDni((Long) model.getValueAt(i, 3));
+            m.setTelefono((Long) model.getValueAt(i, 4));
+            m.setActivo((boolean) model.getValueAt(i, 5));
+            
+            if(m.getNombre().trim().isEmpty()|| m.getApellido().trim().isEmpty()){ //valido que el nombre y el apellido no esten en blanco
+                meserosModificados = false;
+                JOptionPane.showMessageDialog(this, "Error! Dato/s no ingresado/s en fila " + (i + 1));
+                
+                if(i > 0){ //si no hubo errores antes aviso que se modificaron esos datos
+                    JOptionPane.showMessageDialog(this, "Se actualizaran solo los datos anteriores a la fila " + (i + 1));
+                }
+                
+                break;
+            }
+            
+            if(md.modificarMesero(m)){
+                meserosModificados = true;
+            } 
+            
+            } catch(java.lang.ClassCastException e){ //valido numeros y que no esten en blanco
+                meserosModificados = false;
+                JOptionPane.showMessageDialog(this, "Error! Dato ingresado no valido en fila " + (i + 1));
+                
+                if(i > 0){ //si no hubo errores antes aviso que se modificaron esos datos
+                    JOptionPane.showMessageDialog(this, "Se actualizaran solo los datos anteriores a la fila " + (i + 1));
+                }
+                
+                break;
+            } 
+            
+                           
+        }
+        
+        if(meserosModificados){
+            JOptionPane.showMessageDialog(this, "Mesero/s actualizado/s con exito");
+        }
+        
+        
+        if(jcbInactivos.isSelected()){ //si se produjo algun error la tabla vuelve a la normalidad, sino se actualiza
+            verTodosMeseros();
+        } else{
+            verMeserosActivos();
+        }
+                
+    }//GEN-LAST:event_jbtnActualizarMouseClicked
+
     private void borrarFilas(){
         int a = model.getRowCount() - 1;
         
@@ -273,7 +342,7 @@ public class MeseroVista extends javax.swing.JPanel {
         });
         
         for(Mesero m : lista){
-            model.addRow(new Object[]{m.getNombre(),m.getApellido(),m.getDni(),m.getTelefono(),m.isActivo()});
+            model.addRow(new Object[]{m.getIdMesero(),m.getNombre(),m.getApellido(),m.getDni(),m.getTelefono(),m.isActivo()});
         }
         
     }
@@ -291,7 +360,7 @@ public class MeseroVista extends javax.swing.JPanel {
         });
         
         for(Mesero m : lista){
-            model.addRow(new Object[]{m.getNombre(),m.getApellido(),m.getDni(),m.getTelefono(),m.isActivo()});
+            model.addRow(new Object[]{m.getIdMesero(),m.getNombre(),m.getApellido(),m.getDni(),m.getTelefono(),m.isActivo()});
         }        
     }
     
