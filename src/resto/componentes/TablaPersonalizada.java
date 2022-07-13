@@ -21,6 +21,7 @@ public class TablaPersonalizada extends JTable {
     setRowHeight(25);
     setBackground(Color.decode("#F0EFEF"));
     setSelectionBackground(Color.decode("#F1CFB2"));
+    getTableHeader().setReorderingAllowed(false);
   }
 
   public void arreglarTabla(JScrollPane scroll) {

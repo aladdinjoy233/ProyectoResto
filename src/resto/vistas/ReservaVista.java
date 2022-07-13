@@ -30,7 +30,6 @@ public class ReservaVista extends javax.swing.JPanel {
         jTable.arreglarTabla(jScrollPane1);
         modelo = (DefaultTableModel) jTable.getModel();
         verActivas();
-        jTable.getTableHeader().setReorderingAllowed(false);
     }
 
     //funcionalidades
