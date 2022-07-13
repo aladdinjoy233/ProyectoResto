@@ -124,13 +124,15 @@ public class ProductoData {
         return producto;
     }
     
-    public ArrayList<Producto> obtenerProductos(){
+    public ArrayList<Producto> obtenerProductos(boolean activo){
         ArrayList<Producto> productos = new ArrayList<>();
         
-        String sql = "SELECT * FROM producto WHERE activo = 1;";
+        String sql = "SELECT * FROM producto WHERE activo = ?;";
         
         try{
             PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setBoolean(1, activo);
             
             ResultSet rs = ps.executeQuery();
             

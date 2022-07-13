@@ -6,8 +6,12 @@
 package resto.vistas;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import resto.dao.Conexion;
+import resto.dao.ProductoData;
+import resto.entidades.Producto;
 
 /**
  *
@@ -15,12 +19,17 @@ import resto.dao.Conexion;
  */
 public class ProductoVista extends javax.swing.JPanel {
 
-    /**
-     * Creates new form ProductoVista
-     */
+    private ProductoData pd;
+    private DefaultTableModel modelo;
+    
     public ProductoVista(Conexion con) {
         initComponents();
-        tablaProductos.arreglarTabla(jScrollPane2);
+        
+        pd  = new ProductoData(con);
+        jtProductos.arreglarTabla(jScrollPane2);
+        modelo = new DefaultTableModel();
+        armarCabecera();
+        mostrarProductos();
     }
 
     /**
@@ -36,7 +45,7 @@ public class ProductoVista extends javax.swing.JPanel {
         jPopupMenu2 = new javax.swing.JPopupMenu();
         escritorio = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tablaProductos = new resto.componentes.TablaPersonalizada();
+        jtProductos = new resto.componentes.TablaPersonalizada();
         jpFondoAgregar = new javax.swing.JPanel();
         jbAgregar = new javax.swing.JLabel();
         jpFondoActualizar = new javax.swing.JPanel();
@@ -44,14 +53,14 @@ public class ProductoVista extends javax.swing.JPanel {
         jpFondoBorrar = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        checkboxPersonalizada1 = new resto.componentes.CheckboxPersonalizada();
+        jchActivo = new resto.componentes.CheckboxPersonalizada();
 
         setPreferredSize(new java.awt.Dimension(780, 530));
 
         escritorio.setBackground(new java.awt.Color(240, 239, 239));
         escritorio.setEnabled(false);
 
-        tablaProductos.setModel(new javax.swing.table.DefaultTableModel(
+        jtProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -62,7 +71,7 @@ public class ProductoVista extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(tablaProductos);
+        jScrollPane2.setViewportView(jtProductos);
 
         jpFondoAgregar.setBackground(new java.awt.Color(241, 207, 178));
 
@@ -151,11 +160,11 @@ public class ProductoVista extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(114, 63, 50));
         jLabel4.setText("Productos");
 
-        checkboxPersonalizada1.setText("Ver productos inactivos");
-        checkboxPersonalizada1.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
-        checkboxPersonalizada1.addActionListener(new java.awt.event.ActionListener() {
+        jchActivo.setText("Ver productos inactivos");
+        jchActivo.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jchActivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkboxPersonalizada1ActionPerformed(evt);
+                jchActivoActionPerformed(evt);
             }
         });
 
@@ -179,7 +188,7 @@ public class ProductoVista extends javax.swing.JPanel {
                         .addGap(46, 46, 46)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(checkboxPersonalizada1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jchActivo, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         escritorioLayout.setVerticalGroup(
@@ -188,7 +197,7 @@ public class ProductoVista extends javax.swing.JPanel {
                 .addGap(67, 67, 67)
                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(checkboxPersonalizada1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jchActivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
@@ -261,14 +270,52 @@ public class ProductoVista extends javax.swing.JPanel {
         escritorio.repaint();
     }//GEN-LAST:event_jbAgregarMouseClicked
 
-    private void checkboxPersonalizada1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxPersonalizada1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_checkboxPersonalizada1ActionPerformed
-                                   
+    private void jchActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchActivoActionPerformed
+        borrarFilas();
+        
+        ArrayList<Producto> listaProductos = pd.obtenerProductos(!jchActivo.isSelected());
+        
+        for (Producto p : listaProductos) {
+            modelo.addRow(new Object[] {p.getCodigo(),p.getNombre(),p.getStock(),p.getPrecio(),(p.isComestible()? "Comidas" : "Bebidas"),(p.isActivo() ? "Si" : "No")});
+        }
+    }//GEN-LAST:event_jchActivoActionPerformed
+     
+    private void armarCabecera(){
+        ArrayList<Object> columnas = new ArrayList<Object>();
+        
+        columnas.add("Código");
+        columnas.add("Nombre");
+        columnas.add("Stock");
+        columnas.add("Precio");
+        columnas.add("Categoría");
+        columnas.add("Activo");
+        
+        for (Object c : columnas) {
+            modelo.addColumn(c);
+        }
+        
+        jtProductos.setModel(modelo);
+    }
 
+    private void borrarFilas(){
+        int f = modelo.getRowCount()- 1;
+        
+        for (int i = f; i >= 0 ; i--) {
+            modelo.removeRow(i);
+        }
+    }
+    
+    private void mostrarProductos(){
+        borrarFilas();
+        
+        ArrayList<Producto> listaProductos = pd.obtenerProductos(!jchActivo.isSelected());
+        
+        for (Producto p : listaProductos) {
+            modelo.addRow(new Object[] {p.getCodigo(),p.getNombre(),p.getStock(),p.getPrecio(),(p.isComestible()? "Comidas" : "Bebidas"),(p.isActivo() ? "Si" : "No")});
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private resto.componentes.CheckboxPersonalizada checkboxPersonalizada1;
     private javax.swing.JPanel escritorio;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -277,9 +324,10 @@ public class ProductoVista extends javax.swing.JPanel {
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel jbAgregar;
+    private resto.componentes.CheckboxPersonalizada jchActivo;
     private javax.swing.JPanel jpFondoActualizar;
     private javax.swing.JPanel jpFondoAgregar;
     private javax.swing.JPanel jpFondoBorrar;
-    private resto.componentes.TablaPersonalizada tablaProductos;
+    private resto.componentes.TablaPersonalizada jtProductos;
     // End of variables declaration//GEN-END:variables
 }
