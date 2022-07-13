@@ -2,6 +2,8 @@ package resto.vistas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import resto.dao.*;
@@ -267,16 +269,19 @@ public class PedidosVista extends javax.swing.JPanel {
 
   private void cargarDatosInicial() {
     
+    NumberFormat formatter = new DecimalFormat("#0.00");
     ArrayList<Pedido> pedidos = pedData.obtenerPedidosActivos();
 
     pedidos.forEach(pedido -> {
+
+      double precio = pedData.obtenerSubtotalDelPedido(pedido.getIdPedido());
 
       model.addRow(new Object[]{
         pedido.getMesa().getNumMesa(),
         pedido.getFecha(),
         pedido.getHora(),
         pedido.isPagado() ? "Si" : "No",
-        pedData.obtenerSubtotalDelPedido(pedido.getIdPedido()),
+        ("$" + formatter.format(precio)),
         pedido.isActivo() ? "Si" : "No"
       });
 
