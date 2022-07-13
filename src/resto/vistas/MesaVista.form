@@ -51,7 +51,7 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jpFondoBorrar" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jScrollPane" min="-2" pref="695" max="-2" attributes="0"/>
+                      <Component id="jScrollPanel" min="-2" pref="695" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="47" max="32767" attributes="0"/>
               </Group>
@@ -73,7 +73,7 @@
                       <Component id="mVmesasInactivas" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jScrollPane" min="-2" pref="274" max="-2" attributes="0"/>
+                  <Component id="jScrollPanel" min="-2" pref="274" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jpFondoAgregar" max="32767" attributes="0"/>
@@ -86,7 +86,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane">
+        <Container class="javax.swing.JScrollPane" name="jScrollPanel">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>
@@ -200,6 +200,9 @@
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="Actualizar Mesa"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Cursor de Mano"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mVbtnActualizarMouseClicked"/>
@@ -238,6 +241,7 @@
                 <Property name="text" type="java.lang.String" value="Borrar Mesa"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mVbtnBorrarMouseClicked"/>
                 <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mVbtnBorrarMouseEntered"/>
                 <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mVbtnBorrarMouseExited"/>
               </Events>
