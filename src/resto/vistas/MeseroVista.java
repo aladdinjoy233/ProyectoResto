@@ -358,10 +358,10 @@ public class MeseroVista extends javax.swing.JPanel {
         
         ArrayList<Mesero> lista = md.obtenerMeseros();
         
-        Collections.sort(lista, new Comparator<Mesero>(){ //ordenar meseros por el nombre
+        Collections.sort(lista, new Comparator<Mesero>(){ //ordenar meseros por el apellido
             @Override
             public int compare(Mesero m, Mesero m1){
-                return m.getNombre().compareTo(m1.getNombre());
+                return m.getApellido().compareTo(m1.getApellido());
             }
         });
         
@@ -376,10 +376,10 @@ public class MeseroVista extends javax.swing.JPanel {
         
         ArrayList<Mesero> lista = md.obtenerTodosMeseros();
         
-        Collections.sort(lista, new Comparator<Mesero>(){ //ordenar meseros por el nombre
+        Collections.sort(lista, new Comparator<Mesero>(){ //ordenar meseros por el apellido
             @Override
             public int compare(Mesero m, Mesero m1){
-                return m.getNombre().compareTo(m1.getNombre());
+                return m.getApellido().compareTo(m1.getApellido());
             }
         });
         

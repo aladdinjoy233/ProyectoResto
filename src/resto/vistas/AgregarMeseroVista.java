@@ -2,17 +2,22 @@ package resto.vistas;
 
 import java.awt.Color;
 import java.awt.Window;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import resto.dao.Conexion;
+import resto.dao.MeseroData;
+import resto.entidades.Mesero;
 
 public class AgregarMeseroVista extends javax.swing.JPanel {
 
-        private Conexion con;
+    private Conexion con;
+    private MeseroData md;
     
     public AgregarMeseroVista() {
         initComponents();
         
         con = new Conexion();
+        md = new MeseroData(con);
     }
 
     /**
@@ -37,7 +42,7 @@ public class AgregarMeseroVista extends javax.swing.JPanel {
         jtTelefono = new javax.swing.JTextField();
         jcbActivo = new resto.componentes.CheckboxPersonalizada();
         jbtnAgregar = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(780, 530));
 
@@ -95,6 +100,9 @@ public class AgregarMeseroVista extends javax.swing.JPanel {
         jbtnAgregar.setBackground(new java.awt.Color(241, 207, 178));
         jbtnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtnAgregarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jbtnAgregarMouseEntered(evt);
             }
@@ -103,21 +111,20 @@ public class AgregarMeseroVista extends javax.swing.JPanel {
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Dialog", 3, 13)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(114, 63, 50));
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Agregar");
-        jLabel7.setToolTipText("");
+        jLabel2.setFont(new java.awt.Font("Dialog", 3, 13)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(114, 63, 50));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Agregar");
 
         javax.swing.GroupLayout jbtnAgregarLayout = new javax.swing.GroupLayout(jbtnAgregar);
         jbtnAgregar.setLayout(jbtnAgregarLayout);
         jbtnAgregarLayout.setHorizontalGroup(
             jbtnAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
         );
         jbtnAgregarLayout.setVerticalGroup(
             jbtnAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
@@ -154,9 +161,9 @@ public class AgregarMeseroVista extends javax.swing.JPanel {
                                 .addGap(261, 261, 261)))))
                 .addGap(240, 240, 240))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jbtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(111, 111, 111))
+                .addGap(95, 95, 95))
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,9 +190,9 @@ public class AgregarMeseroVista extends javax.swing.JPanel {
                 .addComponent(jtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jcbActivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 5, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -212,6 +219,39 @@ public class AgregarMeseroVista extends javax.swing.JPanel {
         escritorio.repaint();
     }//GEN-LAST:event_jlFlechaMouseClicked
 
+    private void jtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtApellidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtApellidoActionPerformed
+
+    private void jbtnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnAgregarMouseClicked
+        try{
+            String nombre = jtNombre.getText();
+            String apellido = jtApellido.getText();
+            long dni = Long.parseLong(jtDNI.getText());
+            long telefono = Long.parseLong(jtTelefono.getText());
+            boolean activo = false;            
+            if(jcbActivo.isSelected()){
+                activo = true;
+            }
+            
+            if(nombre.trim().equals("") || apellido.trim().equals("")){ //verifico que nombre y apellido no esten vacios
+                JOptionPane.showMessageDialog(this, "Nombre y apellido no pueden estar en blanco");                
+            } else{            // si no lo estan agrego el nuevo mesero
+                Mesero m = new Mesero(nombre,apellido,dni,telefono,activo);
+            
+                if(md.agregarMesero(m)){
+                    JOptionPane.showMessageDialog(this, "Mesero agregado exitosamente");
+                    limpiarCampos();
+                }
+            
+            }
+            
+            
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Error! Debe ingresar un numero");
+        }
+    }//GEN-LAST:event_jbtnAgregarMouseClicked
+
     private void jbtnAgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnAgregarMouseEntered
         jbtnAgregar.setBackground(Color.decode("#D9B18E"));
     }//GEN-LAST:event_jbtnAgregarMouseEntered
@@ -220,19 +260,24 @@ public class AgregarMeseroVista extends javax.swing.JPanel {
         jbtnAgregar.setBackground(Color.decode("#F1CFB2"));
     }//GEN-LAST:event_jbtnAgregarMouseExited
 
-    private void jtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtApellidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtApellidoActionPerformed
-
+    private void limpiarCampos(){
+        
+        jtNombre.setText("");
+        jtApellido.setText("");
+        jtDNI.setText("");
+        jtTelefono.setText("");
+        jcbActivo.setEnabled(false);
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel escritorio;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jbtnAgregar;
     private resto.componentes.CheckboxPersonalizada jcbActivo;
     private javax.swing.JLabel jlFlecha;
