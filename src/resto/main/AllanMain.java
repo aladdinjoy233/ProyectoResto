@@ -10,7 +10,7 @@ public class AllanMain {
     PedidoData pd = new PedidoData(con);
     DetalleData dd = new DetalleData(con);
 
-    System.out.println(pd.obtenerSubtotalDelPedido(1));
+    System.out.println(dd.obtenerDetallesDePedido(1));
 
   }
 

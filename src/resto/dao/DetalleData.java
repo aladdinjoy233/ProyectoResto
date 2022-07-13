@@ -58,4 +58,46 @@ public class DetalleData {
 
     return detalle;
   }
+
+  public ArrayList<DetalleDelPedido> obtenerDetallesDePedido(int idPedido) {
+    ArrayList<DetalleDelPedido> detalles = new ArrayList<>();
+
+    String sql = "SELECT * FROM detalle WHERE idPedido = ? AND activo = 1";
+
+    try {
+
+      PreparedStatement ps = con.prepareStatement(sql);
+
+      ps.setInt(1, idPedido);
+
+      ResultSet rs = ps.executeQuery();
+
+      DetalleDelPedido detalle;
+
+      while (rs.next()) {
+        detalle = new DetalleDelPedido();
+
+        detalle.setIdDetalle(rs.getInt("idDetalle"));
+
+        Producto prod = productoData.obtenerProducto(rs.getInt("codigoProducto"));
+        detalle.setProducto(prod);
+
+        Pedido ped = pedidoData.obtenerPedido(rs.getInt("idPedido"));
+        detalle.setPedido(ped);
+
+        detalle.setCantidad(rs.getInt("cantidad"));
+
+        detalle.setActivo(rs.getBoolean("activo"));
+
+        detalles.add(detalle);
+      }
+
+      ps.close();
+
+    } catch (SQLException ex) {
+      JOptionPane.showMessageDialog(null, "Error al obtener detalles de un pedido " + ex);
+    }
+
+    return detalles;
+  }
 }

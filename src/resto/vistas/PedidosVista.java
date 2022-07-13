@@ -8,15 +8,20 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import resto.dao.*;
 import resto.entidades.Pedido;
 
 public class PedidosVista extends javax.swing.JPanel {
 
+  private boolean botonDetalleDesactivado;
+
   private Conexion con;
   private PedidoData pedData;
   private DefaultTableModel model;
+  private ArrayList<Pedido> pedidos;
 
   public PedidosVista(Conexion con) {
     initComponents();
@@ -30,6 +35,8 @@ public class PedidosVista extends javax.swing.JPanel {
     tablaPedidos.arreglarTabla(jScrollPane1);
 
     cargarDatos(false);
+    
+    disableButton(btnDetalle, lblDetalle);
   }
 
   @SuppressWarnings("unchecked")
@@ -76,6 +83,14 @@ public class PedidosVista extends javax.swing.JPanel {
       }
     });
     tablaPedidos.setPreferredSize(new java.awt.Dimension(290, 100));
+    tablaPedidos.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mousePressed(java.awt.event.MouseEvent evt) {
+        tablaPedidosMousePressed(evt);
+      }
+      public void mouseReleased(java.awt.event.MouseEvent evt) {
+        tablaPedidosMouseReleased(evt);
+      }
+    });
     jScrollPane1.setViewportView(tablaPedidos);
 
     btnAgregar.setBackground(new java.awt.Color(241, 207, 178));
@@ -276,11 +291,15 @@ public class PedidosVista extends javax.swing.JPanel {
   }//GEN-LAST:event_btnModificarMouseExited
 
   private void btnDetalleMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDetalleMouseEntered
-    btnDetalle.setBackground(Color.decode("#D9B18E"));
+    if (tablaPedidos.getSelectedRows().length == 1) {
+      btnDetalle.setBackground(Color.decode("#D9B18E"));
+    }
   }//GEN-LAST:event_btnDetalleMouseEntered
 
   private void btnDetalleMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDetalleMouseExited
-    btnDetalle.setBackground(Color.decode("#F1CFB2"));
+    if (tablaPedidos.getSelectedRows().length == 1) {
+      btnDetalle.setBackground(Color.decode("#F1CFB2"));
+    }
   }//GEN-LAST:event_btnDetalleMouseExited
 
   private void btnCobrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCobrarMouseEntered
@@ -292,7 +311,13 @@ public class PedidosVista extends javax.swing.JPanel {
   }//GEN-LAST:event_btnCobrarMouseExited
 
   private void btnDetalleMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDetalleMousePressed
-    DetallePedido dp = new DetallePedido(con);
+    if (tablaPedidos.getSelectedRows().length != 1) {
+      return;
+    }
+    
+    Pedido selectedPedido = pedidos.get(tablaPedidos.getSelectedRow());
+
+    DetallePedido dp = new DetallePedido(con, selectedPedido);
     dp.setSize(780, 530);
     dp.setLocation(0, 0);
     
@@ -310,6 +335,22 @@ public class PedidosVista extends javax.swing.JPanel {
     }
   }//GEN-LAST:event_checkboxInactivosMousePressed
 
+  private void tablaPedidosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPedidosMousePressed
+    if (tablaPedidos.getSelectedRows().length == 1) {
+      enableButton(btnDetalle, lblDetalle);
+    } else {
+      disableButton(btnDetalle, lblDetalle);
+    }
+  }//GEN-LAST:event_tablaPedidosMousePressed
+
+  private void tablaPedidosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPedidosMouseReleased
+    if (tablaPedidos.getSelectedRows().length == 1) {
+      enableButton(btnDetalle, lblDetalle);
+    } else {
+      disableButton(btnDetalle, lblDetalle);
+    }
+  }//GEN-LAST:event_tablaPedidosMouseReleased
+
   private void cargarDatos(boolean conDesactivos) {
     
     model.setRowCount(0);
@@ -317,7 +358,7 @@ public class PedidosVista extends javax.swing.JPanel {
     NumberFormat deciamlFormatter = new DecimalFormat("#0.00");
     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd - MM - yyyy");
     DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-     ArrayList<Pedido> pedidos = new ArrayList<>();
+    pedidos = new ArrayList<>();
 
     if (conDesactivos) {
       pedidos = pedData.obtenerPedidos();
@@ -347,6 +388,18 @@ public class PedidosVista extends javax.swing.JPanel {
       });
 
     });
+  }
+  
+  public void disableButton(JPanel panel, JLabel label) {
+    panel.setBackground(Color.LIGHT_GRAY);
+    label.setForeground(Color.GRAY);
+//    botonDetalleDesactivado = true;
+  }
+  
+  public void enableButton(JPanel panel, JLabel label) {
+    panel.setBackground(Color.decode("#F1CFB2"));
+    label.setForeground(Color.decode("#723F32"));
+//    botonDetalleDesactivado = false;
   }
 
   // Variables declaration - do not modify//GEN-BEGIN:variables

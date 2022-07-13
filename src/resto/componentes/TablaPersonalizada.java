@@ -10,6 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
 
 public class TablaPersonalizada extends JTable {
 
@@ -19,6 +20,7 @@ public class TablaPersonalizada extends JTable {
     setDefaultRenderer(Object.class, new TablePersonalizadaCelda());
     setRowHeight(25);
     setBackground(Color.decode("#F0EFEF"));
+    setSelectionBackground(Color.decode("#F1CFB2"));
   }
 
   public void arreglarTabla(JScrollPane scroll) {
@@ -74,5 +76,4 @@ public class TablaPersonalizada extends JTable {
     }
 
   }
-
 }
