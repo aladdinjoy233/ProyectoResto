@@ -37,6 +37,8 @@ public class PedidosVista extends javax.swing.JPanel {
     cargarDatos(false);
     
     disableButton(btnDetalle, lblDetalle);
+    disableButton(btnModificar, lblModificar);
+    disableButton(btnCobrar, lblCobrar);
   }
 
   @SuppressWarnings("unchecked")
@@ -283,11 +285,15 @@ public class PedidosVista extends javax.swing.JPanel {
   }//GEN-LAST:event_btnAgregarMouseExited
 
   private void btnModificarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseEntered
-    btnModificar.setBackground(Color.decode("#D9B18E"));
+    if (tablaPedidos.getSelectedRows().length == 1) {
+      btnModificar.setBackground(Color.decode("#D9B18E"));
+    }
   }//GEN-LAST:event_btnModificarMouseEntered
 
   private void btnModificarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseExited
-    btnModificar.setBackground(Color.decode("#F1CFB2"));
+    if (tablaPedidos.getSelectedRows().length == 1) {
+      btnModificar.setBackground(Color.decode("#F1CFB2"));
+    }
   }//GEN-LAST:event_btnModificarMouseExited
 
   private void btnDetalleMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDetalleMouseEntered
@@ -303,11 +309,15 @@ public class PedidosVista extends javax.swing.JPanel {
   }//GEN-LAST:event_btnDetalleMouseExited
 
   private void btnCobrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCobrarMouseEntered
-    btnCobrar.setBackground(Color.decode("#D9B18E"));
+    if (tablaPedidos.getSelectedRows().length == 1) {
+      btnCobrar.setBackground(Color.decode("#D9B18E"));
+    }
   }//GEN-LAST:event_btnCobrarMouseEntered
 
   private void btnCobrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCobrarMouseExited
-    btnCobrar.setBackground(Color.decode("#F1CFB2"));
+    if (tablaPedidos.getSelectedRows().length == 1) {
+      btnCobrar.setBackground(Color.decode("#F1CFB2"));
+    }
   }//GEN-LAST:event_btnCobrarMouseExited
 
   private void btnDetalleMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDetalleMousePressed
@@ -338,16 +348,24 @@ public class PedidosVista extends javax.swing.JPanel {
   private void tablaPedidosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPedidosMousePressed
     if (tablaPedidos.getSelectedRows().length == 1) {
       enableButton(btnDetalle, lblDetalle);
+      enableButton(btnModificar, lblModificar);
+      enableButton(btnCobrar, lblCobrar);
     } else {
       disableButton(btnDetalle, lblDetalle);
+      disableButton(btnModificar, lblModificar);
+      disableButton(btnCobrar, lblCobrar);
     }
   }//GEN-LAST:event_tablaPedidosMousePressed
 
   private void tablaPedidosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPedidosMouseReleased
     if (tablaPedidos.getSelectedRows().length == 1) {
       enableButton(btnDetalle, lblDetalle);
+      enableButton(btnModificar, lblModificar);
+      enableButton(btnCobrar, lblCobrar);
     } else {
       disableButton(btnDetalle, lblDetalle);
+      disableButton(btnModificar, lblModificar);
+      disableButton(btnCobrar, lblCobrar);
     }
   }//GEN-LAST:event_tablaPedidosMouseReleased
 
