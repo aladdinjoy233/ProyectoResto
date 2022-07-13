@@ -29,7 +29,7 @@ public class PedidosVista extends javax.swing.JPanel {
     
     tablaPedidos.arreglarTabla(jScrollPane1);
 
-    cargarDatosInicial();
+    cargarDatos(false);
   }
 
   @SuppressWarnings("unchecked")
@@ -194,9 +194,13 @@ public class PedidosVista extends javax.swing.JPanel {
         .addComponent(lblCobrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
     );
 
-    checkboxInactivos.setBackground(new java.awt.Color(114, 63, 50));
     checkboxInactivos.setForeground(new java.awt.Color(114, 63, 50));
     checkboxInactivos.setText("Ver pedidos inactivos");
+    checkboxInactivos.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mousePressed(java.awt.event.MouseEvent evt) {
+        checkboxInactivosMousePressed(evt);
+      }
+    });
 
     javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
     bg.setLayout(bgLayout);
@@ -298,13 +302,28 @@ public class PedidosVista extends javax.swing.JPanel {
     bg.repaint();
   }//GEN-LAST:event_btnDetalleMousePressed
 
-  private void cargarDatosInicial() {
+  private void checkboxInactivosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkboxInactivosMousePressed
+    if (checkboxInactivos.isSelected()) {
+      cargarDatos(false);
+    } else {
+      cargarDatos(true);
+    }
+  }//GEN-LAST:event_checkboxInactivosMousePressed
+
+  private void cargarDatos(boolean conDesactivos) {
+    
+    model.setRowCount(0);
     
     NumberFormat deciamlFormatter = new DecimalFormat("#0.00");
     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd - MM - yyyy");
     DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-    
-    ArrayList<Pedido> pedidos = pedData.obtenerPedidosActivos();
+     ArrayList<Pedido> pedidos = new ArrayList<>();
+
+    if (conDesactivos) {
+      pedidos = pedData.obtenerPedidos();
+    } else {
+      pedidos = pedData.obtenerPedidosActivos();
+    }
     
     Collections.sort(pedidos, new Comparator<Pedido>() {
       @Override

@@ -348,14 +348,14 @@
         </Container>
         <Component class="resto.componentes.CheckboxPersonalizada" name="checkboxInactivos">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="32" green="3f" red="72" type="rgb"/>
-            </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="32" green="3f" red="72" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Ver pedidos inactivos"/>
           </Properties>
+          <Events>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="checkboxInactivosMousePressed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
