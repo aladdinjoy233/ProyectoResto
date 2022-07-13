@@ -4,7 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import javax.swing.table.DefaultTableModel;
 import resto.dao.*;
 import resto.entidades.Pedido;
@@ -45,6 +48,7 @@ public class PedidosVista extends javax.swing.JPanel {
     lblDetalle = new javax.swing.JLabel();
     btnCobrar = new javax.swing.JPanel();
     lblCobrar = new javax.swing.JLabel();
+    checkboxInactivos = new resto.componentes.CheckboxPersonalizada();
 
     setPreferredSize(new java.awt.Dimension(780, 530));
 
@@ -62,12 +66,20 @@ public class PedidosVista extends javax.swing.JPanel {
       new String [] {
         "Mesa", "Fecha", "Hora", "Pagado", "Subtotal", "Activo"
       }
-    ));
+    ) {
+      boolean[] canEdit = new boolean [] {
+        false, false, false, false, false, false
+      };
+
+      public boolean isCellEditable(int rowIndex, int columnIndex) {
+        return canEdit [columnIndex];
+      }
+    });
     tablaPedidos.setPreferredSize(new java.awt.Dimension(290, 100));
     jScrollPane1.setViewportView(tablaPedidos);
 
     btnAgregar.setBackground(new java.awt.Color(241, 207, 178));
-    btnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+    btnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseEntered(java.awt.event.MouseEvent evt) {
         btnAgregarMouseEntered(evt);
@@ -78,8 +90,10 @@ public class PedidosVista extends javax.swing.JPanel {
     });
 
     lblAgregar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+    lblAgregar.setForeground(new java.awt.Color(114, 63, 50));
     lblAgregar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     lblAgregar.setText("Agregar pedido");
+    lblAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
     javax.swing.GroupLayout btnAgregarLayout = new javax.swing.GroupLayout(btnAgregar);
     btnAgregar.setLayout(btnAgregarLayout);
@@ -95,7 +109,7 @@ public class PedidosVista extends javax.swing.JPanel {
     );
 
     btnModificar.setBackground(new java.awt.Color(241, 207, 178));
-    btnModificar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+    btnModificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     btnModificar.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseEntered(java.awt.event.MouseEvent evt) {
         btnModificarMouseEntered(evt);
@@ -106,6 +120,7 @@ public class PedidosVista extends javax.swing.JPanel {
     });
 
     lblModificar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+    lblModificar.setForeground(new java.awt.Color(114, 63, 50));
     lblModificar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     lblModificar.setText("Modificar");
 
@@ -121,7 +136,7 @@ public class PedidosVista extends javax.swing.JPanel {
     );
 
     btnDetalle.setBackground(new java.awt.Color(241, 207, 178));
-    btnDetalle.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+    btnDetalle.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     btnDetalle.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseEntered(java.awt.event.MouseEvent evt) {
         btnDetalleMouseEntered(evt);
@@ -135,6 +150,7 @@ public class PedidosVista extends javax.swing.JPanel {
     });
 
     lblDetalle.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+    lblDetalle.setForeground(new java.awt.Color(114, 63, 50));
     lblDetalle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     lblDetalle.setText("Ver detalle");
 
@@ -150,7 +166,7 @@ public class PedidosVista extends javax.swing.JPanel {
     );
 
     btnCobrar.setBackground(new java.awt.Color(241, 207, 178));
-    btnCobrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+    btnCobrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     btnCobrar.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseEntered(java.awt.event.MouseEvent evt) {
         btnCobrarMouseEntered(evt);
@@ -161,6 +177,7 @@ public class PedidosVista extends javax.swing.JPanel {
     });
 
     lblCobrar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+    lblCobrar.setForeground(new java.awt.Color(114, 63, 50));
     lblCobrar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     lblCobrar.setText("Cobrar");
 
@@ -177,39 +194,53 @@ public class PedidosVista extends javax.swing.JPanel {
         .addComponent(lblCobrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
     );
 
+    checkboxInactivos.setBackground(new java.awt.Color(114, 63, 50));
+    checkboxInactivos.setForeground(new java.awt.Color(114, 63, 50));
+    checkboxInactivos.setText("Ver pedidos inactivos");
+
     javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
     bg.setLayout(bgLayout);
     bgLayout.setHorizontalGroup(
       bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(bgLayout.createSequentialGroup()
         .addGap(55, 55, 55)
-        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
           .addGroup(bgLayout.createSequentialGroup()
-            .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(18, 18, 18)
-            .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(18, 18, 18)
-            .addComponent(btnDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(18, 18, 18)
-            .addComponent(btnCobrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-          .addComponent(lblTitulo)
-          .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(lblTitulo)
+            .addGap(248, 248, 248)
+            .addComponent(checkboxInactivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bgLayout.createSequentialGroup()
+              .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addGap(18, 18, 18)
+              .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addGap(18, 18, 18)
+              .addComponent(btnDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addGap(18, 18, 18)
+              .addComponent(btnCobrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE)))
         .addContainerGap(55, Short.MAX_VALUE))
     );
     bgLayout.setVerticalGroup(
       bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(bgLayout.createSequentialGroup()
-        .addGap(40, 40, 40)
-        .addComponent(lblTitulo)
-        .addGap(18, 18, 18)
+        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addGroup(bgLayout.createSequentialGroup()
+            .addGap(40, 40, 40)
+            .addComponent(lblTitulo)
+            .addGap(36, 36, 36))
+          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(checkboxInactivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(18, 18, 18)))
         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addGap(18, 18, 18)
+        .addGap(28, 28, 28)
         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
           .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           .addComponent(btnDetalle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(btnCobrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        .addContainerGap(100, Short.MAX_VALUE))
+          .addComponent(btnCobrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addContainerGap(72, Short.MAX_VALUE))
     );
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -269,8 +300,19 @@ public class PedidosVista extends javax.swing.JPanel {
 
   private void cargarDatosInicial() {
     
-    NumberFormat formatter = new DecimalFormat("#0.00");
+    NumberFormat deciamlFormatter = new DecimalFormat("#0.00");
+    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd - MM - yyyy");
+    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+    
     ArrayList<Pedido> pedidos = pedData.obtenerPedidosActivos();
+    
+    Collections.sort(pedidos, new Comparator<Pedido>() {
+      @Override
+      public int compare(Pedido t, Pedido t1) {
+        return t.getFecha().compareTo(t1.getFecha());
+      }
+    });
+
 
     pedidos.forEach(pedido -> {
 
@@ -278,10 +320,10 @@ public class PedidosVista extends javax.swing.JPanel {
 
       model.addRow(new Object[]{
         pedido.getMesa().getNumMesa(),
-        pedido.getFecha(),
-        pedido.getHora(),
+        pedido.getFecha().format(dateFormatter),
+        pedido.getHora().format(timeFormatter),
         pedido.isPagado() ? "Si" : "No",
-        ("$" + formatter.format(precio)),
+        ("$" + deciamlFormatter.format(precio)),
         pedido.isActivo() ? "Si" : "No"
       });
 
@@ -294,6 +336,7 @@ public class PedidosVista extends javax.swing.JPanel {
   private javax.swing.JPanel btnCobrar;
   private javax.swing.JPanel btnDetalle;
   private javax.swing.JPanel btnModificar;
+  private resto.componentes.CheckboxPersonalizada checkboxInactivos;
   private javax.swing.JScrollPane jScrollPane1;
   private javax.swing.JLabel lblAgregar;
   private javax.swing.JLabel lblCobrar;
