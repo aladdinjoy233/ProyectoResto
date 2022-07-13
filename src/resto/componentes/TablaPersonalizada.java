@@ -61,7 +61,7 @@ public class TablaPersonalizada extends JTable {
         if (row % 2 == 0) {
           com.setBackground(Color.decode("#F1CFB2"));
         } else {
-          com.setBackground(Color.decode("#D9B18E"));
+          com.setBackground(Color.decode("#EAC19E"));
         }
       } else {
         if (row % 2 == 0) {
