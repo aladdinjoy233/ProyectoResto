@@ -64,16 +64,16 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="mVfondoAgregar" max="32767" attributes="0"/>
                               <Component id="jLabel2" min="-2" pref="92" max="-2" attributes="0"/>
-                              <Component id="cMmesaActiva" alignment="0" max="32767" attributes="0"/>
                               <Component id="cMcapacidad" alignment="0" max="32767" attributes="0"/>
-                              <Component id="cMestado" max="32767" attributes="0"/>
                               <Component id="mVfondoNuevaMesa" alignment="0" max="32767" attributes="0"/>
+                              <Component id="cMestado" max="32767" attributes="0"/>
+                              <Component id="cMactiva" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="148" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="251" max="-2" attributes="0"/>
                           <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="169" max="32767" attributes="0"/>
+                  <EmptySpace pref="66" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -100,9 +100,9 @@
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                           <Component id="cMcapacidad" min="-2" pref="37" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="cMestado" min="-2" pref="35" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                          <Component id="cMmesaActiva" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="cMestado" min="-2" pref="31" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="cMactiva" min="-2" pref="37" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="mVfondoAgregar" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -110,7 +110,7 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="mVfondoNuevaMesa" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="174" max="32767" attributes="0"/>
+                  <EmptySpace pref="177" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -141,21 +141,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Capacidad"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JCheckBox" name="cMmesaActiva">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ef" green="ef" red="f0" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="12" style="2"/>
-            </Property>
-            <Property name="selected" type="boolean" value="true"/>
-            <Property name="text" type="java.lang.String" value="Activo"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cMmesaActivaActionPerformed"/>
-          </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="mVfondoAgregar">
           <Properties>
@@ -270,21 +255,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JCheckBox" name="cMestado">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ef" green="ef" red="f0" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="12" style="2"/>
-            </Property>
-            <Property name="selected" type="boolean" value="true"/>
-            <Property name="text" type="java.lang.String" value="Estado"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cMestadoActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -369,6 +339,25 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="resto.componentes.CheckboxPersonalizada" name="cMestado">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Ocupada"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="12" style="2"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cMestadoActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="resto.componentes.CheckboxPersonalizada" name="cMactiva">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Activa"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="12" style="2"/>
+            </Property>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

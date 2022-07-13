@@ -42,19 +42,19 @@ public class CrearMesasVista extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         cMcapacidad = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        cMmesaActiva = new javax.swing.JCheckBox();
         mVfondoAgregar = new javax.swing.JPanel();
         cMbtnAgregar = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         cMnumMesa = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        cMestado = new javax.swing.JCheckBox();
         jLabel5 = new javax.swing.JLabel();
         mVfondoNuevaMesa = new javax.swing.JPanel();
         cMbtnNuevo = new javax.swing.JLabel();
         cMVatras = new javax.swing.JPanel();
         cMVbtnVolver = new javax.swing.JLabel();
+        cMestado = new resto.componentes.CheckboxPersonalizada();
+        cMactiva = new resto.componentes.CheckboxPersonalizada();
 
         setBackground(new java.awt.Color(240, 239, 239));
         setPreferredSize(new java.awt.Dimension(780, 530));
@@ -69,16 +69,6 @@ public class CrearMesasVista extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         jLabel2.setText("Capacidad");
-
-        cMmesaActiva.setBackground(new java.awt.Color(240, 239, 239));
-        cMmesaActiva.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
-        cMmesaActiva.setSelected(true);
-        cMmesaActiva.setText("Activo");
-        cMmesaActiva.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cMmesaActivaActionPerformed(evt);
-            }
-        });
 
         mVfondoAgregar.setBackground(new java.awt.Color(241, 207, 178));
 
@@ -152,16 +142,6 @@ public class CrearMesasVista extends javax.swing.JPanel {
                 .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        cMestado.setBackground(new java.awt.Color(240, 239, 239));
-        cMestado.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
-        cMestado.setSelected(true);
-        cMestado.setText("Estado");
-        cMestado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cMestadoActionPerformed(evt);
-            }
-        });
-
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resto/img/iconoSillaMesa.png"))); // NOI18N
 
         mVfondoNuevaMesa.setBackground(new java.awt.Color(241, 207, 178));
@@ -221,6 +201,17 @@ public class CrearMesasVista extends javax.swing.JPanel {
             .addComponent(cMVbtnVolver, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
         );
 
+        cMestado.setText("Ocupada");
+        cMestado.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        cMestado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cMestadoActionPerformed(evt);
+            }
+        });
+
+        cMactiva.setText("Activa");
+        cMactiva.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
@@ -239,13 +230,13 @@ public class CrearMesasVista extends javax.swing.JPanel {
                         .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(mVfondoAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cMmesaActiva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cMcapacidad)
+                            .addComponent(mVfondoNuevaMesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cMestado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(mVfondoNuevaMesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(148, 148, 148)
+                            .addComponent(cMactiva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(251, 251, 251)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(169, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,15 +257,15 @@ public class CrearMesasVista extends javax.swing.JPanel {
                         .addGap(5, 5, 5)
                         .addComponent(cMcapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(cMestado, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19)
-                        .addComponent(cMmesaActiva, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cMestado, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cMactiva, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(mVfondoAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(mVfondoNuevaMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -290,10 +281,6 @@ public class CrearMesasVista extends javax.swing.JPanel {
 
         getAccessibleContext().setAccessibleParent(this);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void cMmesaActivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cMmesaActivaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cMmesaActivaActionPerformed
 
     private void cMbtnAgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cMbtnAgregarMouseEntered
         // TODO add your handling code here:
@@ -311,7 +298,7 @@ public class CrearMesasVista extends javax.swing.JPanel {
             //capturar datos del formulario
             int capacidad = Integer.parseInt(cMcapacidad.getText());
             boolean estado = cMestado.isSelected();
-            boolean activo = cMmesaActiva.isSelected();
+            boolean activo = cMactiva.isSelected();
             //crear una mesa
             Mesa mesa = new Mesa(capacidad, estado, activo);
             //enviar a la BD la mesa
@@ -324,10 +311,6 @@ public class CrearMesasVista extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_cMbtnAgregarMouseClicked
-
-    private void cMestadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cMestadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cMestadoActionPerformed
 
     private void cMnumMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cMnumMesaActionPerformed
         // TODO add your handling code here:
@@ -347,8 +330,8 @@ public class CrearMesasVista extends javax.swing.JPanel {
         // TODO add your handling code here:
         cMnumMesa.setText("");
         cMcapacidad.setText("");
-        cMestado.setSelected(true);
-        cMmesaActiva.setSelected(true);
+        cMestado.setSelected(false);
+        cMactiva.setSelected(true);
     }//GEN-LAST:event_cMbtnNuevoMouseClicked
 
     private void cMVbtnVolverMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cMVbtnVolverMousePressed
@@ -374,15 +357,19 @@ public class CrearMesasVista extends javax.swing.JPanel {
         cMVatras.setBackground(new Color(241, 207, 178));
     }//GEN-LAST:event_cMVbtnVolverMouseExited
 
+    private void cMestadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cMestadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cMestadoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel cMVatras;
     private javax.swing.JLabel cMVbtnVolver;
+    private resto.componentes.CheckboxPersonalizada cMactiva;
     private javax.swing.JLabel cMbtnAgregar;
     private javax.swing.JLabel cMbtnNuevo;
     private javax.swing.JTextField cMcapacidad;
-    private javax.swing.JCheckBox cMestado;
-    private javax.swing.JCheckBox cMmesaActiva;
+    private resto.componentes.CheckboxPersonalizada cMestado;
     private javax.swing.JTextField cMnumMesa;
     private javax.swing.JPanel escritorio;
     private javax.swing.JLabel jLabel1;

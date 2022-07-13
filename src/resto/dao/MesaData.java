@@ -134,6 +134,34 @@ public class MesaData {
     return result;
   }
 
+    public boolean activarMesa(Mesa mesa) {
+        boolean result = false;
+        if (!(buscarMesa(mesa.getNumMesa()))) {
+            JOptionPane.showMessageDialog(null, "La Mesa N° " + mesa.getNumMesa() + " no existe");
+            return false;
+        }
+
+        String sql = "UPDATE mesa SET activo = 1 WHERE numMesa = ?";
+        try {
+
+      PreparedStatement ps = coneccion.prepareStatement(sql);
+
+      ps.setInt(1, mesa.getNumMesa());
+
+      if (ps.executeUpdate() != 0) {
+        result = true;
+        JOptionPane.showMessageDialog(null, "La Mesa se a Reestablecido. ");
+      }
+
+      ps.close();
+
+    } catch (SQLException ex) {
+      JOptionPane.showMessageDialog(null, "Error al obtener una Mesa" + ex);
+    }
+
+    return result;
+  }
+    
     public Mesa obtenerMesa(int numMesa) {
         Mesa mesa = new Mesa();
 
