@@ -243,15 +243,32 @@ public class MeseroVista extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnVerMouseExited
 
     private void jbtnVerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnVerMouseClicked
-        MesasAsignadasVista ma = new MesasAsignadasVista();
+        if(tablaPersonalizada1.getSelectedRow() > 0){
+            int id = (int) model.getValueAt(tablaPersonalizada1.getSelectedRow(), 0);
+            
+            Mesero m = md.obtenerMesero(id);
+            
+            if(m.isActivo()){
+                            
+                MesasAsignadasVista ma = new MesasAsignadasVista(m);
         
-        ma.setSize(780, 530);
-        ma.setLocation(0, 0);   
+                ma.setSize(780, 530);
+                ma.setLocation(0, 0);   
         
-        escritorio.removeAll();
-        escritorio.add(ma);
-        escritorio.revalidate();
-        escritorio.repaint();
+                escritorio.removeAll();
+                escritorio.add(ma);
+                escritorio.revalidate();
+                escritorio.repaint();
+                
+                
+            } else{
+                JOptionPane.showMessageDialog(this, "Seleccione un mesero activo");
+            }
+
+        } else{
+            JOptionPane.showMessageDialog(this, "Seleccione un mesero");
+        }
+
     }//GEN-LAST:event_jbtnVerMouseClicked
 
     private void jbtnActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnActualizarMouseClicked
@@ -358,10 +375,10 @@ public class MeseroVista extends javax.swing.JPanel {
         
         ArrayList<Mesero> lista = md.obtenerMeseros();
         
-        Collections.sort(lista, new Comparator<Mesero>(){ //ordenar meseros por el apellido
+        Collections.sort(lista, new Comparator<Mesero>(){ //ordenar meseros por el nombre
             @Override
             public int compare(Mesero m, Mesero m1){
-                return m.getApellido().compareTo(m1.getApellido());
+                return m.getNombre().compareTo(m1.getNombre());
             }
         });
         
@@ -376,10 +393,10 @@ public class MeseroVista extends javax.swing.JPanel {
         
         ArrayList<Mesero> lista = md.obtenerTodosMeseros();
         
-        Collections.sort(lista, new Comparator<Mesero>(){ //ordenar meseros por el apellido
+        Collections.sort(lista, new Comparator<Mesero>(){ //ordenar meseros por el nombre
             @Override
             public int compare(Mesero m, Mesero m1){
-                return m.getApellido().compareTo(m1.getApellido());
+                return m.getNombre().compareTo(m1.getNombre());
             }
         });
         

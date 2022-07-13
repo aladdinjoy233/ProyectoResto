@@ -60,18 +60,16 @@ public class AgregarMeseroVista extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(114, 63, 50));
         jLabel5.setText("Agregar mesero");
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(114, 63, 50));
         jLabel1.setText("Nombre");
 
-        jtNombre.setBackground(new java.awt.Color(217, 177, 142));
         jtNombre.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(114, 63, 50)));
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(114, 63, 50));
         jLabel3.setText("Apellido");
 
-        jtApellido.setBackground(new java.awt.Color(217, 177, 142));
         jtApellido.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(114, 63, 50)));
         jtApellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,18 +77,16 @@ public class AgregarMeseroVista extends javax.swing.JPanel {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(114, 63, 50));
         jLabel4.setText("DNI");
 
-        jtDNI.setBackground(new java.awt.Color(217, 177, 142));
         jtDNI.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(114, 63, 50)));
 
-        jLabel6.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(114, 63, 50));
         jLabel6.setText("Telefono");
 
-        jtTelefono.setBackground(new java.awt.Color(217, 177, 142));
         jtTelefono.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(114, 63, 50)));
 
         jcbActivo.setForeground(new java.awt.Color(114, 63, 50));

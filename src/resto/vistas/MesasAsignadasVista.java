@@ -5,15 +5,18 @@ import java.awt.Window;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import resto.dao.Conexion;
+import resto.entidades.Mesero;
 
 public class MesasAsignadasVista extends javax.swing.JPanel {
 
         private Conexion con;
     
-    public MesasAsignadasVista() {
+    public MesasAsignadasVista(Mesero m) {
         initComponents();
         
         con = new Conexion();
+        
+        jlNombre.setText(m.getNombre() + " " + m.getApellido());
         
         agregarMesa.arreglarTabla(jScrollPane1);
         DefaultTableModel mesasNoAsignadas = (DefaultTableModel) agregarMesa.getModel();
