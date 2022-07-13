@@ -300,7 +300,7 @@ public class CrearMesasVista extends javax.swing.JPanel {
             boolean estado = cMestado.isSelected();
             boolean activo = cMactiva.isSelected();
             //crear una mesa
-            Mesa mesa = new Mesa(capacidad, estado, activo);
+            Mesa mesa = new Mesa(null, capacidad, estado, activo);
             //enviar a la BD la mesa
             if (mesadata.crearMesa(mesa)) {
                 cMnumMesa.setText(mesa.getNumMesa() + "");
