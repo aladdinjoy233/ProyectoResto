@@ -76,7 +76,7 @@ public class DetalleDelPedido {
 
     @Override
     public String toString() {
-        return "DetalleDelPedido{" + "idDetalle=" + idDetalle + ", producto=" + producto + ", pedido=" + pedido + ", cantidad=" + cantidad + ", activo=" + activo + '}';
+      return "== Detalle Del Pedido == " + "\nProducto: " + producto.getNombre() + "\nCantidad: " + cantidad + "\nID del pedido: " + pedido.getIdPedido();
     }
 
     @Override

@@ -9,14 +9,14 @@ public class Pedido {
     private Mesero mesero;
     private boolean pagado;
     private LocalDate fecha;
-    private LocalDateTime hora;
+  private LocalTime hora;
     private boolean activo;
 
     //constructores
     public Pedido() {
     }
 
-    public Pedido(Mesa mesa, Mesero mesero, boolean pagado, LocalDate fecha, LocalDateTime hora, boolean activo) {
+  public Pedido(Mesa mesa, Mesero mesero, boolean pagado, LocalDate fecha, LocalTime hora, boolean activo) {
         this.mesa = mesa;
         this.mesero = mesero;
         this.pagado = pagado;
@@ -25,7 +25,7 @@ public class Pedido {
         this.activo = activo;
     }
 
-    public Pedido(int idPedido, Mesa mesa, Mesero mesero, boolean pagado, LocalDate fecha, LocalDateTime hora, boolean activo) {
+  public Pedido(int idPedido, Mesa mesa, Mesero mesero, boolean pagado, LocalDate fecha, LocalTime hora, boolean activo) {
         this.idPedido = idPedido;
         this.mesa = mesa;
         this.mesero = mesero;
@@ -75,11 +75,11 @@ public class Pedido {
         this.fecha = fecha;
     }
 
-    public LocalDateTime getHora() {
+  public LocalTime getHora() {
         return hora;
     }
 
-    public void setHora(LocalDateTime hora) {
+  public void setHora(LocalTime hora) {
         this.hora = hora;
     }
 

@@ -691,7 +691,7 @@ public class Menu extends javax.swing.JFrame {
   private void tabPedidosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabPedidosMousePressed
     setearSeleccionado(tabPedidos);
 
-    PedidosVista pv = new PedidosVista();
+    PedidosVista pv = new PedidosVista(con);
     pv.setSize(780, 530);
     pv.setLocation(0, 0);
 
