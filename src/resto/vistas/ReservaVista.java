@@ -74,7 +74,7 @@ public class ReservaVista extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.Boolean.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 true, true, true, true, true, false
@@ -252,7 +252,7 @@ public class ReservaVista extends javax.swing.JPanel {
 
         for (Reserva r : reservas) {
 
-            modelo.addRow(new Object[]{r.getMesa().getNumMesa(), r.getFecha(), r.getHora(), r.getDni(), r.isActivo(), r.getIdReserva()});
+            modelo.addRow(new Object[]{r.getMesa().getNumMesa(), r.getFecha(), r.getHora(), r.getDni(), r.isActivo() ? "si" : "no", r.getIdReserva()});
         }
     }
 
@@ -310,13 +310,18 @@ public class ReservaVista extends javax.swing.JPanel {
     private void ActualizarReserva(int filaSeleccionada) {
 
         try {
-
+            boolean estado;
             int numMesa = (int) jTable.getValueAt(filaSeleccionada, 0);
             LocalDate fecha = LocalDate.parse(jTable.getValueAt(filaSeleccionada, 1).toString());
             LocalTime hora = LocalTime.parse(jTable.getValueAt(filaSeleccionada, 2).toString());
 
             Long dni = (Long) jTable.getValueAt(filaSeleccionada, 3);
-            Boolean estado = (Boolean) jTable.getValueAt(filaSeleccionada, 4);
+            //Boolean estado = (Boolean) jTable.getValueAt(filaSeleccionada, 4);
+            if(jTable.getValueAt(filaSeleccionada, 4) == "si" ){
+               estado = true;
+            }else{
+               estado = false;
+            }
             int idReserva = (int) jTable.getValueAt(filaSeleccionada, 5);
 
             Reserva reserva = rd.obtenerReserva(idReserva);

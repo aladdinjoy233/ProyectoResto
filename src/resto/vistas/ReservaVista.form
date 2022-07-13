@@ -125,7 +125,7 @@
                     <Column editable="true" title="Fecha" type="java.lang.String"/>
                     <Column editable="true" title="Hora" type="java.lang.String"/>
                     <Column editable="true" title="DNI" type="java.lang.Long"/>
-                    <Column editable="true" title="Activo" type="java.lang.Boolean"/>
+                    <Column editable="true" title="Activo" type="java.lang.String"/>
                     <Column editable="false" title="id" type="java.lang.Integer"/>
                   </Table>
                 </Property>
