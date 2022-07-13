@@ -7,6 +7,8 @@ import java.util.*;
 import java.time.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import javax.swing.table.DefaultTableModel;
 
 public class ReservaVista extends javax.swing.JPanel {
@@ -275,12 +277,12 @@ public class ReservaVista extends javax.swing.JPanel {
 
     private void actualizarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizarMousePressed
         // TODO add your handling code here:
-        int filaSeleccionada = jTable.getSelectedRow();
-        if (filaSeleccionada > -1) {
-            ActualizarReserva(filaSeleccionada);
-        } else {
-            JOptionPane.showMessageDialog(null, "Seleccione una reserva para poder actualizar");
-        }
+        //int filaSeleccionada = jTable.getSelectedRow();
+        //if (filaSeleccionada > -1) {
+        ActualizarReserva();
+        //} else {
+        //    JOptionPane.showMessageDialog(null, "Seleccione una reserva para poder actualizar");
+        //}
     }//GEN-LAST:event_actualizarMousePressed
 
     private void agregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarMousePressed
@@ -299,46 +301,55 @@ public class ReservaVista extends javax.swing.JPanel {
     }//GEN-LAST:event_agregarMousePressed
 
     private void jCinactivoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCinactivoMousePressed
-         if (jCinactivo.isSelected()) {
+        if (jCinactivo.isSelected()) {
             verActivas();
         } else {
             verInactivas();
         }
     }//GEN-LAST:event_jCinactivoMousePressed
 
-    private void ActualizarReserva(int filaSeleccionada) {
+    private void ActualizarReserva() {
+        int count = 0;
+        
 
         try {
 
-            boolean estado;
-            int numMesa = (int) jTable.getValueAt(filaSeleccionada, 0);
-            LocalDate fecha = LocalDate.parse(jTable.getValueAt(filaSeleccionada, 1).toString());
-            LocalTime hora = LocalTime.parse(jTable.getValueAt(filaSeleccionada, 2).toString());
+            for (int i = 0; i < jTable.getRowCount(); i++) {
+                
+                //consigo los datos de la tabla
+                boolean estado;
+                int numMesa = (int) jTable.getValueAt(i, 0);
+                LocalDate fecha = LocalDate.parse(jTable.getValueAt(i, 1).toString());
+                LocalTime hora = LocalTime.parse(jTable.getValueAt(i, 2).toString());
+                Long dni = (Long) jTable.getValueAt(i, 3);
+                int idReserva = (int) jTable.getValueAt(i, 5);
 
-            Long dni = (Long) jTable.getValueAt(filaSeleccionada, 3);
-            int idReserva = (int) jTable.getValueAt(filaSeleccionada, 5);
+                if (jTable.getValueAt(i, 4).equals("si")) {
+                    estado = true;
+                } else if (jTable.getValueAt(i, 4).equals("no")) {
+                    estado = false;
+                } else {
+                    estado = false;
+                }
 
-            if(jTable.getValueAt(filaSeleccionada, 4).equals("si")){
-                estado = true;
-            }else if(jTable.getValueAt(filaSeleccionada, 4).equals("no")){
-                 estado = false;
-            }else{
-                estado = false;
+                Reserva reserva = rd.obtenerReserva(idReserva);
+                Mesa mesa = md.obtenerMesa(numMesa);
+
+                Reserva r = new Reserva(idReserva, mesa, reserva.getNombre(), dni, fecha, hora, estado);
+
+
+                if (rd.modificarReserva(r)) {
+                    count++;
+                }
             }
-            
-            Reserva reserva = rd.obtenerReserva(idReserva);
-            Mesa mesa = md.obtenerMesa(numMesa);
-
-            Reserva r = new Reserva(idReserva, mesa, reserva.getNombre(), dni, fecha, hora, estado);
-
-            if (rd.modificarReserva(r)) {
-                JOptionPane.showMessageDialog(null, "Reserva actualizada correctamente");
-            } else {
-                JOptionPane.showMessageDialog(null, "Error al actualizar reserva");
-            }
-
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "error " + ex.getMessage());
+        }
+
+        if (count == jTable.getRowCount()) {
+            JOptionPane.showMessageDialog(null, "Actualizado correctamente");
+        } else {
+            JOptionPane.showMessageDialog(null, "Solo se actualizaron "+count+" de"+jTable.getRowCount()+" reservas\nla fecha/hora debe ser proxima a la actual ");
         }
 
     }

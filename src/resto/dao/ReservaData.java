@@ -58,7 +58,7 @@ public class ReservaData {
         if (existeReserva(reserva)) {
             JOptionPane.showMessageDialog(null, "ya existe esa reserva");
             return false;
-        } else if (reserva.getFecha().isBefore(hoy) || reserva.getFecha().equals(hoy) && reserva.getHora().isBefore(horaActual) ) {
+        } else if (reserva.getFecha().isBefore(hoy) || reserva.getFecha().equals(hoy) && reserva.getHora().isBefore(horaActual)) {
             JOptionPane.showMessageDialog(null, "la fecha/hora debe ser proxima a la actual");
             return false;
         }
@@ -198,10 +198,14 @@ public class ReservaData {
         return borrado;
     }
 
-    
-    
     public boolean modificarReserva(Reserva reserva) {
         boolean modificado = false;
+        LocalDate hoy = LocalDate.now();
+        LocalTime horaActual = LocalTime.now();
+
+        if (reserva.getFecha().isBefore(hoy) || reserva.getFecha().equals(hoy) && reserva.getHora().isBefore(horaActual)) {
+            return modificado;
+        }
 
         String sql = "UPDATE reserva SET numMesa = ?, nombre = ?, dni = ?, fecha = ?, hora = ?, activo = ? WHERE idReserva = ?";
 
@@ -225,7 +229,6 @@ public class ReservaData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al actualizar reserva\n" + ex);
-
         }
         return modificado;
     }
@@ -252,8 +255,8 @@ public class ReservaData {
         }
 
     }
-    
-     public ArrayList<Reserva> obtenerReservasInactivas() {
+
+    public ArrayList<Reserva> obtenerReservasInactivas() {
 
         ArrayList<Reserva> reservas = new ArrayList<>();
         Reserva reserva;
@@ -292,7 +295,6 @@ public class ReservaData {
         }
 
         return reservas;
-     }
-     
-     
+    }
+
 }
