@@ -1,22 +1,13 @@
 package resto.vistas;
 
-
+import resto.dao.*;
+import javax.swing.*;
+import resto.entidades.*;
+import java.util.*;
+import java.time.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
-import resto.dao.Conexion;
-import resto.dao.MesaData;
-import resto.dao.ReservaData;
-import resto.entidades.Mesa;
-import resto.entidades.Reserva;
 
 public class ReservaVista extends javax.swing.JPanel {
 
@@ -29,17 +20,17 @@ public class ReservaVista extends javax.swing.JPanel {
 
     //constructor
     public ReservaVista(Conexion con) {
+
         initComponents();
         con = new Conexion();
         rd = new ReservaData(con);
         md = new MesaData(con);
-
         jTable.arreglarTabla(jScrollPane1);
         modelo = (DefaultTableModel) jTable.getModel();
-
         verActivas();
     }
 
+    //funcionalidades
     void setearSeleccionado(JPanel panel) {
         panel.setBackground(Color.decode("#F1CFB2"));
         tabSeleccionada = panel;
@@ -242,36 +233,18 @@ public class ReservaVista extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void contenidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contenidoMouseClicked
-        // TODO add your handling code here:
-        
+        // TODO add your handling code here:  
     }//GEN-LAST:event_contenidoMouseClicked
-
-    public void armarCabeceraTabla() {
-
-        ArrayList<Object> columns = new ArrayList<Object>();
-        columns.add("Num mesa");
-        columns.add("Fechha");
-        columns.add("Hora");
-        columns.add("DNI");
-        columns.add("Activo");
-
-        for (Object it : columns) {
-            modelo.addColumn(it);
-        }
-        jTable.setModel(modelo);
-    }
 
     private void borrarFilas() {
 
         int a = modelo.getRowCount() - 1;
-
         for (int i = a; i > -1; i--) {
             modelo.removeRow(i);
         }
     }
 
     private void verInactivas() {
-
         borrarFilas();
         ArrayList<Reserva> reservas = rd.obtenerReservasInactivas();
 
@@ -281,7 +254,6 @@ public class ReservaVista extends javax.swing.JPanel {
     }
 
     private void verActivas() {
-
         borrarFilas();
         ArrayList<Reserva> reservas = rd.obtenerReservas();
 
@@ -310,11 +282,11 @@ public class ReservaVista extends javax.swing.JPanel {
     }//GEN-LAST:event_jCinactivoActionPerformed
 
     private void agregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarMouseEntered
-       
+
     }//GEN-LAST:event_agregarMouseEntered
 
     private void agregarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarMouseExited
-        
+
     }//GEN-LAST:event_agregarMouseExited
 
     private void actualizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizarMouseEntered
@@ -328,12 +300,16 @@ public class ReservaVista extends javax.swing.JPanel {
     private void actualizarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizarMousePressed
         // TODO add your handling code here:
         int filaSeleccionada = jTable.getSelectedRow();
-        ActualizarReserva(filaSeleccionada);
+        if (filaSeleccionada > -1) {
+            ActualizarReserva(filaSeleccionada);
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione una reserva para poder actualizar");
+        }
     }//GEN-LAST:event_actualizarMousePressed
 
     private void agregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarMousePressed
         // TODO add your handling code here:
-        
+
         setearSeleccionado(agregar);
 
         CrearReservaVista crv = new CrearReservaVista(con);
@@ -352,11 +328,8 @@ public class ReservaVista extends javax.swing.JPanel {
 
             int numMesa = (int) jTable.getValueAt(filaSeleccionada, 0);
             LocalDate fecha = LocalDate.parse(jTable.getValueAt(filaSeleccionada, 1).toString());
-            
-//            String horaStr =  (String) ;
-//            LocalTime hora = LocalTime.parse(horaStr);
             LocalTime hora = LocalTime.parse(jTable.getValueAt(filaSeleccionada, 2).toString());
-            
+
             Long dni = (Long) jTable.getValueAt(filaSeleccionada, 3);
             Boolean estado = (Boolean) jTable.getValueAt(filaSeleccionada, 4);
             int idReserva = (int) jTable.getValueAt(filaSeleccionada, 5);
@@ -366,9 +339,8 @@ public class ReservaVista extends javax.swing.JPanel {
 
             Reserva r = new Reserva(idReserva, mesa, reserva.getNombre(), dni, fecha, hora, estado);
 
-            
-            if(rd.modificarReserva(r)){
-            JOptionPane.showMessageDialog(null, "Reserva actualizada correctamente");
+            if (rd.modificarReserva(r)) {
+                JOptionPane.showMessageDialog(null, "Reserva actualizada correctamente");
             } else {
                 JOptionPane.showMessageDialog(null, "Error al actualizar reserva");
             }
