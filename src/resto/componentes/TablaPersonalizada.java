@@ -18,6 +18,7 @@ public class TablaPersonalizada extends JTable {
     getTableHeader().setPreferredSize(new Dimension(0, 35));
     setDefaultRenderer(Object.class, new TablePersonalizadaCelda());
     setRowHeight(25);
+    setBackground(Color.decode("#F0EFEF"));
   }
 
   public void arreglarTabla(JScrollPane scroll) {
@@ -73,4 +74,5 @@ public class TablaPersonalizada extends JTable {
     }
 
   }
+
 }
