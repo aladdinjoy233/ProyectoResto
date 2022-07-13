@@ -30,6 +30,7 @@ public class ReservaVista extends javax.swing.JPanel {
         jTable.arreglarTabla(jScrollPane1);
         modelo = (DefaultTableModel) jTable.getModel();
         verActivas();
+        jTable.getTableHeader().setReorderingAllowed(false);
     }
 
     //funcionalidades
@@ -71,14 +72,14 @@ public class ReservaVista extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Num mesa", "Fecha", "Hora", "DNI", "Activo", "id"
+                "Num mesa", "Fecha", "Hora", "Nombre", "DNI", "Activo", "id"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, true, true, true, false
+                true, true, true, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -90,6 +91,9 @@ public class ReservaVista extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(jTable);
+        if (jTable.getColumnModel().getColumnCount() > 0) {
+            jTable.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(114, 63, 50));
@@ -243,7 +247,7 @@ public class ReservaVista extends javax.swing.JPanel {
         ArrayList<Reserva> reservas = rd.obtenerReservasInactivas();
 
         for (Reserva r : reservas) {
-            modelo.addRow(new Object[]{r.getMesa().getNumMesa(), r.getFecha(), r.getHora(), r.getDni(), r.isActivo() ? "si" : "no", r.getIdReserva()});
+            modelo.addRow(new Object[]{r.getMesa().getNumMesa(), r.getFecha(), r.getHora(), r.getNombre(), r.getDni(), r.isActivo() ? "si" : "no", r.getIdReserva()});
         }
     }
 
@@ -253,7 +257,7 @@ public class ReservaVista extends javax.swing.JPanel {
 
         for (Reserva r : reservas) {
 
-            modelo.addRow(new Object[]{r.getMesa().getNumMesa(), r.getFecha(), r.getHora(), r.getDni(), r.isActivo() ? "si" : "no", r.getIdReserva()});
+            modelo.addRow(new Object[]{r.getMesa().getNumMesa(), r.getFecha(), r.getHora(), r.getNombre(), r.getDni(), r.isActivo() ? "si" : "no", r.getIdReserva()});
         }
     }
 
@@ -321,12 +325,13 @@ public class ReservaVista extends javax.swing.JPanel {
                 int numMesa = (int) jTable.getValueAt(i, 0);
                 LocalDate fecha = LocalDate.parse(jTable.getValueAt(i, 1).toString());
                 LocalTime hora = LocalTime.parse(jTable.getValueAt(i, 2).toString());
-                Long dni = (Long) jTable.getValueAt(i, 3);
-                int idReserva = (int) jTable.getValueAt(i, 5);
+                String nombre = (String) jTable.getValueAt(i, 3);
+                Long dni = (Long) jTable.getValueAt(i, 4);
+                int idReserva = (int) jTable.getValueAt(i, 6);
 
-                if (jTable.getValueAt(i, 4).equals("si")) {
+                if (jTable.getValueAt(i, 5).equals("si")) {
                     estado = true;
-                } else if (jTable.getValueAt(i, 4).equals("no")) {
+                } else if (jTable.getValueAt(i, 5).equals("no")) {
                     estado = false;
                 } else {
                     estado = false;
@@ -335,7 +340,7 @@ public class ReservaVista extends javax.swing.JPanel {
                 Reserva reserva = rd.obtenerReserva(idReserva);
                 Mesa mesa = md.obtenerMesa(numMesa);
 
-                Reserva r = new Reserva(idReserva, mesa, reserva.getNombre(), dni, fecha, hora, estado);
+                Reserva r = new Reserva(idReserva, mesa, nombre, dni, fecha, hora, estado);
 
 
                 if (rd.modificarReserva(r)) {
