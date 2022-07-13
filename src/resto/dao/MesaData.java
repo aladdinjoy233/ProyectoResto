@@ -324,4 +324,95 @@ public class MesaData {
     return mesas;
   }
 
+//  Metodos para la vista de mesero
+  public ArrayList<Mesa> obtenerMesasDelMesero(Mesero mesero) {
+    ArrayList<Mesa> mesas = new ArrayList<>();
+
+    String sql = "SELECT mesa.numMesa FROM mesa WHERE idMesero is NULL AND activo = 1";
+
+    try {
+      PreparedStatement ps = coneccion.prepareStatement(sql);
+
+      ps.setInt(1, mesero.getIdMesero());
+
+      ResultSet rs = ps.executeQuery();
+      Mesa mesa;
+
+      if (!rs.next()) {
+        JOptionPane.showMessageDialog(null, "No hay mesas en la base de datos");
+        ps.close();
+        return mesas;
+      }
+
+      rs.previous();
+
+      while (rs.next()) {
+        mesa = new Mesa();
+
+        Mesero meseroBD = meseroData.obtenerMesero(rs.getInt("idMesero"));
+        mesa.setMesero(meseroBD);
+
+        mesa.setNumMesa(rs.getInt("numMesa"));
+        mesa.setCapacidad(rs.getInt("capacidad"));
+        mesa.setEstado(rs.getBoolean("estado"));
+        mesa.setActivo(rs.getBoolean("activo"));
+
+        mesas.add(mesa);
+      }
+
+      ps.close();
+
+    } catch (SQLException ex) {
+      JOptionPane.showMessageDialog(null, "Error al consultar las Mesas" + ex);
+    }
+
+    return mesas;
+  }
+  
+    
+
+  public ArrayList<Mesa> obtenerMesasLibresNoOcupadosPor(Mesero mesero) {
+    ArrayList<Mesa> mesas = new ArrayList<>();
+
+    String sql = "SELECT mesa.numMesa FROM mesa WHERE idMesero = ? AND activo = 1";
+
+    try {
+      PreparedStatement ps = coneccion.prepareStatement(sql);
+
+      ps.setInt(1, mesero.getIdMesero());
+
+      ResultSet rs = ps.executeQuery();
+      Mesa mesa;
+
+      if (!rs.next()) {
+        JOptionPane.showMessageDialog(null, "No hay mesas en la base de datos");
+        ps.close();
+        return mesas;
+      }
+
+      rs.previous();
+
+      while (rs.next()) {
+        mesa = new Mesa();
+
+        Mesero meseroBD = meseroData.obtenerMesero(rs.getInt("idMesero"));
+        mesa.setMesero(meseroBD);
+
+        mesa.setNumMesa(rs.getInt("numMesa"));
+        mesa.setCapacidad(rs.getInt("capacidad"));
+        mesa.setEstado(rs.getBoolean("estado"));
+        mesa.setActivo(rs.getBoolean("activo"));
+
+        mesas.add(mesa);
+      }
+
+      ps.close();
+
+    } catch (SQLException ex) {
+      JOptionPane.showMessageDialog(null, "Error al consultar las Mesas" + ex);
+    }
+
+    return mesas;
+  }
+
 }
