@@ -96,14 +96,16 @@ public class MesaVista extends javax.swing.JPanel {
                 } else if (tablaMesas.getValueAt(i, 2).equals("No")) {
                     nMesa.setEstado(false);
                 } else {
-                    nMesa.setEstado(false);;
+                    nMesa.setEstado(false);
+                    JOptionPane.showMessageDialog(null,"Error al ingresar el Dato, Se cargara por defecto 'No'");
                 }
                 if (tablaMesas.getValueAt(i, 3).equals("Si")) {
                     nMesa.setActivo(true);
                 } else if (tablaMesas.getValueAt(i, 3).equals("No")) {
-                    nMesa.setActivo(true);
+                    nMesa.setActivo(false);
                 } else {
-                    nMesa.setActivo(true);
+                    nMesa.setActivo(false);
+                    JOptionPane.showMessageDialog(null,"Error al ingresar el Dato, Se cargara por defecto 'No'");
                 }
 
                 if (mesadata.modificarMesaVista(nMesa)) {
@@ -111,17 +113,17 @@ public class MesaVista extends javax.swing.JPanel {
                 }
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "error " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Por favor cargue un Numero Entero " + ex.getMessage());
         }
 
         if (count == tablaMesas.getRowCount()) {
             JOptionPane.showMessageDialog(null, "Actualizado correctamente");
         } else {
             JOptionPane.showMessageDialog(null, "Solo se actualizaron " + count + " de " + tablaMesas.getRowCount()
-                    + " reservas\n1) La fecha/hora debe ser proxima a la actual");
+                    + " mesas\n) verifique los datos.");
 
         }
-
+        verActivas();
     }
 
     /**
@@ -424,10 +426,14 @@ public class MesaVista extends javax.swing.JPanel {
 
     private void mVmesasInactivasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mVmesasInactivasActionPerformed
         // TODO add your handling code here:
+        try{
         if (mVmesasInactivas.isSelected()) {
             verInactivas();
         } else {
             verActivas();
+        }
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Error al mostrar las listas" + ex);
         }
     }//GEN-LAST:event_mVmesasInactivasActionPerformed
 
