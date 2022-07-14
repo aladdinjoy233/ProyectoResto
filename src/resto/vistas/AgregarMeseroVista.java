@@ -87,7 +87,7 @@ public class AgregarMeseroVista extends javax.swing.JPanel {
 
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(114, 63, 50));
-        jLabel6.setText("Telefono");
+        jLabel6.setText("Teléfono");
 
         jtTelefono.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(114, 63, 50)));
 
@@ -222,61 +222,68 @@ public class AgregarMeseroVista extends javax.swing.JPanel {
     }//GEN-LAST:event_jtApellidoActionPerformed
 
     private void jbtnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnAgregarMouseClicked
-        try{
-            String nombre = jtNombre.getText();
-            String apellido = jtApellido.getText();
-            long dni = Long.parseLong(jtDNI.getText());
-            long telefono = Long.parseLong(jtTelefono.getText());
-            boolean activo = false;            
-            if(jcbActivo.isSelected()){
-                activo = true;
-            }
-            
-            boolean todobien = true;
-            
-            //validacion nombre
-            if(nombre.trim().equals("")){ //verifico que nombre no este vacio
-                todobien = false;
-                JOptionPane.showMessageDialog(this, "Complete el campo nombre.");    
-                
-            } else if(nombre.trim().length() > 50){ //verifico que no supere los 50 caracteres
-                todobien = false;
-                JOptionPane.showMessageDialog(this, "El nombre no puede superar los 50 caracteres.");
-                
-            } else if(!soloLetras(nombre)){ //verifico que no tenga numeros o caracteres extranos
-                todobien = false;
-                JOptionPane.showMessageDialog(this, "El nombre solo debe contener letras.");
-                
-            }
-            
-            //validacion apellido
-            if(apellido.trim().equals("")){ //verifico que apellido no este vacio
-                todobien = false;
-                JOptionPane.showMessageDialog(this, "Complete el campo apellido.");    
-                
-            } else if(apellido.trim().length() > 50){ //verifico que no supere los 50 caracteres
-                todobien = false;
-                JOptionPane.showMessageDialog(this, "El apellido no puede superar los 50 caracteres.");
-                
-            } else if(!soloLetras(apellido)){ //verifico que no tenga numeros o caracteres extranos
-                todobien = false;
-                JOptionPane.showMessageDialog(this, "El apellido solo debe contener letras.");
-                
-            }
-            
-            if(todobien){
-                Mesero m = new Mesero(nombre,apellido,dni,telefono,activo);
-                
-                if(md.agregarMesero(m)){
-                    JOptionPane.showMessageDialog(this, "Mesero agregado con exito.");
-                }
-                
-            }
-            
-            
-        }catch(NumberFormatException e){ //validacion dni y telefono
-            JOptionPane.showMessageDialog(this, "Error! Debe ingresar un numero.");
+    
+        long dni = 0, telefono = 0;
+        String nombre = jtNombre.getText();
+        String apellido = jtApellido.getText();
+        boolean activo = false;
+        if (jcbActivo.isSelected()) {
+            activo = true;
         }
+
+        boolean todobien = true;
+
+        //validacion nombre
+        if (nombre.trim().equals("")) { //verifico que nombre no este vacio
+            todobien = false;
+            JOptionPane.showMessageDialog(this, "Complete el campo nombre.");
+
+        } else if (nombre.trim().length() > 50) { //verifico que no supere los 50 caracteres
+            todobien = false;
+            JOptionPane.showMessageDialog(this, "El nombre no puede superar los 50 caracteres.");
+
+        } else if (!soloLetras(nombre)) { //verifico que no tenga numeros o caracteres extranos
+            todobien = false;
+            JOptionPane.showMessageDialog(this, "El nombre solo debe contener letras.");
+
+        }
+
+        //validacion apellido
+        if (apellido.trim().equals("")) { //verifico que apellido no este vacio
+            todobien = false;
+            JOptionPane.showMessageDialog(this, "Complete el campo apellido.");
+
+        } else if (apellido.trim().length() > 50) { //verifico que no supere los 50 caracteres
+            todobien = false;
+            JOptionPane.showMessageDialog(this, "El apellido no puede superar los 50 caracteres.");
+
+        } else if (!soloLetras(apellido)) { //verifico que no tenga numeros o caracteres extranos
+            todobien = false;
+            JOptionPane.showMessageDialog(this, "El apellido solo debe contener letras.");
+
+        }
+
+        try { //validacion dni y telefono
+            dni = Long.parseLong(jtDNI.getText());
+            telefono = Long.parseLong(jtTelefono.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un número en DNI y/o teléfono.");
+            todobien = false;
+        }
+
+        if (todobien) {
+            Mesero m = new Mesero(nombre, apellido, dni, telefono, activo);
+
+            if (md.agregarMesero(m)) {
+                JOptionPane.showMessageDialog(this, "Mesero agregado con éxito.");
+                limpiarCampos();
+            }
+
+        }
+
+            
+        
+        
     }//GEN-LAST:event_jbtnAgregarMouseClicked
 
     private void jbtnAgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnAgregarMouseEntered

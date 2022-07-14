@@ -265,7 +265,7 @@ public class MesasAsignadasVista extends javax.swing.JPanel {
             llenarTablaNoAsig();
                         
         } else{
-            JOptionPane.showMessageDialog(this, "Seleccione una mesa");
+            JOptionPane.showMessageDialog(this, "Seleccione una mesa.");
         }
         
     }//GEN-LAST:event_jbtnSacarMouseClicked
@@ -292,7 +292,7 @@ public class MesasAsignadasVista extends javax.swing.JPanel {
             llenarTablaNoAsig();
             
         } else{
-            JOptionPane.showMessageDialog(this, "Seleccione una mesa");
+            JOptionPane.showMessageDialog(this, "Seleccione una mesa.");
         }
         
     }//GEN-LAST:event_jbtnAgregarMouseClicked

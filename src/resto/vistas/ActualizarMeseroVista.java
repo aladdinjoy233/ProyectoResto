@@ -94,7 +94,7 @@ public class ActualizarMeseroVista extends javax.swing.JPanel {
 
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(114, 63, 50));
-        jLabel6.setText("Telefono");
+        jLabel6.setText("Teléfono");
 
         jtTelefono.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(114, 63, 50)));
 
@@ -229,70 +229,74 @@ public class ActualizarMeseroVista extends javax.swing.JPanel {
     }//GEN-LAST:event_jtApellidoActionPerformed
 
     private void jbtnActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnActualizarMouseClicked
-                try{
-            String nombre = jtNombre.getText();
-            String apellido = jtApellido.getText();
-            long dni = Long.parseLong(jtDNI.getText());
-            long telefono = Long.parseLong(jtTelefono.getText());
-            boolean activo = false;            
-            if(jcbActivo.isSelected()){
-                activo = true;
-            }
-            
-            boolean actualizar = true;
-            
-            if(!jcbActivo.isSelected()){ //si lo quiere desactivar verifico que no tenga ninguna mesa
-                ArrayList<Mesa> mesas = med.obtenerMesasDelMesero(md.obtenerMesero(id));
-                
-                if(mesas.size() > 0){
-                    actualizar = false;
-                    jcbActivo.setSelected(true);
-                    JOptionPane.showMessageDialog(this, "Error al desactivar, el mesero tiene mesas asignadas a su nombre.\nPor favor desvincule las mesas asignadas antes de desactivarlo.");
-                }
-            } 
-            
-            //validacion nombre
-            if(nombre.trim().equals("")){ //verifico que nombre no este vacio
-                actualizar = false;
-                JOptionPane.showMessageDialog(this, "Complete el campo nombre.");    
-                
-            } else if(nombre.trim().length() > 50){ //verifico que no supere los 50 caracteres
-                actualizar = false;
-                JOptionPane.showMessageDialog(this, "El nombre no puede superar los 50 caracteres.");
-                
-            } else if(!soloLetras(nombre)){ //verifico que no tenga numeros o caracteres extranos
-                actualizar = false;
-                JOptionPane.showMessageDialog(this, "El nombre solo debe contener letras.");
-                
-            } 
-            
-            //validacion apellido
-            if(apellido.trim().equals("")){ //verifico que apellido no este vacio
-                actualizar = false;
-                JOptionPane.showMessageDialog(this, "Complete el campo apellido.");    
-                
-            } else if(apellido.trim().length() > 50){ //verifico que no supere los 50 caracteres
-                actualizar = false;
-                JOptionPane.showMessageDialog(this, "El apellido no puede superar los 50 caracteres.");
-                
-            } else if(!soloLetras(apellido)){ //verifico que no tenga numeros o caracteres extranos
-                actualizar = false;
-                JOptionPane.showMessageDialog(this, "El apellido solo debe contener letras.");
-                
-            } 
-            
-            if(actualizar){
-                Mesero m = new Mesero(id,nombre,apellido,dni,telefono,activo);
-                
-                if(md.modificarMesero(m)){
-                    JOptionPane.showMessageDialog(this, "Mesero actualizado con exito.");
-                }
-                
-            }
-            
-        }catch(NumberFormatException e){ //validacion dni y telefono
-            JOptionPane.showMessageDialog(this, "Error! Debe ingresar un numero.");
+       
+        long dni = 0, telefono = 0;
+        String nombre = jtNombre.getText();
+        String apellido = jtApellido.getText();
+        boolean activo = false;
+        if (jcbActivo.isSelected()) {
+            activo = true;
         }
+
+        boolean actualizar = true;
+
+        if (!jcbActivo.isSelected()) { //si lo quiere desactivar verifico que no tenga ninguna mesa
+            ArrayList<Mesa> mesas = med.obtenerMesasDelMesero(md.obtenerMesero(id));
+
+            if (mesas.size() > 0) {
+                actualizar = false;
+                jcbActivo.setSelected(true);
+                JOptionPane.showMessageDialog(this, "Error al desactivar, el mesero tiene mesas asignadas a su nombre.\nPor favor desvincule las mesas asignadas antes de desactivarlo.");
+            }
+        }
+
+        //validacion nombre
+        if (nombre.trim().equals("")) { //verifico que nombre no este vacio
+            actualizar = false;
+            JOptionPane.showMessageDialog(this, "Complete el campo nombre.");
+
+        } else if (nombre.trim().length() > 50) { //verifico que no supere los 50 caracteres
+            actualizar = false;
+            JOptionPane.showMessageDialog(this, "El nombre no puede superar los 50 caracteres.");
+
+        } else if (!soloLetras(nombre)) { //verifico que no tenga numeros o caracteres extranos
+            actualizar = false;
+            JOptionPane.showMessageDialog(this, "El nombre solo debe contener letras.");
+
+        }
+
+        //validacion apellido
+        if (apellido.trim().equals("")) { //verifico que apellido no este vacio
+            actualizar = false;
+            JOptionPane.showMessageDialog(this, "Complete el campo apellido.");
+
+        } else if (apellido.trim().length() > 50) { //verifico que no supere los 50 caracteres
+            actualizar = false;
+            JOptionPane.showMessageDialog(this, "El apellido no puede superar los 50 caracteres.");
+
+        } else if (!soloLetras(apellido)) { //verifico que no tenga numeros o caracteres extranos
+            actualizar = false;
+            JOptionPane.showMessageDialog(this, "El apellido solo debe contener letras.");
+
+        }
+
+        try { //validacion dni y telefono
+            dni = Long.parseLong(jtDNI.getText());
+            telefono = Long.parseLong(jtTelefono.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un número en DNI y/o teléfono.");
+            actualizar = false;
+        }
+
+        if (actualizar) {
+            Mesero m = new Mesero(id, nombre, apellido, dni, telefono, activo);
+
+            if (md.modificarMesero(m)) {
+                JOptionPane.showMessageDialog(this, "Mesero actualizado con éxito.");
+            }
+
+        }
+
     }//GEN-LAST:event_jbtnActualizarMouseClicked
 
     private void jbtnActualizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnActualizarMouseEntered

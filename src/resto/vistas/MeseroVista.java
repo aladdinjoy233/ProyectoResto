@@ -57,7 +57,7 @@ public class MeseroVista extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Nombre", "Apellido", "DNI", "Telefono", "Activo"
+                "ID", "Nombre", "Apellido", "DNI", "Teléfono", "Activo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -266,11 +266,11 @@ public class MeseroVista extends javax.swing.JPanel {
                 
                 
             } else{
-                JOptionPane.showMessageDialog(this, "Seleccione un mesero activo");
+                JOptionPane.showMessageDialog(this, "Seleccione un mesero activo.");
             }
 
         } else{
-            JOptionPane.showMessageDialog(this, "Seleccione un mesero");
+            JOptionPane.showMessageDialog(this, "Seleccione un mesero.");
         }
 
     }//GEN-LAST:event_jbtnVerMouseClicked
@@ -291,7 +291,7 @@ public class MeseroVista extends javax.swing.JPanel {
             escritorio.repaint();
             
         } else{
-            JOptionPane.showMessageDialog(this, "Seleccione un mesero");
+            JOptionPane.showMessageDialog(this, "Seleccione un mesero.");
         }        
                 
     }//GEN-LAST:event_jbtnActualizarMouseClicked
