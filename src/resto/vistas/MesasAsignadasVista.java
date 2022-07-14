@@ -2,27 +2,39 @@ package resto.vistas;
 
 import java.awt.Color;
 import java.awt.Window;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import resto.dao.Conexion;
+import resto.dao.MesaData;
+import resto.entidades.Mesa;
 import resto.entidades.Mesero;
 
 public class MesasAsignadasVista extends javax.swing.JPanel {
 
         private Conexion con;
+        private MesaData md;
+        private DefaultTableModel mesasNoAsignadas, mesasAsignadas;
+        private Mesero m1;
     
     public MesasAsignadasVista(Mesero m) {
         initComponents();
         
         con = new Conexion();
+        md = new MesaData(con);
+        m1 = m;
         
         jlNombre.setText(m.getNombre() + " " + m.getApellido());
         
         agregarMesa.arreglarTabla(jScrollPane1);
-        DefaultTableModel mesasNoAsignadas = (DefaultTableModel) agregarMesa.getModel();
+        mesasNoAsignadas = (DefaultTableModel) agregarMesa.getModel();
     
         mesasDe.arreglarTabla(jScrollPane2);
-        DefaultTableModel mesasAsignadas = (DefaultTableModel) mesasDe.getModel();
+        mesasAsignadas = (DefaultTableModel) mesasDe.getModel();
+        
+        llenarTablaAsig(m);
+        llenarTablaNoAsig();
     }
 
     /**
@@ -113,6 +125,9 @@ public class MesasAsignadasVista extends javax.swing.JPanel {
         jbtnSacar.setBackground(new java.awt.Color(241, 207, 178));
         jbtnSacar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnSacar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtnSacarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jbtnSacarMouseEntered(evt);
             }
@@ -125,22 +140,24 @@ public class MesasAsignadasVista extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(114, 63, 50));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Sacar Mesa");
-        jLabel3.setToolTipText("");
 
         javax.swing.GroupLayout jbtnSacarLayout = new javax.swing.GroupLayout(jbtnSacar);
         jbtnSacar.setLayout(jbtnSacarLayout);
         jbtnSacarLayout.setHorizontalGroup(
             jbtnSacarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
         );
         jbtnSacarLayout.setVerticalGroup(
             jbtnSacarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jbtnAgregar.setBackground(new java.awt.Color(241, 207, 178));
         jbtnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtnAgregarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jbtnAgregarMouseEntered(evt);
             }
@@ -153,13 +170,12 @@ public class MesasAsignadasVista extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(114, 63, 50));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Agregar Mesa");
-        jLabel4.setToolTipText("");
 
         javax.swing.GroupLayout jbtnAgregarLayout = new javax.swing.GroupLayout(jbtnAgregar);
         jbtnAgregar.setLayout(jbtnAgregarLayout);
         jbtnAgregarLayout.setHorizontalGroup(
             jbtnAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
         );
         jbtnAgregarLayout.setVerticalGroup(
             jbtnAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,9 +221,9 @@ public class MesasAsignadasVista extends javax.swing.JPanel {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbtnSacar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jbtnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbtnSacar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(71, Short.MAX_VALUE))
         );
 
@@ -223,22 +239,6 @@ public class MesasAsignadasVista extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbtnSacarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnSacarMouseEntered
-        jbtnSacar.setBackground(Color.decode("#D9B18E"));
-    }//GEN-LAST:event_jbtnSacarMouseEntered
-
-    private void jbtnSacarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnSacarMouseExited
-        jbtnSacar.setBackground(Color.decode("#F1CFB2"));
-    }//GEN-LAST:event_jbtnSacarMouseExited
-
-    private void jbtnAgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnAgregarMouseEntered
-        jbtnAgregar.setBackground(Color.decode("#D9B18E"));
-    }//GEN-LAST:event_jbtnAgregarMouseEntered
-
-    private void jbtnAgregarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnAgregarMouseExited
-        jbtnAgregar.setBackground(Color.decode("#F1CFB2"));
-    }//GEN-LAST:event_jbtnAgregarMouseExited
-
     private void jlFlechaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlFlechaMouseClicked
         MeseroVista mv = new MeseroVista(con);
         
@@ -251,7 +251,90 @@ public class MesasAsignadasVista extends javax.swing.JPanel {
         escritorio.repaint();
     }//GEN-LAST:event_jlFlechaMouseClicked
 
+    private void jbtnSacarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnSacarMouseClicked
 
+        if(mesasDe.getSelectedRow() > -1){
+            int id = (int) mesasAsignadas.getValueAt(mesasDe.getSelectedRow(), 0);
+            
+            Mesa m = md.obtenerMesa(id);
+            
+            md.sacarMesero(m);
+            
+            borrarFilas();
+            llenarTablaAsig(m1);
+            llenarTablaNoAsig();
+                        
+        } else{
+            JOptionPane.showMessageDialog(this, "Seleccione una mesa");
+        }
+        
+    }//GEN-LAST:event_jbtnSacarMouseClicked
+
+    private void jbtnSacarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnSacarMouseEntered
+        jbtnSacar.setBackground(Color.decode("#D9B18E"));
+    }//GEN-LAST:event_jbtnSacarMouseEntered
+
+    private void jbtnSacarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnSacarMouseExited
+        jbtnSacar.setBackground(Color.decode("#F1CFB2"));
+    }//GEN-LAST:event_jbtnSacarMouseExited
+
+    private void jbtnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnAgregarMouseClicked
+        
+        if(agregarMesa.getSelectedRow() > -1){
+            int id = (int) mesasNoAsignadas.getValueAt(agregarMesa.getSelectedRow(), 0);
+            
+            Mesa m = md.obtenerMesa(id);
+            
+            md.agregarMesero(m, m1);
+            
+            borrarFilas();
+            llenarTablaAsig(m1);
+            llenarTablaNoAsig();
+            
+        } else{
+            JOptionPane.showMessageDialog(this, "Seleccione una mesa");
+        }
+        
+    }//GEN-LAST:event_jbtnAgregarMouseClicked
+
+    private void jbtnAgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnAgregarMouseEntered
+        jbtnAgregar.setBackground(Color.decode("#D9B18E"));
+    }//GEN-LAST:event_jbtnAgregarMouseEntered
+
+    private void jbtnAgregarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnAgregarMouseExited
+        jbtnAgregar.setBackground(Color.decode("#F1CFB2"));
+    }//GEN-LAST:event_jbtnAgregarMouseExited
+
+    private void llenarTablaAsig(Mesero m){        
+        ArrayList<Mesa> mesas = md.obtenerMesasDelMesero(m);
+        
+        for(Mesa m1 : mesas){
+            mesasAsignadas.addRow(new Object[]{m1.getNumMesa()});
+        }
+    }
+    
+    private void llenarTablaNoAsig(){
+        ArrayList<Mesa> mesas = md.obtenerMesasSinMesero();
+        
+        for(Mesa m1 : mesas){
+            mesasNoAsignadas.addRow(new Object[]{m1.getNumMesa()});
+        }
+    }
+    
+    private void borrarFilas(){
+        int a = mesasAsignadas.getRowCount() - 1;
+        
+        for (int i = a; i > -1 ; i--){
+            mesasAsignadas.removeRow(i);
+        }
+        
+        int b = mesasNoAsignadas.getRowCount() - 1;
+        
+        for (int i = b; i > -1 ; i--){
+            mesasNoAsignadas.removeRow(i);
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private resto.componentes.TablaPersonalizada agregarMesa;
     private javax.swing.JPanel escritorio;
