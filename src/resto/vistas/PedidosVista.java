@@ -2,12 +2,14 @@ package resto.vistas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.sql.Time;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -32,7 +34,7 @@ public class PedidosVista extends javax.swing.JPanel {
 
     model = (DefaultTableModel) tablaPedidos.getModel();
     
-    tablaPedidos.arreglarTabla(jScrollPane1);
+    tablaPedidos.arreglarTabla(jScrollPane2);
 
     cargarDatos(quiereDesactivados);
     
@@ -45,8 +47,6 @@ public class PedidosVista extends javax.swing.JPanel {
 
     bg = new javax.swing.JPanel();
     lblTitulo = new javax.swing.JLabel();
-    jScrollPane1 = new javax.swing.JScrollPane();
-    tablaPedidos = new resto.componentes.TablaPersonalizada();
     btnAgregar = new javax.swing.JPanel();
     lblAgregar = new javax.swing.JLabel();
     btnModificar = new javax.swing.JPanel();
@@ -56,6 +56,8 @@ public class PedidosVista extends javax.swing.JPanel {
     btnCobrar = new javax.swing.JPanel();
     lblCobrar = new javax.swing.JLabel();
     checkboxInactivos = new resto.componentes.CheckboxPersonalizada();
+    jScrollPane2 = new javax.swing.JScrollPane();
+    tablaPedidos = new resto.componentes.TablaPersonalizada();
 
     setPreferredSize(new java.awt.Dimension(780, 530));
 
@@ -65,33 +67,6 @@ public class PedidosVista extends javax.swing.JPanel {
     lblTitulo.setFont(new java.awt.Font("Dialog", 1, 34)); // NOI18N
     lblTitulo.setForeground(new java.awt.Color(114, 63, 50));
     lblTitulo.setText("Manejar Pedidos");
-
-    tablaPedidos.setModel(new javax.swing.table.DefaultTableModel(
-      new Object [][] {
-
-      },
-      new String [] {
-        "Mesa", "Fecha", "Hora", "Pagado", "Subtotal", "Activo"
-      }
-    ) {
-      boolean[] canEdit = new boolean [] {
-        false, false, false, false, false, false
-      };
-
-      public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return canEdit [columnIndex];
-      }
-    });
-    tablaPedidos.setPreferredSize(new java.awt.Dimension(290, 100));
-    tablaPedidos.addMouseListener(new java.awt.event.MouseAdapter() {
-      public void mousePressed(java.awt.event.MouseEvent evt) {
-        tablaPedidosMousePressed(evt);
-      }
-      public void mouseReleased(java.awt.event.MouseEvent evt) {
-        tablaPedidosMouseReleased(evt);
-      }
-    });
-    jScrollPane1.setViewportView(tablaPedidos);
 
     btnAgregar.setBackground(new java.awt.Color(241, 207, 178));
     btnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -121,9 +96,7 @@ public class PedidosVista extends javax.swing.JPanel {
     );
     btnAgregarLayout.setVerticalGroup(
       btnAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnAgregarLayout.createSequentialGroup()
-        .addGap(0, 0, Short.MAX_VALUE)
-        .addComponent(lblAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+      .addComponent(lblAgregar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
     );
 
     btnModificar.setBackground(new java.awt.Color(241, 207, 178));
@@ -150,7 +123,7 @@ public class PedidosVista extends javax.swing.JPanel {
     );
     btnModificarLayout.setVerticalGroup(
       btnModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addComponent(lblModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+      .addComponent(lblModificar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
     );
 
     btnDetalle.setBackground(new java.awt.Color(241, 207, 178));
@@ -180,7 +153,7 @@ public class PedidosVista extends javax.swing.JPanel {
     );
     btnDetalleLayout.setVerticalGroup(
       btnDetalleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addComponent(lblDetalle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+      .addComponent(lblDetalle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
     );
 
     btnCobrar.setBackground(new java.awt.Color(241, 207, 178));
@@ -210,9 +183,7 @@ public class PedidosVista extends javax.swing.JPanel {
     );
     btnCobrarLayout.setVerticalGroup(
       btnCobrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnCobrarLayout.createSequentialGroup()
-        .addGap(0, 0, Short.MAX_VALUE)
-        .addComponent(lblCobrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+      .addComponent(lblCobrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
     );
 
     checkboxInactivos.setForeground(new java.awt.Color(114, 63, 50));
@@ -223,49 +194,64 @@ public class PedidosVista extends javax.swing.JPanel {
       }
     });
 
+    tablaPedidos.setModel(new javax.swing.table.DefaultTableModel(
+      new Object [][] {
+
+      },
+      new String [] {
+        "Mesa", "Fecha", "Hora", "Pagado", "Subtotal", "Activo"
+      }
+    ));
+    tablaPedidos.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mousePressed(java.awt.event.MouseEvent evt) {
+        tablaPedidosMousePressed(evt);
+      }
+      public void mouseReleased(java.awt.event.MouseEvent evt) {
+        tablaPedidosMouseReleased(evt);
+      }
+    });
+    jScrollPane2.setViewportView(tablaPedidos);
+
     javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
     bg.setLayout(bgLayout);
     bgLayout.setHorizontalGroup(
       bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(bgLayout.createSequentialGroup()
         .addGap(55, 55, 55)
-        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
           .addGroup(bgLayout.createSequentialGroup()
             .addComponent(lblTitulo)
             .addGap(248, 248, 248)
             .addComponent(checkboxInactivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-          .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(bgLayout.createSequentialGroup()
-              .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addGap(18, 18, 18)
-              .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addGap(18, 18, 18)
-              .addComponent(btnDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addGap(18, 18, 18)
-              .addComponent(btnCobrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        .addContainerGap(55, Short.MAX_VALUE))
+          .addGroup(bgLayout.createSequentialGroup()
+            .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(18, 18, 18)
+            .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(18, 18, 18)
+            .addComponent(btnDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(18, 18, 18)
+            .addComponent(btnCobrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addComponent(jScrollPane2))
+        .addGap(55, 55, 55))
     );
     bgLayout.setVerticalGroup(
       bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(bgLayout.createSequentialGroup()
+        .addGap(40, 40, 40)
         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(lblTitulo)
           .addGroup(bgLayout.createSequentialGroup()
-            .addGap(40, 40, 40)
-            .addComponent(lblTitulo)
-            .addGap(36, 36, 36))
-          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(checkboxInactivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(18, 18, 18)))
-        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addGap(28, 28, 28)
+            .addGap(38, 38, 38)
+            .addComponent(checkboxInactivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        .addGap(13, 13, 13)
+        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addGap(18, 18, 18)
         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-          .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(btnDetalle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(btnCobrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addContainerGap(72, Short.MAX_VALUE))
+          .addComponent(btnModificar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(btnDetalle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(btnCobrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addContainerGap(87, Short.MAX_VALUE))
     );
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -369,6 +355,35 @@ public class PedidosVista extends javax.swing.JPanel {
 
   }//GEN-LAST:event_checkboxInactivosMousePressed
 
+  private void btnCobrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCobrarMousePressed
+    if (tablaPedidos.getSelectedRows().length != 1) {
+      return;
+    }
+    
+    Pedido pedidoSeleccionada = pedidos.get(tablaPedidos.getSelectedRow());
+    
+    if (pedidoSeleccionada.isPagado()) {
+      return;
+    }
+    
+    int idPedidoSeleccionada = pedidos.get(tablaPedidos.getSelectedRow()).getIdPedido();
+    
+    pedData.cobrarPedido(idPedidoSeleccionada);
+    
+    cargarDatos(quiereDesactivados);
+  }//GEN-LAST:event_btnCobrarMousePressed
+
+  private void btnAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMousePressed
+    AccionesPedido ap = new AccionesPedido(con, null);
+    ap.setSize(780, 530);
+    ap.setLocation(0, 0);
+    
+    bg.removeAll();
+    bg.add(ap, BorderLayout.CENTER);
+    bg.revalidate();
+    bg.repaint();
+  }//GEN-LAST:event_btnAgregarMousePressed
+
   private void tablaPedidosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPedidosMousePressed
     if (tablaPedidos.getSelectedRows().length == 1) {
       enableAll();
@@ -407,32 +422,6 @@ public class PedidosVista extends javax.swing.JPanel {
     }
   }//GEN-LAST:event_tablaPedidosMouseReleased
 
-  private void btnCobrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCobrarMousePressed
-    
-    Pedido pedidoSeleccionada = pedidos.get(tablaPedidos.getSelectedRow());
-    
-    if (tablaPedidos.getSelectedRows().length != 1 || pedidoSeleccionada.isPagado()) {
-      return;
-    }
-    
-    int idPedidoSeleccionada = pedidos.get(tablaPedidos.getSelectedRow()).getIdPedido();
-    
-    pedData.cobrarPedido(idPedidoSeleccionada);
-    
-    cargarDatos(quiereDesactivados);
-  }//GEN-LAST:event_btnCobrarMousePressed
-
-  private void btnAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMousePressed
-    AccionesPedido ap = new AccionesPedido(con, null);
-    ap.setSize(780, 530);
-    ap.setLocation(0, 0);
-    
-    bg.removeAll();
-    bg.add(ap, BorderLayout.CENTER);
-    bg.revalidate();
-    bg.repaint();
-  }//GEN-LAST:event_btnAgregarMousePressed
-
   private void cargarDatos(boolean conDesactivos) {
     
     model.setRowCount(0);
@@ -443,18 +432,17 @@ public class PedidosVista extends javax.swing.JPanel {
     pedidos = new ArrayList<>();
 
     if (conDesactivos) {
-      pedidos = pedData.obtenerPedidos();
+      pedidos = pedData.obtenerPedidosInActivos();
     } else {
       pedidos = pedData.obtenerPedidosActivos();
     }
-    
+
     Collections.sort(pedidos, new Comparator<Pedido>() {
       @Override
       public int compare(Pedido t, Pedido t1) {
         return t.getFecha().compareTo(t1.getFecha());
       }
     });
-
 
     pedidos.forEach(pedido -> {
 
@@ -470,7 +458,7 @@ public class PedidosVista extends javax.swing.JPanel {
       });
 
     });
-    
+
     disableAll();
   }
   
@@ -503,7 +491,7 @@ public class PedidosVista extends javax.swing.JPanel {
   private javax.swing.JPanel btnDetalle;
   private javax.swing.JPanel btnModificar;
   private resto.componentes.CheckboxPersonalizada checkboxInactivos;
-  private javax.swing.JScrollPane jScrollPane1;
+  private javax.swing.JScrollPane jScrollPane2;
   private javax.swing.JLabel lblAgregar;
   private javax.swing.JLabel lblCobrar;
   private javax.swing.JLabel lblDetalle;

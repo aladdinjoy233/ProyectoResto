@@ -1,9 +1,12 @@
 package resto.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Time;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import resto.entidades.*;
@@ -147,6 +150,47 @@ public class PedidoData {
     return pedidos;
   }
 
+  public ArrayList<Pedido> obtenerPedidosInActivos() {
+    ArrayList<Pedido> pedidos = new ArrayList<>();
+
+    String sql = "SELECT * FROM pedido WHERE activo = 0";
+
+    try {
+      PreparedStatement ps = con.prepareStatement(sql);
+      ResultSet rs = ps.executeQuery();
+
+      Pedido pedido;
+
+      while (rs.next()) {
+        pedido = new Pedido();
+        pedido.setIdPedido(rs.getInt("idPedido"));
+
+        Mesa mesa = mesaData.obtenerMesa(rs.getInt("numMesa"));
+        pedido.setMesa(mesa);
+
+        Mesero mesero = meseroData.obtenerMesero(rs.getInt("idMesero"));
+        pedido.setMesero(mesero);
+
+        pedido.setPagado(rs.getBoolean("pagado"));
+
+        pedido.setFecha(rs.getDate("fecha").toLocalDate());
+
+        pedido.setHora(rs.getTime("hora").toLocalTime());
+
+        pedido.setActivo(rs.getBoolean("activo"));
+
+        pedidos.add(pedido);
+      }
+
+      ps.close();
+
+    } catch (SQLException exc) {
+      JOptionPane.showMessageDialog(null, "No se pudo obtener pedidos " + exc);
+    }
+
+    return pedidos;
+  }
+
   public double obtenerSubtotalDelPedido(int id) {
     double total = 0;
 
@@ -199,5 +243,38 @@ public class PedidoData {
     }
 
     return cobrado;
+  }
+
+  public boolean agregarPedido(Pedido pedido) {
+    boolean agregado = false;
+
+    String sql = "INSERT INTO pedido(numMesa, idMesero, pagado, fecha, hora, activo) VALUES (?, ?, ?, ?, ?, ?);";
+
+    try {
+      PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+      ps.setInt(1, pedido.getMesa().getNumMesa());
+      ps.setInt(2, pedido.getMesero().getIdMesero());
+      ps.setBoolean(3, pedido.isPagado());
+      ps.setDate(4, Date.valueOf(pedido.getFecha()));
+      ps.setTime(5, Time.valueOf(pedido.getHora()));
+      ps.setBoolean(6, pedido.isActivo());
+
+      ps.executeUpdate();
+      ResultSet rs = ps.getGeneratedKeys();
+
+      if (rs.next()) {
+        pedido.setIdPedido(rs.getInt("idPedido"));
+        agregado = true;
+      }
+
+      ps.close();
+
+    } catch (SQLException e) {
+      agregado = false;
+      JOptionPane.showMessageDialog(null, "Error al agregar pedido " + e);
+    }
+
+    return agregado;
   }
 }

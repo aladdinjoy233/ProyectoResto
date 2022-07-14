@@ -1,9 +1,12 @@
 package resto.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Time;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import resto.entidades.*;
@@ -99,5 +102,42 @@ public class DetalleData {
     }
 
     return detalles;
+  }
+
+  public boolean agregarDetalle(DetalleDelPedido detalle) {
+    boolean agregado = false;
+
+    String sql = "INSERT INTO detalle(codigoProducto, idPedido, cantidad, activo) VALUES (?, ?, ?, ?);";
+
+    try {
+      PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+      ps.setInt(1, detalle.getProducto().getCodigo());
+      ps.setInt(2, detalle.getPedido().getIdPedido());
+      ps.setInt(3, detalle.getCantidad());
+      ps.setBoolean(4, detalle.isActivo());
+
+      ps.executeUpdate();
+      ResultSet rs = ps.getGeneratedKeys();
+
+      if (rs.next()) {
+        detalle.setIdDetalle(rs.getInt("idDetalle"));
+        agregado = true;
+      }
+
+      ps.close();
+
+    } catch (SQLException e) {
+      agregado = false;
+      JOptionPane.showMessageDialog(null, "Error al agregar detalle del pedido " + e);
+    }
+
+    return agregado;
+  }
+
+  public boolean modificarDetalle(DetalleDelPedido detalle) {
+    boolean modificado = false;
+
+    return modificado;
   }
 }
