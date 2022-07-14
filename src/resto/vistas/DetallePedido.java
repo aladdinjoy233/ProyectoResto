@@ -48,6 +48,8 @@ public class DetallePedido extends javax.swing.JPanel {
     numMesa = new javax.swing.JLabel();
     lblID = new javax.swing.JLabel();
     pedidoID = new javax.swing.JLabel();
+    lblCobrado = new javax.swing.JLabel();
+    isCobrado = new javax.swing.JLabel();
 
     setPreferredSize(new java.awt.Dimension(780, 530));
 
@@ -122,6 +124,14 @@ public class DetallePedido extends javax.swing.JPanel {
     pedidoID.setForeground(new java.awt.Color(114, 63, 50));
     pedidoID.setText("1");
 
+    lblCobrado.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+    lblCobrado.setForeground(new java.awt.Color(114, 63, 50));
+    lblCobrado.setText("Esta cobrado?");
+
+    isCobrado.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+    isCobrado.setForeground(new java.awt.Color(114, 63, 50));
+    isCobrado.setText("Oui");
+
     javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
     bg.setLayout(bgLayout);
     bgLayout.setHorizontalGroup(
@@ -136,12 +146,18 @@ public class DetallePedido extends javax.swing.JPanel {
         .addGap(50, 50, 50)
         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(bgLayout.createSequentialGroup()
-            .addComponent(lblID)
-            .addGap(9, 9, 9)
-            .addComponent(pedidoID))
-          .addComponent(lblNumMesa))
-        .addGap(8, 8, 8)
-        .addComponent(numMesa)
+            .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addGroup(bgLayout.createSequentialGroup()
+                .addComponent(lblID)
+                .addGap(9, 9, 9)
+                .addComponent(pedidoID))
+              .addComponent(lblNumMesa))
+            .addGap(8, 8, 8)
+            .addComponent(numMesa))
+          .addGroup(bgLayout.createSequentialGroup()
+            .addComponent(lblCobrado)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addComponent(isCobrado)))
         .addGap(62, 62, 62)
         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -167,7 +183,11 @@ public class DetallePedido extends javax.swing.JPanel {
               .addComponent(lblID)
               .addComponent(pedidoID))
             .addGap(11, 11, 11)
-            .addComponent(lblNumMesa))
+            .addComponent(lblNumMesa)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+              .addComponent(lblCobrado)
+              .addComponent(isCobrado)))
           .addGroup(bgLayout.createSequentialGroup()
             .addGap(40, 40, 40)
             .addComponent(numMesa))
@@ -225,11 +245,15 @@ public class DetallePedido extends javax.swing.JPanel {
     
     pedidoID.setText("" + pedido.getIdPedido());
     numMesa.setText("" + pedido.getMesa().getNumMesa());
+    
+    isCobrado.setText(pedido.isPagado() ? "Si" : "No");
   }
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JPanel bg;
   private javax.swing.JLabel btnVolver;
+  private javax.swing.JLabel isCobrado;
   private javax.swing.JScrollPane jScrollPane1;
+  private javax.swing.JLabel lblCobrado;
   private javax.swing.JLabel lblID;
   private javax.swing.JLabel lblNumMesa;
   private javax.swing.JLabel lblTitulo;
