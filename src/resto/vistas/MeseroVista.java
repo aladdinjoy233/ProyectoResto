@@ -7,18 +7,22 @@ import java.util.Comparator;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import resto.dao.Conexion;
+import resto.dao.MesaData;
 import resto.dao.MeseroData;
+import resto.entidades.Mesa;
 import resto.entidades.Mesero;
 
 public class MeseroVista extends javax.swing.JPanel {
 
     private DefaultTableModel model;
     private MeseroData md;
+    private MesaData med;
     
   public MeseroVista(Conexion con) {
     initComponents();
     
     md = new MeseroData(con);
+    med = new MesaData(con);
     
     tablaPersonalizada1.arreglarTabla(jScrollPane1);
     model = (DefaultTableModel) tablaPersonalizada1.getModel();
@@ -288,7 +292,21 @@ public class MeseroVista extends javax.swing.JPanel {
             
             String bool = (String) model.getValueAt(i, 5);
             if(bool.equalsIgnoreCase("no")){
-                m.setActivo(false);
+                ArrayList<Mesa> mesas = med.obtenerMesasDelMesero(m);
+                
+                if(mesas.size() > 0){
+                    meserosModificados = false;
+                    JOptionPane.showMessageDialog(this, "Error! El mesero " + m.getNombre() + " " + m.getApellido() + " tiene mesas asignadas a su nombre.\nPor favor desvincule las mesas asignadas antes de desactivarlo.");
+                    
+                    if(i > 0){ //si no hubo errores antes aviso que se modificaron esos datos
+                        JOptionPane.showMessageDialog(this, "Se actualizaran solo los datos anteriores a la fila " + (i + 1));
+                    }
+                    
+                    break;
+                } else{
+                    m.setActivo(false);
+                }
+                
             } else if(bool.equalsIgnoreCase("si")){
                 m.setActivo(true);
             } else{

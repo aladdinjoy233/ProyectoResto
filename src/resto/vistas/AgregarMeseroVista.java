@@ -18,6 +18,8 @@ public class AgregarMeseroVista extends javax.swing.JPanel {
         
         con = new Conexion();
         md = new MeseroData(con);
+        
+        jcbActivo.setSelected(true);
     }
 
     /**
@@ -262,7 +264,7 @@ public class AgregarMeseroVista extends javax.swing.JPanel {
         jtApellido.setText("");
         jtDNI.setText("");
         jtTelefono.setText("");
-        jcbActivo.setEnabled(false);
+        jcbActivo.setSelected(true);
         
     }
 
