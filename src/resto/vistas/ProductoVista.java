@@ -7,7 +7,9 @@ package resto.vistas;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import resto.dao.Conexion;
 import resto.dao.ProductoData;
@@ -30,6 +32,9 @@ public class ProductoVista extends javax.swing.JPanel {
         modelo = new DefaultTableModel();
         armarCabecera();
         mostrarProductos();
+        
+        enableButton(jpFondoAgregar,jbAgregar);
+        disableAll();
     }
 
     /**
@@ -72,8 +77,11 @@ public class ProductoVista extends javax.swing.JPanel {
             }
         ));
         jtProductos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jtProductosMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jtProductosMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jtProductosMouseReleased(evt);
             }
         });
         jScrollPane2.setViewportView(jtProductos);
@@ -110,12 +118,10 @@ public class ProductoVista extends javax.swing.JPanel {
 
         jpFondoActualizar.setBackground(new java.awt.Color(241, 207, 178));
         jpFondoActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jpFondoActualizar.setEnabled(false);
 
         jbActualizar.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         jbActualizar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jbActualizar.setText("Actualizar Producto");
-        jbActualizar.setEnabled(false);
         jbActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbActualizarMouseClicked(evt);
@@ -141,12 +147,11 @@ public class ProductoVista extends javax.swing.JPanel {
 
         jpFondoBorrar.setBackground(new java.awt.Color(241, 207, 178));
         jpFondoBorrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jpFondoBorrar.setEnabled(false);
 
         jbBorrar.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         jbBorrar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jbBorrar.setText("Borrar Producto");
-        jbBorrar.setEnabled(false);
+        jbBorrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jbBorrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbBorrarMouseClicked(evt);
@@ -245,28 +250,27 @@ public class ProductoVista extends javax.swing.JPanel {
     }//GEN-LAST:event_jbAgregarMouseExited
 
     private void jbActualizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbActualizarMouseEntered
-        if(jpFondoActualizar.isEnabled()){
-            jpFondoActualizar.setBackground(Color.decode("#D9B18E"));
+        if (jtProductos.getSelectedRows().length == 1) {
+                jpFondoActualizar.setBackground(Color.decode("#D9B18E"));
         }
-        
        
     }//GEN-LAST:event_jbActualizarMouseEntered
 
     private void jbActualizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbActualizarMouseExited
-        if(jpFondoActualizar.isEnabled()){
+        if (jtProductos.getSelectedRows().length == 1) {
             jpFondoActualizar.setBackground(Color.decode("#F1CFB2"));
         }
     }//GEN-LAST:event_jbActualizarMouseExited
 
     private void jbBorrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbBorrarMouseEntered
-        if(jpFondoBorrar.isEnabled()){
-            jpFondoBorrar.setBackground(Color.decode("#D9B18E"));
+        if (jtProductos.getSelectedRows().length == 1) {
+                jpFondoBorrar.setBackground(Color.decode("#D9B18E"));
         }
         
     }//GEN-LAST:event_jbBorrarMouseEntered
 
     private void jbBorrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbBorrarMouseExited
-         if(jpFondoBorrar.isEnabled()){
+        if (jtProductos.getSelectedRows().length == 1) {
             jpFondoBorrar.setBackground(Color.decode("#F1CFB2"));
         }
         
@@ -292,12 +296,8 @@ public class ProductoVista extends javax.swing.JPanel {
         for (Producto p : listaProductos) {
             modelo.addRow(new Object[] {p.getCodigo(),p.getNombre(),p.getStock(),p.getPrecio(),(p.isComestible()? "Comidas" : "Bebidas"),(p.isActivo() ? "Si" : "No")});
         }
+        disableAll();
     }//GEN-LAST:event_jchActivoActionPerformed
-
-    private void jtProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtProductosMouseClicked
-        jbActualizar.setEnabled(true);
-        jbBorrar.setEnabled(true);
-    }//GEN-LAST:event_jtProductosMouseClicked
 
     private void jbActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbActualizarMouseClicked
         if(jbActualizar.isEnabled()){          
@@ -336,6 +336,22 @@ public class ProductoVista extends javax.swing.JPanel {
             mostrarProductos();
         }
     }//GEN-LAST:event_jbBorrarMouseClicked
+
+    private void jtProductosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtProductosMousePressed
+        if (jtProductos.getSelectedRows().length == 1) {
+            enableAll();
+          } else {
+            disableAll();
+        }
+    }//GEN-LAST:event_jtProductosMousePressed
+
+    private void jtProductosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtProductosMouseReleased
+        if (jtProductos.getSelectedRows().length == 1) {
+            enableAll();
+          } else {
+            disableAll();
+        }
+    }//GEN-LAST:event_jtProductosMouseReleased
      
     private void armarCabecera(){
         ArrayList<Object> columnas = new ArrayList<Object>();
@@ -370,7 +386,28 @@ public class ProductoVista extends javax.swing.JPanel {
         for (Producto p : listaProductos) {
             modelo.addRow(new Object[] {p.getCodigo(),p.getNombre(),p.getStock(),p.getPrecio(),(p.isComestible()? "Comidas" : "Bebidas"),(p.isActivo() ? "Si" : "No")});
         }
+        disableAll();
     }
+    
+  public void disableButton(JPanel panel, JLabel label) {
+    panel.setBackground(Color.LIGHT_GRAY);
+    label.setForeground(Color.GRAY);
+  }
+  
+  public void enableButton(JPanel panel, JLabel label) {
+    panel.setBackground(Color.decode("#F1CFB2"));
+    label.setForeground(Color.decode("#723F32"));
+  }
+  
+  public void disableAll() {
+    disableButton(jpFondoActualizar,jbActualizar);
+    disableButton(jpFondoBorrar, jbBorrar);  
+  }
+  
+  public void enableAll() {
+    enableButton(jpFondoActualizar,jbActualizar);
+    enableButton(jpFondoBorrar, jbBorrar);
+  }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel escritorio;
