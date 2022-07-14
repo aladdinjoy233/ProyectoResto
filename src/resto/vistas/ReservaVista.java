@@ -30,6 +30,7 @@ public class ReservaVista extends javax.swing.JPanel {
         jTable.arreglarTabla(jScrollPane1);
         modelo = (DefaultTableModel) jTable.getModel();
         verActivas();
+        refrescar.setVisible(false);
     }
 
     //funcionalidades
@@ -52,8 +53,8 @@ public class ReservaVista extends javax.swing.JPanel {
         actualizar = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jCinactivo = new resto.componentes.CheckboxPersonalizada();
-        actualizar1 = new javax.swing.JPanel();
-        refrescar = new javax.swing.JLabel();
+        refrescar = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
 
         jLabel2.setFont(new java.awt.Font("Dialog", 3, 13)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(114, 63, 50));
@@ -124,8 +125,8 @@ public class ReservaVista extends javax.swing.JPanel {
             agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, agregarLayout.createSequentialGroup()
                 .addContainerGap(46, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42))
+                .addComponent(jLabel1)
+                .addGap(55, 55, 55))
         );
         agregarLayout.setVerticalGroup(
             agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,41 +179,39 @@ public class ReservaVista extends javax.swing.JPanel {
             }
         });
 
-        actualizar1.setBackground(new java.awt.Color(241, 207, 178));
-        actualizar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        actualizar1.addMouseListener(new java.awt.event.MouseAdapter() {
+        refrescar.setBackground(new java.awt.Color(241, 207, 178));
+        refrescar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        refrescar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                actualizar1MouseEntered(evt);
+                refrescarMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                actualizar1MouseExited(evt);
+                refrescarMouseExited(evt);
             }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                actualizar1MousePressed(evt);
-            }
-        });
-
-        refrescar.setFont(new java.awt.Font("Dialog", 3, 13)); // NOI18N
-        refrescar.setForeground(new java.awt.Color(114, 63, 50));
-        refrescar.setText("                Refrescar tabla");
-        refrescar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 refrescarMousePressed(evt);
             }
         });
 
-        javax.swing.GroupLayout actualizar1Layout = new javax.swing.GroupLayout(actualizar1);
-        actualizar1.setLayout(actualizar1Layout);
-        actualizar1Layout.setHorizontalGroup(
-            actualizar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, actualizar1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(refrescar, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
-                .addContainerGap())
+        jLabel5.setFont(new java.awt.Font("Dialog", 3, 13)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(114, 63, 50));
+        jLabel5.setText("Refrescar tabla");
+
+        javax.swing.GroupLayout refrescarLayout = new javax.swing.GroupLayout(refrescar);
+        refrescar.setLayout(refrescarLayout);
+        refrescarLayout.setHorizontalGroup(
+            refrescarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(refrescarLayout.createSequentialGroup()
+                .addGap(63, 63, 63)
+                .addComponent(jLabel5)
+                .addContainerGap(74, Short.MAX_VALUE))
         );
-        actualizar1Layout.setVerticalGroup(
-            actualizar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(refrescar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        refrescarLayout.setVerticalGroup(
+            refrescarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, refrescarLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
         );
 
         javax.swing.GroupLayout contenidoLayout = new javax.swing.GroupLayout(contenido);
@@ -227,7 +226,7 @@ public class ReservaVista extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(actualizar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(refrescar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoLayout.createSequentialGroup()
                         .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,7 +250,7 @@ public class ReservaVista extends javax.swing.JPanel {
                 .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(actualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(agregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(actualizar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(refrescar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(76, 76, 76))
         );
 
@@ -347,21 +346,19 @@ public class ReservaVista extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jCinactivoMousePressed
 
-    private void actualizar1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizar1MouseEntered
+    private void refrescarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refrescarMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_actualizar1MouseEntered
+         refrescar.setBackground(Color.decode("#D9B18E"));
+    }//GEN-LAST:event_refrescarMouseEntered
 
-    private void actualizar1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizar1MouseExited
+    private void refrescarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refrescarMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_actualizar1MouseExited
-
-    private void actualizar1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizar1MousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_actualizar1MousePressed
+         refrescar.setBackground(Color.decode("#F1CFB2"));
+    }//GEN-LAST:event_refrescarMouseExited
 
     private void refrescarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refrescarMousePressed
         // TODO add your handling code here:
-        if (jCinactivo.isSelected()) {
+         if (jCinactivo.isSelected()) {
             verInactivas();
         } else {
             verActivas();
@@ -415,7 +412,7 @@ public class ReservaVista extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Actualizado correctamente");
         } else {
             JOptionPane.showMessageDialog(null, "Solo se actualizaron " + count + "/" + jTable.getRowCount() + " reservas\n~ERROR: reserva ya existente / fecha-hora anterior a la actual");
-
+            refrescar.setVisible(true);
         }
 
     }
@@ -423,7 +420,6 @@ public class ReservaVista extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actualizar;
-    private javax.swing.JPanel actualizar1;
     private javax.swing.JPanel agregar;
     private javax.swing.JPanel contenido;
     private resto.componentes.CheckboxPersonalizada jCinactivo;
@@ -431,8 +427,9 @@ public class ReservaVista extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private resto.componentes.TablaPersonalizada jTable;
-    private javax.swing.JLabel refrescar;
+    private javax.swing.JPanel refrescar;
     // End of variables declaration//GEN-END:variables
 }
