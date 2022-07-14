@@ -16,14 +16,18 @@ import resto.entidades.Producto;
  *
  * @author Valeria
  */
-public class AgregarProductoVista extends javax.swing.JPanel {
+public class ActualizarProductoVista extends javax.swing.JPanel {
     private Conexion con;
     private ProductoData pd;
+    private int codigo;
     
-    public AgregarProductoVista() {
+    public ActualizarProductoVista(int codigo) {
         initComponents();
         con = new Conexion();
         pd = new ProductoData(con);
+        this.codigo = codigo;
+        llenarCampos(codigo);
+            
     }
 
     /**
@@ -68,7 +72,7 @@ public class AgregarProductoVista extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Dialog", 3, 20)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(114, 63, 50));
-        jLabel1.setText("Agregar Producto");
+        jLabel1.setText("Actualizar Producto");
 
         jSeparator1.setBackground(new java.awt.Color(114, 63, 50));
         jSeparator1.setForeground(new java.awt.Color(114, 63, 50));
@@ -76,8 +80,25 @@ public class AgregarProductoVista extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
         jLabel2.setText("Nombre");
 
+        jtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtNombreFocusLost(evt);
+            }
+        });
+        jtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtNombreActionPerformed(evt);
+            }
+        });
+
         jLabel4.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
         jLabel4.setText("Precio");
+
+        jtPrecio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtPrecioFocusLost(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
         jLabel5.setText("Categoría");
@@ -88,6 +109,16 @@ public class AgregarProductoVista extends javax.swing.JPanel {
         jcbCategoria.setToolTipText("");
         jcbCategoria.setBorder(null);
         jcbCategoria.setName(""); // NOI18N
+        jcbCategoria.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbCategoriaFocusLost(evt);
+            }
+        });
+        jcbCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbCategoriaActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
         jLabel3.setText("Stock");
@@ -98,12 +129,17 @@ public class AgregarProductoVista extends javax.swing.JPanel {
         jLabel6.setText("Activo");
 
         jchActivo.setPreferredSize(new java.awt.Dimension(30, 30));
+        jchActivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jchActivoActionPerformed(evt);
+            }
+        });
 
         jpFondoAgregar2.setBackground(new java.awt.Color(241, 207, 178));
 
         jbAgregar2.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         jbAgregar2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jbAgregar2.setText("Agregar");
+        jbAgregar2.setText("Actualizar");
         jbAgregar2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbAgregar2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jbAgregar2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -212,6 +248,10 @@ public class AgregarProductoVista extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtNombreActionPerformed
+
     private void jbAgregar2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbAgregar2MouseEntered
         jpFondoAgregar2.setBackground(Color.decode("#D9B18E"));
     }//GEN-LAST:event_jbAgregar2MouseEntered
@@ -232,13 +272,30 @@ public class AgregarProductoVista extends javax.swing.JPanel {
         escritorio.repaint();
     }//GEN-LAST:event_jbVolverMouseClicked
 
+    private void jcbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbCategoriaActionPerformed
+
+    private void jchActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchActivoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jchActivoActionPerformed
+
+    private void jtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtNombreFocusLost
+
+    }//GEN-LAST:event_jtNombreFocusLost
+
+    private void jtPrecioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtPrecioFocusLost
+      
+        
+    }//GEN-LAST:event_jtPrecioFocusLost
+
     private void jbAgregar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbAgregar2MouseClicked
-        Producto p = new Producto();
+
         String comest = "";
         int com;
         boolean insertar = true;
    
-        if(jcbCategoria.getSelectedIndex()== -1){
+        if(jcbCategoria.getSelectedIndex()==-1){
             JOptionPane.showMessageDialog(this, "Debe elegir una categoria para el producto.");
             jcbCategoria.requestFocus();
             insertar = false;   
@@ -261,6 +318,9 @@ public class AgregarProductoVista extends javax.swing.JPanel {
 
         
         if(insertar){
+            Producto p = new Producto();
+            
+            p.setCodigo(this.codigo);
             p.setNombre(jtNombre.getText());
             p.setPrecio(Double.parseDouble(jtPrecio.getText()));
 
@@ -278,12 +338,17 @@ public class AgregarProductoVista extends javax.swing.JPanel {
 
             p.setStock((Integer)jsStock.getValue());
             p.setActivo(jchActivo.isSelected());
-
-            pd.agregarProducto(p);
-            JOptionPane.showMessageDialog(this, "Producto agregado exitosamente.");
-            limpiarCampos(); 
-        }  
+            
+            pd.modificarProducto(p);
+        
+            
+            JOptionPane.showMessageDialog(this, "Producto modificado exitosamente.");
+        }     
     }//GEN-LAST:event_jbAgregar2MouseClicked
+
+    private void jcbCategoriaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbCategoriaFocusLost
+        
+    }//GEN-LAST:event_jcbCategoriaFocusLost
 
     private void limpiarCampos(){
         jtNombre.setText("");
@@ -291,6 +356,17 @@ public class AgregarProductoVista extends javax.swing.JPanel {
         jcbCategoria.setSelectedIndex(-1);
         jsStock.setValue(0);
         jchActivo.setSelected(false);
+    }
+    
+    private void llenarCampos(int codigo){
+        Producto p = new Producto();
+        p = pd.obtenerProducto(codigo);
+        
+        jtNombre.setText(p.getNombre());
+        jtPrecio.setText(p.getPrecio() + "");
+        jcbCategoria.setSelectedIndex(p.isComestible()? 0 : 1);
+        jsStock.setValue(p.getStock());
+        jchActivo.setSelected(p.isActivo());   
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

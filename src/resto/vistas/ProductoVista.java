@@ -49,9 +49,9 @@ public class ProductoVista extends javax.swing.JPanel {
         jpFondoAgregar = new javax.swing.JPanel();
         jbAgregar = new javax.swing.JLabel();
         jpFondoActualizar = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jbActualizar = new javax.swing.JLabel();
         jpFondoBorrar = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        jbBorrar = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jchActivo = new resto.componentes.CheckboxPersonalizada();
 
@@ -71,9 +71,15 @@ public class ProductoVista extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jtProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtProductosMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jtProductos);
 
         jpFondoAgregar.setBackground(new java.awt.Color(241, 207, 178));
+        jpFondoAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jbAgregar.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         jbAgregar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -103,18 +109,22 @@ public class ProductoVista extends javax.swing.JPanel {
         );
 
         jpFondoActualizar.setBackground(new java.awt.Color(241, 207, 178));
+        jpFondoActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jpFondoActualizar.setEnabled(false);
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Actualizar Producto");
-        jLabel2.setEnabled(false);
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        jbActualizar.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jbActualizar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jbActualizar.setText("Actualizar Producto");
+        jbActualizar.setEnabled(false);
+        jbActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbActualizarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel2MouseEntered(evt);
+                jbActualizarMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel2MouseExited(evt);
+                jbActualizarMouseExited(evt);
             }
         });
 
@@ -122,26 +132,30 @@ public class ProductoVista extends javax.swing.JPanel {
         jpFondoActualizar.setLayout(jpFondoActualizarLayout);
         jpFondoActualizarLayout.setHorizontalGroup(
             jpFondoActualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+            .addComponent(jbActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
         );
         jpFondoActualizarLayout.setVerticalGroup(
             jpFondoActualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jbActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jpFondoBorrar.setBackground(new java.awt.Color(241, 207, 178));
+        jpFondoBorrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jpFondoBorrar.setEnabled(false);
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Borrar Producto");
-        jLabel3.setEnabled(false);
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        jbBorrar.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jbBorrar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jbBorrar.setText("Borrar Producto");
+        jbBorrar.setEnabled(false);
+        jbBorrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbBorrarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel3MouseEntered(evt);
+                jbBorrarMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel3MouseExited(evt);
+                jbBorrarMouseExited(evt);
             }
         });
 
@@ -149,11 +163,11 @@ public class ProductoVista extends javax.swing.JPanel {
         jpFondoBorrar.setLayout(jpFondoBorrarLayout);
         jpFondoBorrarLayout.setHorizontalGroup(
             jpFondoBorrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+            .addComponent(jbBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
         );
         jpFondoBorrarLayout.setVerticalGroup(
             jpFondoBorrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jbBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jLabel4.setFont(new java.awt.Font("Dialog", 3, 20)); // NOI18N
@@ -230,33 +244,33 @@ public class ProductoVista extends javax.swing.JPanel {
        
     }//GEN-LAST:event_jbAgregarMouseExited
 
-    private void jLabel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseEntered
+    private void jbActualizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbActualizarMouseEntered
         if(jpFondoActualizar.isEnabled()){
             jpFondoActualizar.setBackground(Color.decode("#D9B18E"));
         }
         
        
-    }//GEN-LAST:event_jLabel2MouseEntered
+    }//GEN-LAST:event_jbActualizarMouseEntered
 
-    private void jLabel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseExited
+    private void jbActualizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbActualizarMouseExited
         if(jpFondoActualizar.isEnabled()){
             jpFondoActualizar.setBackground(Color.decode("#F1CFB2"));
         }
-    }//GEN-LAST:event_jLabel2MouseExited
+    }//GEN-LAST:event_jbActualizarMouseExited
 
-    private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
+    private void jbBorrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbBorrarMouseEntered
         if(jpFondoBorrar.isEnabled()){
             jpFondoBorrar.setBackground(Color.decode("#D9B18E"));
         }
         
-    }//GEN-LAST:event_jLabel3MouseEntered
+    }//GEN-LAST:event_jbBorrarMouseEntered
 
-    private void jLabel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseExited
+    private void jbBorrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbBorrarMouseExited
          if(jpFondoBorrar.isEnabled()){
             jpFondoBorrar.setBackground(Color.decode("#F1CFB2"));
         }
         
-    }//GEN-LAST:event_jLabel3MouseExited
+    }//GEN-LAST:event_jbBorrarMouseExited
 
     private void jbAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbAgregarMouseClicked
         AgregarProductoVista apv = new AgregarProductoVista();
@@ -279,6 +293,49 @@ public class ProductoVista extends javax.swing.JPanel {
             modelo.addRow(new Object[] {p.getCodigo(),p.getNombre(),p.getStock(),p.getPrecio(),(p.isComestible()? "Comidas" : "Bebidas"),(p.isActivo() ? "Si" : "No")});
         }
     }//GEN-LAST:event_jchActivoActionPerformed
+
+    private void jtProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtProductosMouseClicked
+        jbActualizar.setEnabled(true);
+        jbBorrar.setEnabled(true);
+    }//GEN-LAST:event_jtProductosMouseClicked
+
+    private void jbActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbActualizarMouseClicked
+        if(jbActualizar.isEnabled()){          
+            int filaSeleccionada = jtProductos.getSelectedRow();
+            int codigo = -1;
+            
+            if(filaSeleccionada != -1){
+                codigo = (Integer)jtProductos.getValueAt(filaSeleccionada, 0);
+            } 
+            
+            ActualizarProductoVista apv = new ActualizarProductoVista(codigo);
+        
+            apv.setSize(780, 530);
+            apv.setLocation(0, 0);
+
+            escritorio.removeAll();
+            escritorio.add(apv);
+            escritorio.revalidate();
+            escritorio.repaint();
+        }
+        
+        
+    }//GEN-LAST:event_jbActualizarMouseClicked
+
+    private void jbBorrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbBorrarMouseClicked
+        if(jbBorrar.isEnabled()){
+            int filaSeleccionada = jtProductos.getSelectedRow();
+            int codigo = -1;
+            
+            if(filaSeleccionada != -1){
+                codigo = (Integer)jtProductos.getValueAt(filaSeleccionada, 0);
+            }
+            
+            pd.desactivarProducto(codigo);
+            JOptionPane.showMessageDialog(this, "Producto eliminado exitosamente.");
+            mostrarProductos();
+        }
+    }//GEN-LAST:event_jbBorrarMouseClicked
      
     private void armarCabecera(){
         ArrayList<Object> columnas = new ArrayList<Object>();
@@ -317,13 +374,13 @@ public class ProductoVista extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel escritorio;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel jbActualizar;
     private javax.swing.JLabel jbAgregar;
+    private javax.swing.JLabel jbBorrar;
     private resto.componentes.CheckboxPersonalizada jchActivo;
     private javax.swing.JPanel jpFondoActualizar;
     private javax.swing.JPanel jpFondoAgregar;
