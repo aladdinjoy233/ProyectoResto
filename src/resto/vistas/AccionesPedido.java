@@ -431,6 +431,19 @@ public class AccionesPedido extends javax.swing.JPanel {
     });
 //    </Modificar los detalles del pedido>
 
+//    <Mostrar resultado confirmacion y cambiar vista>
+    JOptionPane.showMessageDialog(this, "Pedido agregado con exito");
+
+    PedidosVista pv = new PedidosVista(con);
+    pv.setSize(780, 530);
+    pv.setLocation(0, 0);
+
+    bg.removeAll();
+    bg.add(pv, BorderLayout.CENTER);
+    bg.revalidate();
+    bg.repaint();
+//    </Mostrar resultado confirmacion y cambiar vista>
+
   }//GEN-LAST:event_btnFinalizarPedidoMousePressed
 
   private void btnFinalizarPedidoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinalizarPedidoMouseExited
