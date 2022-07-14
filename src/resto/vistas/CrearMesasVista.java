@@ -62,7 +62,8 @@ public class CrearMesasVista extends javax.swing.JPanel {
 
         escritorio.setBackground(new java.awt.Color(240, 239, 239));
 
-        jLabel1.setFont(new java.awt.Font("DialogInput", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Dialog", 3, 20)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(114, 63, 50));
         jLabel1.setText("Agregar mesa nueva");
 
         cMcapacidad.setBackground(new java.awt.Color(240, 239, 239));
@@ -72,12 +73,13 @@ public class CrearMesasVista extends javax.swing.JPanel {
         jLabel2.setText("Capacidad");
 
         mVfondoAgregar.setBackground(new java.awt.Color(241, 207, 178));
+        mVfondoAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         cMbtnAgregar.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         cMbtnAgregar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cMbtnAgregar.setText("Agregar");
         cMbtnAgregar.setAlignmentY(0.0F);
-        cMbtnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        cMbtnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cMbtnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cMbtnAgregarMouseClicked(evt);
@@ -146,11 +148,12 @@ public class CrearMesasVista extends javax.swing.JPanel {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resto/img/iconoSillaMesa.png"))); // NOI18N
 
         mVfondoNuevaMesa.setBackground(new java.awt.Color(241, 207, 178));
+        mVfondoNuevaMesa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         cMbtnNuevo.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         cMbtnNuevo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cMbtnNuevo.setText("Nueva Mesa");
-        cMbtnNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        cMbtnNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cMbtnNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cMbtnNuevoMouseClicked(evt);
@@ -167,7 +170,7 @@ public class CrearMesasVista extends javax.swing.JPanel {
         mVfondoNuevaMesa.setLayout(mVfondoNuevaMesaLayout);
         mVfondoNuevaMesaLayout.setHorizontalGroup(
             mVfondoNuevaMesaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cMbtnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+            .addComponent(cMbtnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         mVfondoNuevaMesaLayout.setVerticalGroup(
             mVfondoNuevaMesaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,10 +178,11 @@ public class CrearMesasVista extends javax.swing.JPanel {
         );
 
         cMVatras.setBackground(new java.awt.Color(241, 207, 178));
+        cMVatras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         cMVbtnVolver.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cMVbtnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resto/img/iconoAtras.png"))); // NOI18N
-        cMVbtnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        cMVbtnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cMVbtnVolver.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 cMVbtnVolverMouseEntered(evt);
@@ -234,7 +238,7 @@ public class CrearMesasVista extends javax.swing.JPanel {
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cMcapacidad)
                             .addComponent(mVfondoNuevaMesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cMestado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cMestado, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                             .addComponent(cMactiva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(251, 251, 251)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
