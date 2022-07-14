@@ -294,7 +294,7 @@ public class MeseroVista extends javax.swing.JPanel {
             if(bool.equalsIgnoreCase("no")){
                 ArrayList<Mesa> mesas = med.obtenerMesasDelMesero(m);
                 
-                if(mesas.size() > 0){
+                if(mesas.size() > 0){ //me aseguro que el mesero no tenga ninguna mesa a cargo antes de desactivarlo
                     meserosModificados = false;
                     JOptionPane.showMessageDialog(this, "Error! El mesero " + m.getNombre() + " " + m.getApellido() + " tiene mesas asignadas a su nombre.\nPor favor desvincule las mesas asignadas antes de desactivarlo.");
                     
@@ -303,7 +303,7 @@ public class MeseroVista extends javax.swing.JPanel {
                     }
                     
                     break;
-                } else{
+                } else{ //si no tiene ninguna lo puedo desactivar
                     m.setActivo(false);
                 }
                 
