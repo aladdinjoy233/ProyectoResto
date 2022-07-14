@@ -52,6 +52,8 @@ public class ReservaVista extends javax.swing.JPanel {
         actualizar = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jCinactivo = new resto.componentes.CheckboxPersonalizada();
+        actualizar1 = new javax.swing.JPanel();
+        refrescar = new javax.swing.JLabel();
 
         jLabel2.setFont(new java.awt.Font("Dialog", 3, 13)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(114, 63, 50));
@@ -71,14 +73,14 @@ public class ReservaVista extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Num mesa", "Fecha", "Hora", "Nombre", "DNI", "Activo", "id"
+                "N° mesa", "Fecha", "Hora", "Nombre", "DNI", "Activo", "id"
             }
         ) {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, true, true, true, true, false
+                false, true, true, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -176,26 +178,65 @@ public class ReservaVista extends javax.swing.JPanel {
             }
         });
 
+        actualizar1.setBackground(new java.awt.Color(241, 207, 178));
+        actualizar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        actualizar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                actualizar1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                actualizar1MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                actualizar1MousePressed(evt);
+            }
+        });
+
+        refrescar.setFont(new java.awt.Font("Dialog", 3, 13)); // NOI18N
+        refrescar.setForeground(new java.awt.Color(114, 63, 50));
+        refrescar.setText("                Refrescar tabla");
+        refrescar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                refrescarMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout actualizar1Layout = new javax.swing.GroupLayout(actualizar1);
+        actualizar1.setLayout(actualizar1Layout);
+        actualizar1Layout.setHorizontalGroup(
+            actualizar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, actualizar1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(refrescar, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        actualizar1Layout.setVerticalGroup(
+            actualizar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(refrescar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout contenidoLayout = new javax.swing.GroupLayout(contenido);
         contenido.setLayout(contenidoLayout);
         contenidoLayout.setHorizontalGroup(
             contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(contenidoLayout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoLayout.createSequentialGroup()
+                .addContainerGap(35, Short.MAX_VALUE)
+                .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(contenidoLayout.createSequentialGroup()
                         .addComponent(agregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
+                        .addGap(18, 18, 18)
                         .addComponent(actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(actualizar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(contenidoLayout.createSequentialGroup()
-                        .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoLayout.createSequentialGroup()
+                        .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(contenidoLayout.createSequentialGroup()
                                 .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jCinactivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(42, 42, 42))))
+                                .addGap(449, 449, 449)
+                                .addComponent(jCinactivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 719, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26))))
         );
         contenidoLayout.setVerticalGroup(
             contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,12 +245,13 @@ public class ReservaVista extends javax.swing.JPanel {
                 .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jCinactivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(35, 35, 35)
                 .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(actualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(agregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(agregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(actualizar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(76, 76, 76))
         );
 
@@ -280,17 +322,11 @@ public class ReservaVista extends javax.swing.JPanel {
 
     private void actualizarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizarMousePressed
         // TODO add your handling code here:
-        //int filaSeleccionada = jTable.getSelectedRow();
-        //if (filaSeleccionada > -1) {
         ActualizarReserva();
-        //} else {
-        //    JOptionPane.showMessageDialog(null, "Seleccione una reserva para poder actualizar");
-        //}
     }//GEN-LAST:event_actualizarMousePressed
 
     private void agregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarMousePressed
         // TODO add your handling code here:
-
         setearSeleccionado(agregar);
 
         CrearReservaVista crv = new CrearReservaVista(con);
@@ -311,16 +347,36 @@ public class ReservaVista extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jCinactivoMousePressed
 
+    private void actualizar1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizar1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_actualizar1MouseEntered
+
+    private void actualizar1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizar1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_actualizar1MouseExited
+
+    private void actualizar1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizar1MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_actualizar1MousePressed
+
+    private void refrescarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refrescarMousePressed
+        // TODO add your handling code here:
+        if (jCinactivo.isSelected()) {
+            verInactivas();
+        } else {
+            verActivas();
+        }
+    }//GEN-LAST:event_refrescarMousePressed
+
     private void ActualizarReserva() {
-        int count = 0;
-        
+        int count = 0, count2 = 0;
+
+        ArrayList<Reserva> todasLasReservas = rd.obtenerReservas();
 
         try {
-
             for (int i = 0; i < jTable.getRowCount(); i++) {
-                
+
                 //consigo los datos de la tabla
-                boolean estado;
                 int numMesa = (int) jTable.getValueAt(i, 0);
                 LocalDate fecha = LocalDate.parse(jTable.getValueAt(i, 1).toString());
                 LocalTime hora = LocalTime.parse(jTable.getValueAt(i, 2).toString());
@@ -328,6 +384,7 @@ public class ReservaVista extends javax.swing.JPanel {
                 Long dni = (Long) jTable.getValueAt(i, 4);
                 int idReserva = (int) jTable.getValueAt(i, 6);
 
+                boolean estado;
                 if (jTable.getValueAt(i, 5).equals("si")) {
                     estado = true;
                 } else if (jTable.getValueAt(i, 5).equals("no")) {
@@ -336,26 +393,29 @@ public class ReservaVista extends javax.swing.JPanel {
                     estado = false;
                 }
 
-                Reserva reserva = rd.obtenerReserva(idReserva);
                 Mesa mesa = md.obtenerMesa(numMesa);
-
                 Reserva r = new Reserva(idReserva, mesa, nombre, dni, fecha, hora, estado);
 
 
-                if (rd.modificarReserva(r)) {
-                    count++;
+                //valido si hubo algun error, y lo denoto con un mensaje
+                if (r.toString().equals(todasLasReservas.get(i).toString())) {
+                     count++;
+                }else{
+                    if (rd.modificarReserva(r)) {
+                        count2++;
+                    }
                 }
+
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "error " + ex.getMessage());
         }
 
-        if (count == jTable.getRowCount()) {
+        if (count2 == (jTable.getRowCount()-count)) {
             JOptionPane.showMessageDialog(null, "Actualizado correctamente");
         } else {
-            JOptionPane.showMessageDialog(null, "Solo se actualizaron "+count+" de "+jTable.getRowCount()+
-                        " reservas\n1) La fecha/hora debe ser proxima a la actual");
-                        
+            JOptionPane.showMessageDialog(null, "Solo se actualizaron " + count + "/" + jTable.getRowCount() + " reservas\n~ERROR: reserva ya existente / fecha-hora anterior a la actual");
+
         }
 
     }
@@ -363,6 +423,7 @@ public class ReservaVista extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actualizar;
+    private javax.swing.JPanel actualizar1;
     private javax.swing.JPanel agregar;
     private javax.swing.JPanel contenido;
     private resto.componentes.CheckboxPersonalizada jCinactivo;
@@ -372,5 +433,6 @@ public class ReservaVista extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private resto.componentes.TablaPersonalizada jTable;
+    private javax.swing.JLabel refrescar;
     // End of variables declaration//GEN-END:variables
 }

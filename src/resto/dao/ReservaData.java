@@ -203,6 +203,10 @@ public class ReservaData {
         LocalDate hoy = LocalDate.now();
         LocalTime horaActual = LocalTime.now();
 
+        if(existeReserva(reserva)){
+            return modificado;
+        }
+        
         if (reserva.getFecha().isBefore(hoy) || reserva.getFecha().equals(hoy) && reserva.getHora().isBefore(horaActual)) {
             return modificado;
         }
@@ -236,7 +240,7 @@ public class ReservaData {
     public void borrarReserva(int idReserva) {
 
         String sql = "DELETE FROM reserva WHERE `reserva`.`idReserva` = ?";
-//existeReserva(reserva)
+        
         try {
             Reserva reserva = obtenerReserva(idReserva);
             if (reserva != null) {
