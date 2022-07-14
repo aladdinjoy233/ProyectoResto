@@ -36,7 +36,7 @@ public class Menu extends javax.swing.JFrame {
 //    Cargar vista principal
     setearSeleccionado(tabPrincipal);
 
-    VistaPrincipal vp = new VistaPrincipal();
+    VistaPrincipal vp = new VistaPrincipal(con);
     vp.setSize(780, 530);
     vp.setLocation(0, 0);
 
@@ -665,7 +665,7 @@ public class Menu extends javax.swing.JFrame {
   private void tabPrincipalMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabPrincipalMousePressed
     setearSeleccionado(tabPrincipal);
 
-    VistaPrincipal vp = new VistaPrincipal();
+    VistaPrincipal vp = new VistaPrincipal(con);
     vp.setSize(780, 530);
     vp.setLocation(0, 0);
 
@@ -743,7 +743,7 @@ public class Menu extends javax.swing.JFrame {
   private void tabHistorialMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabHistorialMousePressed
     setearSeleccionado(tabHistorial);
 
-    VistaPrincipal vp = new VistaPrincipal();
+    VistaPrincipal vp = new VistaPrincipal(con);
     vp.setSize(780, 530);
     vp.setLocation(0, 0);
 
