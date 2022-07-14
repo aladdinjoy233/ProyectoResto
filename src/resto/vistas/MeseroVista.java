@@ -61,7 +61,7 @@ public class MeseroVista extends javax.swing.JPanel {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true, true
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -121,7 +121,7 @@ public class MeseroVista extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Dialog", 3, 13)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(114, 63, 50));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Actualizar");
+        jLabel3.setText("Actualizar Mesero");
 
         javax.swing.GroupLayout jbtnActualizarLayout = new javax.swing.GroupLayout(jbtnActualizar);
         jbtnActualizar.setLayout(jbtnActualizarLayout);
@@ -277,90 +277,22 @@ public class MeseroVista extends javax.swing.JPanel {
 
     private void jbtnActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnActualizarMouseClicked
         
-        boolean meserosModificados = false;
+        if(tablaPersonalizada1.getSelectedRow() > -1){
+            int id = (int) model.getValueAt(tablaPersonalizada1.getSelectedRow(), 0);
+                                                    
+            ActualizarMeseroVista am = new ActualizarMeseroVista(id);
         
-        for(int i = 0; i < model.getRowCount(); i++){
-                
-            Mesero m = new Mesero();
-            
-            try{
-            m.setIdMesero((Integer) model.getValueAt(i, 0));
-            m.setNombre((String) model.getValueAt(i, 1));
-            m.setApellido((String) model.getValueAt(i, 2));
-            m.setDni((Long) model.getValueAt(i, 3));
-            m.setTelefono((Long) model.getValueAt(i, 4));
-            
-            String bool = (String) model.getValueAt(i, 5);
-            if(bool.equalsIgnoreCase("no")){
-                ArrayList<Mesa> mesas = med.obtenerMesasDelMesero(m);
-                
-                if(mesas.size() > 0){ //me aseguro que el mesero no tenga ninguna mesa a cargo antes de desactivarlo
-                    meserosModificados = false;
-                    JOptionPane.showMessageDialog(this, "Error! El mesero " + m.getNombre() + " " + m.getApellido() + " tiene mesas asignadas a su nombre.\nPor favor desvincule las mesas asignadas antes de desactivarlo.");
-                    
-                    if(i > 0){ //si no hubo errores antes aviso que se modificaron esos datos
-                        JOptionPane.showMessageDialog(this, "Se actualizaran solo los datos anteriores a la fila " + (i + 1));
-                    }
-                    
-                    break;
-                } else{ //si no tiene ninguna lo puedo desactivar
-                    m.setActivo(false);
-                }
-                
-            } else if(bool.equalsIgnoreCase("si")){
-                m.setActivo(true);
-            } else{
-                meserosModificados = false;
-                JOptionPane.showMessageDialog(this, "Error! Dato ingresado no valido en fila " + (i + 1));
-                
-                JOptionPane.showMessageDialog(this, "Para activar un mesero escribe si, para desactivarlo escribe no");
-                
-                if(i > 0){ //si no hubo errores antes aviso que se modificaron esos datos
-                    JOptionPane.showMessageDialog(this, "Se actualizaran solo los datos anteriores a la fila " + (i + 1));
-                }
-                
-                break;                
-            }            
-            
-            if(m.getNombre().trim().isEmpty()|| m.getApellido().trim().isEmpty()){ //valido que el nombre y el apellido no esten en blanco
-                meserosModificados = false;
-                JOptionPane.showMessageDialog(this, "Error! Dato/s no ingresado/s en fila " + (i + 1));
-                
-                if(i > 0){ //si no hubo errores antes aviso que se modificaron esos datos
-                    JOptionPane.showMessageDialog(this, "Se actualizaran solo los datos anteriores a la fila " + (i + 1));
-                }
-                
-                break;
-            }
-            
-            if(md.modificarMesero(m)){
-                meserosModificados = true;
-            } 
-            
-            } catch(java.lang.ClassCastException e){ //valido numeros y que no esten en blanco
-                meserosModificados = false;
-                JOptionPane.showMessageDialog(this, "Error! Dato ingresado no valido en fila " + (i + 1));
-                
-                if(i > 0){ //si no hubo errores antes aviso que se modificaron esos datos
-                    JOptionPane.showMessageDialog(this, "Se actualizaran solo los datos anteriores a la fila " + (i + 1));
-                }
-                
-                break;
-            } 
-            
-                           
-        }
+            am.setSize(780, 530);
+            am.setLocation(0, 0);   
         
-        if(meserosModificados){
-            JOptionPane.showMessageDialog(this, "Mesero/s actualizado/s con exito");
-        }
-        
-        
-        if(jcbActivo.isSelected()){ //si se produjo algun error la tabla vuelve a la normalidad, sino se actualiza
-            verTodosMeseros();
+            escritorio.removeAll();
+            escritorio.add(am);
+            escritorio.revalidate();
+            escritorio.repaint();
+            
         } else{
-            verMeserosActivos();
-        }
+            JOptionPane.showMessageDialog(this, "Seleccione un mesero");
+        }        
                 
     }//GEN-LAST:event_jbtnActualizarMouseClicked
 
@@ -406,10 +338,10 @@ public class MeseroVista extends javax.swing.JPanel {
         
     }
     
-    private void verTodosMeseros(){
+    private void verMeserosNoActivos(){
         borrarFilas();
         
-        ArrayList<Mesero> lista = md.obtenerTodosMeseros();
+        ArrayList<Mesero> lista = md.obtenerMeserosNoActivos();
         
         Collections.sort(lista, new Comparator<Mesero>(){ //ordenar meseros por el nombre
             @Override
@@ -425,7 +357,7 @@ public class MeseroVista extends javax.swing.JPanel {
     
     private void botonInactivos(){
         if(jcbActivo.isSelected()){
-          verTodosMeseros();
+          verMeserosNoActivos();
         } else{
           verMeserosActivos();
         }
