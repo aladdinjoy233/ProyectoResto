@@ -258,6 +258,12 @@ public class AgregarProductoVista extends javax.swing.JPanel {
             jtNombre.requestFocus();
             insertar = false;
         }
+        
+        if(jtNombre.getText().length()>60){
+            JOptionPane.showMessageDialog(this, "El nombre del producto es demasiado largo.");
+            jtNombre.requestFocus();
+            insertar = false;
+        }
 
         
         if(insertar){
