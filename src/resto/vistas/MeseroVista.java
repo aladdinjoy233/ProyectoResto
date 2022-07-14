@@ -243,7 +243,7 @@ public class MeseroVista extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnVerMouseExited
 
     private void jbtnVerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnVerMouseClicked
-        if(tablaPersonalizada1.getSelectedRow() > 0){
+        if(tablaPersonalizada1.getSelectedRow() > -1){
             int id = (int) model.getValueAt(tablaPersonalizada1.getSelectedRow(), 0);
             
             Mesero m = md.obtenerMesero(id);

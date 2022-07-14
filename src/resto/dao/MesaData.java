@@ -385,21 +385,18 @@ public class MesaData {
   }
 
 //  Metodos para la vista de mesero
-  public ArrayList<Mesa> obtenerMesasDelMesero(Mesero mesero) {
+  public ArrayList<Mesa> obtenerMesasSinMesero() {
     ArrayList<Mesa> mesas = new ArrayList<>();
 
-    String sql = "SELECT mesa.numMesa FROM mesa WHERE idMesero is NULL AND activo = 1";
+    String sql = "SELECT * FROM mesa WHERE idMesero is NULL AND activo = 1";
 
     try {
       PreparedStatement ps = coneccion.prepareStatement(sql);
-
-      ps.setInt(1, mesero.getIdMesero());
 
       ResultSet rs = ps.executeQuery();
       Mesa mesa;
 
       if (!rs.next()) {
-        JOptionPane.showMessageDialog(null, "No hay mesas en la base de datos");
         ps.close();
         return mesas;
       }
@@ -431,10 +428,10 @@ public class MesaData {
   
     
 
-  public ArrayList<Mesa> obtenerMesasLibresNoOcupadosPor(Mesero mesero) {
+  public ArrayList<Mesa> obtenerMesasDelMesero(Mesero mesero) {
     ArrayList<Mesa> mesas = new ArrayList<>();
 
-    String sql = "SELECT mesa.numMesa FROM mesa WHERE idMesero = ? AND activo = 1";
+    String sql = "SELECT * FROM mesa WHERE idMesero = ? AND activo = 1";
 
     try {
       PreparedStatement ps = coneccion.prepareStatement(sql);
@@ -445,7 +442,6 @@ public class MesaData {
       Mesa mesa;
 
       if (!rs.next()) {
-        JOptionPane.showMessageDialog(null, "No hay mesas en la base de datos");
         ps.close();
         return mesas;
       }
@@ -475,4 +471,51 @@ public class MesaData {
     return mesas;
   }
 
+  public boolean sacarMesero(Mesa m){
+        boolean meseroSacado = false;
+        
+        try{
+            String sql = "UPDATE mesa SET idMesero = NULL WHERE mesa.numMesa = ?;";
+            
+            PreparedStatement ps = coneccion.prepareStatement(sql);
+            ps.setInt(1, m.getNumMesa());
+            
+            if(ps.executeUpdate() != 0){
+                meseroSacado = true;
+                JOptionPane.showMessageDialog(null, "Mesero eliminado de la mesa " + m.getNumMesa());
+            }
+            
+            ps.close();
+            
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Error al consultar las Mesas " + e);
+        }
+        
+        return meseroSacado;
+  }
+  
+  public boolean agregarMesero(Mesa m, Mesero me){
+      boolean meseroAgregado = false;
+      
+      try{
+          String sql = "UPDATE mesa SET idMesero = ? WHERE mesa.numMesa = ?;";
+          
+          PreparedStatement ps = coneccion.prepareStatement(sql);
+          ps.setInt(1, me.getIdMesero());
+          ps.setInt(2, m.getNumMesa());
+          
+          if(ps.executeUpdate() != 0){
+              meseroAgregado = true;
+              JOptionPane.showMessageDialog(null, "Mesero agregado exitosamente a la mesa " + m.getNumMesa());
+          }
+          
+          ps.close();
+          
+      }catch(SQLException e){
+          JOptionPane.showMessageDialog(null, "Error al consultar las Mesas " + e);
+      }
+      
+      return meseroAgregado;
+  }
+  
 }
