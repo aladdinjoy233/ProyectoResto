@@ -49,18 +49,50 @@ public class MesaData {
     return result;
   }
 
+  public boolean crearMesaVista(Mesa mesa) {
+    boolean result = true;
+
+    String sql = "Insert Into mesa(capacidad, estado, activo) VALUES (?,?,?)";
+
+    try {
+      PreparedStatement ps = coneccion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+      ps.setInt(1, mesa.getCapacidad());
+      ps.setBoolean(2, mesa.isEstado());
+      ps.setBoolean(3, mesa.isActivo());
+
+      ps.executeUpdate();
+      ResultSet rs = ps.getGeneratedKeys();
+
+      if (rs.next()) {
+        mesa.setNumMesa(rs.getInt(1));
+        JOptionPane.showMessageDialog(null, "La Mesa N° " + mesa.getNumMesa() + " se Creo Correctamente. ");
+      } else {
+        result = false;
+      }
+
+      ps.close();
+
+    } catch (SQLException ex) {
+      result = false;
+      JOptionPane.showMessageDialog(null, "Error al crear la Mesa. " + ex);
+    }
+
+    return result;
+  }
+  
   public boolean crearMesa(Mesa mesa) {
     boolean result = true;
 
-    String sql = "Insert Into mesa(idMesero, capacidad, estado, activo) VALUES (?,?,?,?)";
+    String sql = "Insert Into mesa(IdMesero, capacidad, estado, activo) VALUES (?,?,?,?)";
 
     try {
       PreparedStatement ps = coneccion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
       ps.setInt(1, mesa.getMesero().getIdMesero());
-      ps.setInt(2, mesa.getCapacidad());
-      ps.setBoolean(3, mesa.isEstado());
-      ps.setBoolean(4, mesa.isActivo());
+      ps.setInt(1, mesa.getCapacidad());
+      ps.setBoolean(2, mesa.isEstado());
+      ps.setBoolean(3, mesa.isActivo());
 
       ps.executeUpdate();
       ResultSet rs = ps.getGeneratedKeys();
@@ -102,6 +134,34 @@ public class MesaData {
       if (ps.executeUpdate() != 0) {
         result = true;
         JOptionPane.showMessageDialog(null, "La Mesa N° " + mesa.getNumMesa() + " se Modifico Correctamente");
+      }
+      ps.close();
+
+    } catch (SQLException ex) {
+      JOptionPane.showMessageDialog(null, "Error al Modificar la Mesa.");
+    }
+    return result;
+  }
+  
+  public boolean modificarMesaVista(Mesa mesa) {
+    boolean result = false;
+    if (!(buscarMesa(mesa.getNumMesa()))) {
+      JOptionPane.showMessageDialog(null, "La Mesa N° " + mesa.getNumMesa() + " no existe");
+      return false;
+    }
+
+    String sql = "UPDATE mesa SET capacidad = ?, estado = ?, activo = ?  WHERE numMesa = ?";
+    try {
+      PreparedStatement ps = coneccion.prepareStatement(sql);
+
+      
+      ps.setInt(1, mesa.getCapacidad());
+      ps.setBoolean(2, mesa.isEstado());
+      ps.setBoolean(3, mesa.isActivo());
+      ps.setInt(4, mesa.getNumMesa());
+
+      if (ps.executeUpdate() != 0) {
+        result = true;
       }
       ps.close();
 

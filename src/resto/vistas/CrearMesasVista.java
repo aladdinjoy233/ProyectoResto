@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import resto.dao.Conexion;
 import resto.dao.MesaData;
 import resto.entidades.Mesa;
+import resto.entidades.Mesero;
 
 /**
  *
@@ -76,7 +77,7 @@ public class CrearMesasVista extends javax.swing.JPanel {
         cMbtnAgregar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cMbtnAgregar.setText("Agregar");
         cMbtnAgregar.setAlignmentY(0.0F);
-        cMbtnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cMbtnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         cMbtnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cMbtnAgregarMouseClicked(evt);
@@ -149,7 +150,7 @@ public class CrearMesasVista extends javax.swing.JPanel {
         cMbtnNuevo.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         cMbtnNuevo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cMbtnNuevo.setText("Nueva Mesa");
-        cMbtnNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cMbtnNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         cMbtnNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cMbtnNuevoMouseClicked(evt);
@@ -177,7 +178,7 @@ public class CrearMesasVista extends javax.swing.JPanel {
 
         cMVbtnVolver.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cMVbtnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resto/img/iconoAtras.png"))); // NOI18N
-        cMVbtnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cMVbtnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         cMVbtnVolver.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 cMVbtnVolverMouseEntered(evt);
@@ -209,6 +210,7 @@ public class CrearMesasVista extends javax.swing.JPanel {
             }
         });
 
+        cMactiva.setSelected(true);
         cMactiva.setText("Activa");
         cMactiva.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
 
@@ -295,19 +297,19 @@ public class CrearMesasVista extends javax.swing.JPanel {
     private void cMbtnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cMbtnAgregarMouseClicked
         // TODO add your handling code here:
         try {
-            //capturar datos del formulario
+            //Capturar datos del formulario
             int capacidad = Integer.parseInt(cMcapacidad.getText());
             boolean estado = cMestado.isSelected();
             boolean activo = cMactiva.isSelected();
             //crear una mesa
-            Mesa mesa = new Mesa(null, capacidad, estado, activo);
+            Mesa mesa = new Mesa(capacidad, estado, activo);
             //enviar a la BD la mesa
-            if (mesadata.crearMesa(mesa)) {
+            if (mesadata.crearMesaVista(mesa)) {
                 cMnumMesa.setText(mesa.getNumMesa() + "");
             }
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Por favor, ingrese la Capacidad de la Nueva Mesa. ");
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese la Capacidad de la Nueva Mesa. " +ex);
         }
 
     }//GEN-LAST:event_cMbtnAgregarMouseClicked

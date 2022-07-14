@@ -57,21 +57,71 @@ public class MesaVista extends javax.swing.JPanel {
     }
 
     private void verInactivas() {
+        mVbtnReactivar.setVisible(true);
+        mVbtnActualizar.setVisible(false);
+        mVbtnBorrar.setVisible(false);
         borrarFilas();
         ArrayList<Mesa> mesas = mesadata.listadoMesasInactivas();
 
         for (Mesa m : mesas) {
-            model.addRow(new Object[]{m.getNumMesa(), m.getCapacidad(), m.isEstado(), m.isActivo()});
+            model.addRow(new Object[]{m.getNumMesa(), m.getCapacidad(), m.isEstado() ? "Si" : "No", m.isActivo() ? "Si" : "No"});
         }
     }
 
     private void verActivas() {
+        mVbtnReactivar.setVisible(false);
+        mVbtnActualizar.setVisible(true);
+        mVbtnBorrar.setVisible(true);
         borrarFilas();
         ArrayList<Mesa> mesas = mesadata.listadoMesasActivas();
 
         for (Mesa m : mesas) {
-            model.addRow(new Object[]{m.getNumMesa(), m.getCapacidad(), m.isEstado(), m.isActivo()});
+            model.addRow(new Object[]{m.getNumMesa(), m.getCapacidad(), m.isEstado() ? "Si" : "No", m.isActivo() ? "Si" : "No"});
         }
+    }
+
+    private void actualizarMesas() {
+        int count = 0;
+        try {
+            for (int i = 0; i < tablaMesas.getRowCount(); i++) {
+
+                //consigo los datos de la tabla
+                Mesa nMesa = new Mesa();
+                nMesa.setNumMesa(Integer.parseInt(model.getValueAt(i, 0).toString()));
+                nMesa.setCapacidad(Integer.parseInt(model.getValueAt(i, 1).toString()));
+                
+
+                if (tablaMesas.getValueAt(i, 2).equals("Si")) {
+                    nMesa.setEstado(true);
+                } else if (tablaMesas.getValueAt(i, 2).equals("No")) {
+                    nMesa.setEstado(false);
+                } else {
+                    nMesa.setEstado(false);;
+                }
+                if (tablaMesas.getValueAt(i, 3).equals("Si")) {
+                    nMesa.setActivo(true);
+                } else if (tablaMesas.getValueAt(i, 3).equals("No")) {
+                    nMesa.setActivo(true);
+                } else {
+                    nMesa.setActivo(true);
+                }
+
+                if (mesadata.modificarMesaVista(nMesa)) {
+                    count++;
+                }
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "error " + ex.getMessage());
+        }
+
+        if (count == tablaMesas.getRowCount()) {
+            JOptionPane.showMessageDialog(null, "Actualizado correctamente");
+        } else {
+            JOptionPane.showMessageDialog(null, "Solo se actualizaron " + count + " de " + tablaMesas.getRowCount()
+                    + " reservas\n1) La fecha/hora debe ser proxima a la actual");
+
+        }
+
     }
 
     /**
@@ -112,16 +162,9 @@ public class MesaVista extends javax.swing.JPanel {
                 "N° de Mesa", "Capacidad", "Ocupada", "Activa"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class
-            };
             boolean[] canEdit = new boolean [] {
                 false, true, true, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -192,6 +235,7 @@ public class MesaVista extends javax.swing.JPanel {
         mVbtnBorrar.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         mVbtnBorrar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         mVbtnBorrar.setText("Borrar Mesa");
+        mVbtnBorrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mVbtnBorrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 mVbtnBorrarMouseClicked(evt);
@@ -208,9 +252,7 @@ public class MesaVista extends javax.swing.JPanel {
         jpFondoBorrar.setLayout(jpFondoBorrarLayout);
         jpFondoBorrarLayout.setHorizontalGroup(
             jpFondoBorrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpFondoBorrarLayout.createSequentialGroup()
-                .addComponent(mVbtnBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(mVbtnBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
         );
         jpFondoBorrarLayout.setVerticalGroup(
             jpFondoBorrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,6 +276,7 @@ public class MesaVista extends javax.swing.JPanel {
         mVbtnReactivar.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         mVbtnReactivar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         mVbtnReactivar.setText("Reactivar Mesa");
+        mVbtnReactivar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mVbtnReactivar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 mVbtnReactivarMouseClicked(evt);
@@ -353,52 +396,27 @@ public class MesaVista extends javax.swing.JPanel {
 
     private void mVbtnActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mVbtnActualizarMouseClicked
         // TODO add your handling code here:
-
-        int fSelect = tablaMesas.getSelectedRow();
-
-        if (fSelect > -1) {
-            try {
-                Mesa nMesa = new Mesa();
-                nMesa.setNumMesa(Integer.parseInt(model.getValueAt(fSelect, 0).toString()));
-                nMesa.setCapacidad(Integer.parseInt(model.getValueAt(fSelect, 1).toString()));
-                nMesa.setEstado((boolean) model.getValueAt(fSelect, 2));
-                nMesa.setActivo((boolean) model.getValueAt(fSelect, 3));
-                
-                mesadata.modificarMesa(nMesa);
-                if(mVmesasInactivas.isSelected()){
-                    verInactivas();
-                }else{
-                    verActivas();
-                }
-
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Por Favor Escriba un Numero en la Columna Capacidad" + ex);
-
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Seleccione una Mesa para Actualizar.");
-        }
-        
+        actualizarMesas();
     }//GEN-LAST:event_mVbtnActualizarMouseClicked
 
     private void mVbtnBorrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mVbtnBorrarMouseClicked
         // TODO add your handling code here:
         int fSelect = tablaMesas.getSelectedRow();
-        if(fSelect > -1){
+        if (fSelect > -1) {
             try {
                 Mesa nMesa = new Mesa();
                 nMesa.setNumMesa(Integer.parseInt(model.getValueAt(fSelect, 0).toString()));
                 mesadata.borrarMesa(nMesa);
-                
-                if(mVmesasInactivas.isSelected()){
+
+                if (mVmesasInactivas.isSelected()) {
                     verInactivas();
-                }else{
+                } else {
                     verActivas();
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Error al Borrar una Mesa. " + ex);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Seleccione una Mesa para Borar.");
         }
 
@@ -416,21 +434,21 @@ public class MesaVista extends javax.swing.JPanel {
     private void mVbtnReactivarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mVbtnReactivarMouseClicked
         // TODO add your handling code here:
         int fSelect = tablaMesas.getSelectedRow();
-        if(fSelect > -1){
+        if (fSelect > -1) {
             try {
                 Mesa nMesa = new Mesa();
                 nMesa.setNumMesa(Integer.parseInt(model.getValueAt(fSelect, 0).toString()));
                 mesadata.activarMesa(nMesa);
-                
-                if(mVmesasInactivas.isSelected()){
+
+                if (mVmesasInactivas.isSelected()) {
                     verInactivas();
-                }else{
+                } else {
                     verActivas();
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Error al Reactivar una Mesa. " + ex);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Seleccione una Mesa para Reactivar.");
         }
 

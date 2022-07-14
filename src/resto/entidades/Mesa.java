@@ -21,8 +21,8 @@ public class Mesa {
     this.activo = activo;
   }
 
-  public Mesa(Mesero mesero, int capacidad, boolean estado, boolean activo) {
-    this.mesero = mesero;
+  public Mesa(int capacidad, boolean estado, boolean activo) {
+    //this.mesero = mesero;
     this.capacidad = capacidad;
     this.estado = estado;
     this.activo = activo;
