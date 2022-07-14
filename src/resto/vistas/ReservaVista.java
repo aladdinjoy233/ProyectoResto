@@ -7,8 +7,11 @@ import java.util.*;
 import java.time.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import static java.lang.Thread.sleep;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 public class ReservaVista extends javax.swing.JPanel {
@@ -31,6 +34,7 @@ public class ReservaVista extends javax.swing.JPanel {
         modelo = (DefaultTableModel) jTable.getModel();
         verActivas();
         refrescar.setVisible(false);
+        barraRefrescar.setVisible(false);
     }
 
     //funcionalidades
@@ -55,6 +59,7 @@ public class ReservaVista extends javax.swing.JPanel {
         jCinactivo = new resto.componentes.CheckboxPersonalizada();
         refrescar = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        barraRefrescar = new javax.swing.JProgressBar();
 
         jLabel2.setFont(new java.awt.Font("Dialog", 3, 13)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(114, 63, 50));
@@ -90,6 +95,11 @@ public class ReservaVista extends javax.swing.JPanel {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTableMousePressed(evt);
             }
         });
         jScrollPane1.setViewportView(jTable);
@@ -214,13 +224,18 @@ public class ReservaVista extends javax.swing.JPanel {
                 .addGap(17, 17, 17))
         );
 
+        barraRefrescar.setForeground(new java.awt.Color(114, 63, 50));
+        barraRefrescar.setOrientation(1);
+        barraRefrescar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        barraRefrescar.setStringPainted(true);
+
         javax.swing.GroupLayout contenidoLayout = new javax.swing.GroupLayout(contenido);
         contenido.setLayout(contenidoLayout);
         contenidoLayout.setHorizontalGroup(
             contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoLayout.createSequentialGroup()
-                .addContainerGap(35, Short.MAX_VALUE)
-                .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGroup(contenidoLayout.createSequentialGroup()
+                .addContainerGap(26, Short.MAX_VALUE)
+                .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(contenidoLayout.createSequentialGroup()
                         .addComponent(agregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -229,29 +244,34 @@ public class ReservaVista extends javax.swing.JPanel {
                         .addComponent(refrescar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoLayout.createSequentialGroup()
-                        .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(contenidoLayout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(449, 449, 449)
-                                .addComponent(jCinactivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 719, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26))))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addGap(449, 449, 449)
+                        .addComponent(jCinactivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26))
+                    .addGroup(contenidoLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 719, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(barraRefrescar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         contenidoLayout.setVerticalGroup(
             contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoLayout.createSequentialGroup()
-                .addContainerGap(32, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jCinactivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(barraRefrescar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE))
                 .addGap(35, 35, 35)
                 .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(actualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(agregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(refrescar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(76, 76, 76))
+                .addGap(210, 210, 210))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -276,10 +296,17 @@ public class ReservaVista extends javax.swing.JPanel {
 
     private void borrarFilas() {
 
-        int a = modelo.getRowCount() - 1;
-        for (int i = a; i > -1; i--) {
-            modelo.removeRow(i);
+        try {
+
+            int a = modelo.getRowCount() - 1;
+            for (int i = a; i > -1; i--) {
+                Thread.sleep(100);
+                modelo.removeRow(i);
+            }
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ReservaVista.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     private void verInactivas() {
@@ -287,16 +314,26 @@ public class ReservaVista extends javax.swing.JPanel {
         ArrayList<Reserva> reservas = rd.obtenerReservasInactivas();
 
         for (Reserva r : reservas) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ReservaVista.class.getName()).log(Level.SEVERE, null, ex);
+            }
             modelo.addRow(new Object[]{r.getMesa().getNumMesa(), r.getFecha(), r.getHora(), r.getNombre(), r.getDni(), r.isActivo() ? "si" : "no", r.getIdReserva()});
         }
     }
 
     private void verActivas() {
+
         borrarFilas();
         ArrayList<Reserva> reservas = rd.obtenerReservas();
 
         for (Reserva r : reservas) {
-
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ReservaVista.class.getName()).log(Level.SEVERE, null, ex);
+            }
             modelo.addRow(new Object[]{r.getMesa().getNumMesa(), r.getFecha(), r.getHora(), r.getNombre(), r.getDni(), r.isActivo() ? "si" : "no", r.getIdReserva()});
         }
     }
@@ -321,7 +358,26 @@ public class ReservaVista extends javax.swing.JPanel {
 
     private void actualizarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizarMousePressed
         // TODO add your handling code here:
+        barraRefrescar.setVisible(true);
+        Thread hilo = new Thread() {
+            @Override
+            public void run() {
+
+                for (int i = 0; i < 100; i++) {
+                    try {
+                        sleep(5);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(ReservaVista.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    barraRefrescar.setValue(i);
+                }
+
+            }
+        };
+
+        hilo.start();
         ActualizarReserva();
+
     }//GEN-LAST:event_actualizarMousePressed
 
     private void agregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarMousePressed
@@ -339,6 +395,9 @@ public class ReservaVista extends javax.swing.JPanel {
     }//GEN-LAST:event_agregarMousePressed
 
     private void jCinactivoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCinactivoMousePressed
+
+        barraRefrescar.setVisible(false);
+
         if (jCinactivo.isSelected()) {
             verActivas();
         } else {
@@ -348,25 +407,53 @@ public class ReservaVista extends javax.swing.JPanel {
 
     private void refrescarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refrescarMouseEntered
         // TODO add your handling code here:
-         refrescar.setBackground(Color.decode("#D9B18E"));
+        refrescar.setBackground(Color.decode("#D9B18E"));
     }//GEN-LAST:event_refrescarMouseEntered
 
     private void refrescarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refrescarMouseExited
         // TODO add your handling code here:
-         refrescar.setBackground(Color.decode("#F1CFB2"));
+        refrescar.setBackground(Color.decode("#F1CFB2"));
     }//GEN-LAST:event_refrescarMouseExited
 
     private void refrescarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refrescarMousePressed
-        // TODO add your handling code here:
-         if (jCinactivo.isSelected()) {
+
+        barraRefrescar.setVisible(true);
+
+        if (jCinactivo.isSelected()) {
             verInactivas();
         } else {
             verActivas();
         }
+
+        //Creo un tiempo para el progress bar
+        Thread hilo = new Thread() {
+            @Override
+            public void run() {
+
+                for (int i = 0; i < 100; i++) {
+                    try {
+                        sleep(5);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(ReservaVista.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    barraRefrescar.setValue(i);
+                }
+
+            }
+        };
+
+        hilo.start();
     }//GEN-LAST:event_refrescarMousePressed
+
+    private void jTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMousePressed
+        barraRefrescar.setVisible(false);
+        refrescar.setVisible(true);
+    }//GEN-LAST:event_jTableMousePressed
 
     private void ActualizarReserva() {
         int count = 0, count2 = 0;
+
+        refrescar.setVisible(true);
 
         ArrayList<Reserva> todasLasReservas = rd.obtenerReservas();
 
@@ -393,11 +480,10 @@ public class ReservaVista extends javax.swing.JPanel {
                 Mesa mesa = md.obtenerMesa(numMesa);
                 Reserva r = new Reserva(idReserva, mesa, nombre, dni, fecha, hora, estado);
 
-
                 //valido si hubo algun error, y lo denoto con un mensaje
                 if (r.toString().equals(todasLasReservas.get(i).toString())) {
-                     count++;
-                }else{
+                    count++;
+                } else {
                     if (rd.modificarReserva(r)) {
                         count2++;
                     }
@@ -408,11 +494,11 @@ public class ReservaVista extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "error " + ex.getMessage());
         }
 
-        if (count2 == (jTable.getRowCount()-count)) {
+        if (count2 == (jTable.getRowCount() - count)) {
             JOptionPane.showMessageDialog(null, "Actualizado correctamente");
         } else {
             JOptionPane.showMessageDialog(null, "Solo se actualizaron " + count + "/" + jTable.getRowCount() + " reservas\n~ERROR: reserva ya existente / fecha-hora anterior a la actual");
-            refrescar.setVisible(true);
+
         }
 
     }
@@ -421,6 +507,7 @@ public class ReservaVista extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actualizar;
     private javax.swing.JPanel agregar;
+    private javax.swing.JProgressBar barraRefrescar;
     private javax.swing.JPanel contenido;
     private resto.componentes.CheckboxPersonalizada jCinactivo;
     private javax.swing.JLabel jLabel1;
