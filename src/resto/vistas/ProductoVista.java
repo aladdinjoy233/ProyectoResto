@@ -32,9 +32,8 @@ public class ProductoVista extends javax.swing.JPanel {
         modelo = new DefaultTableModel();
         armarCabecera();
         mostrarProductos();
-        
-        enableButton(jpFondoAgregar,jbAgregar);
-        disableAll();
+
+        deshabilitarBotones();
     }
 
     /**
@@ -90,6 +89,7 @@ public class ProductoVista extends javax.swing.JPanel {
         jpFondoAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jbAgregar.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jbAgregar.setForeground(new java.awt.Color(114, 63, 50));
         jbAgregar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jbAgregar.setText("Agregar Producto");
         jbAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -296,7 +296,7 @@ public class ProductoVista extends javax.swing.JPanel {
         for (Producto p : listaProductos) {
             modelo.addRow(new Object[] {p.getCodigo(),p.getNombre(),p.getStock(),p.getPrecio(),(p.isComestible()? "Comidas" : "Bebidas"),(p.isActivo() ? "Si" : "No")});
         }
-        disableAll();
+        deshabilitarBotones();
     }//GEN-LAST:event_jchActivoActionPerformed
 
     private void jbActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbActualizarMouseClicked
@@ -339,17 +339,17 @@ public class ProductoVista extends javax.swing.JPanel {
 
     private void jtProductosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtProductosMousePressed
         if (jtProductos.getSelectedRows().length == 1) {
-            enableAll();
+            habilitarBotones();
           } else {
-            disableAll();
+            deshabilitarBotones();
         }
     }//GEN-LAST:event_jtProductosMousePressed
 
     private void jtProductosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtProductosMouseReleased
         if (jtProductos.getSelectedRows().length == 1) {
-            enableAll();
+            habilitarBotones();
           } else {
-            disableAll();
+            deshabilitarBotones();
         }
     }//GEN-LAST:event_jtProductosMouseReleased
      
@@ -386,27 +386,27 @@ public class ProductoVista extends javax.swing.JPanel {
         for (Producto p : listaProductos) {
             modelo.addRow(new Object[] {p.getCodigo(),p.getNombre(),p.getStock(),p.getPrecio(),(p.isComestible()? "Comidas" : "Bebidas"),(p.isActivo() ? "Si" : "No")});
         }
-        disableAll();
+        deshabilitarBotones();
     }
     
-  public void disableButton(JPanel panel, JLabel label) {
+  public void deshabilitarBoton(JPanel panel, JLabel label) {
     panel.setBackground(Color.LIGHT_GRAY);
     label.setForeground(Color.GRAY);
   }
   
-  public void enableButton(JPanel panel, JLabel label) {
+  public void habilitarBoton(JPanel panel, JLabel label) {
     panel.setBackground(Color.decode("#F1CFB2"));
     label.setForeground(Color.decode("#723F32"));
   }
   
-  public void disableAll() {
-    disableButton(jpFondoActualizar,jbActualizar);
-    disableButton(jpFondoBorrar, jbBorrar);  
+  public void deshabilitarBotones() {
+    deshabilitarBoton(jpFondoActualizar,jbActualizar);
+    deshabilitarBoton(jpFondoBorrar, jbBorrar);  
   }
   
-  public void enableAll() {
-    enableButton(jpFondoActualizar,jbActualizar);
-    enableButton(jpFondoBorrar, jbBorrar);
+  public void habilitarBotones() {
+    habilitarBoton(jpFondoActualizar,jbActualizar);
+    habilitarBoton(jpFondoBorrar, jbBorrar);
   }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
