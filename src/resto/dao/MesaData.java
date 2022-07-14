@@ -269,7 +269,7 @@ public class MesaData {
       Mesa mesa;
 
       if (!rs.next()) {
-        JOptionPane.showMessageDialog(null, "No hay Mesas en la base de datos");
+        JOptionPane.showMessageDialog(null, "No hay Mesas Activas");
         ps.close();
         return mesas;
       }
@@ -310,7 +310,7 @@ public class MesaData {
       Mesa mesa;
 
       if (!rs.next()) {
-        JOptionPane.showMessageDialog(null, "No hay Mesas en la base de datos");
+        JOptionPane.showMessageDialog(null, "No hay Mesas Inactivas");
         ps.close();
         return mesas;
       }
