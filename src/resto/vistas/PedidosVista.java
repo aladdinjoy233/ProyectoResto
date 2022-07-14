@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import resto.dao.*;
@@ -102,6 +101,9 @@ public class PedidosVista extends javax.swing.JPanel {
       }
       public void mouseExited(java.awt.event.MouseEvent evt) {
         btnAgregarMouseExited(evt);
+      }
+      public void mousePressed(java.awt.event.MouseEvent evt) {
+        btnAgregarMousePressed(evt);
       }
     });
 
@@ -420,11 +422,22 @@ public class PedidosVista extends javax.swing.JPanel {
     cargarDatos(quiereDesactivados);
   }//GEN-LAST:event_btnCobrarMousePressed
 
+  private void btnAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMousePressed
+    AccionesPedido ap = new AccionesPedido(con, null);
+    ap.setSize(780, 530);
+    ap.setLocation(0, 0);
+    
+    bg.removeAll();
+    bg.add(ap, BorderLayout.CENTER);
+    bg.revalidate();
+    bg.repaint();
+  }//GEN-LAST:event_btnAgregarMousePressed
+
   private void cargarDatos(boolean conDesactivos) {
     
     model.setRowCount(0);
     
-    NumberFormat deciamlFormatter = new DecimalFormat("#0.00");
+    NumberFormat decimalFormatter = new DecimalFormat("#0.00");
     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd - MM - yyyy");
     DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     pedidos = new ArrayList<>();
@@ -452,7 +465,7 @@ public class PedidosVista extends javax.swing.JPanel {
         pedido.getFecha().format(dateFormatter),
         pedido.getHora().format(timeFormatter),
         pedido.isPagado() ? "Si" : "No",
-        ("$" + deciamlFormatter.format(precio)),
+        ("$" + decimalFormatter.format(precio)),
         pedido.isActivo() ? "Si" : "No"
       });
 

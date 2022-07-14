@@ -137,66 +137,69 @@ public class DetallePedido extends javax.swing.JPanel {
     bgLayout.setHorizontalGroup(
       bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(bgLayout.createSequentialGroup()
-        .addGap(18, 18, 18)
-        .addComponent(btnVolver))
-      .addGroup(bgLayout.createSequentialGroup()
-        .addGap(55, 55, 55)
-        .addComponent(lblTitulo))
-      .addGroup(bgLayout.createSequentialGroup()
-        .addGap(50, 50, 50)
         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(bgLayout.createSequentialGroup()
+            .addGap(18, 18, 18)
+            .addComponent(btnVolver))
+          .addGroup(bgLayout.createSequentialGroup()
+            .addGap(55, 55, 55)
             .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
               .addGroup(bgLayout.createSequentialGroup()
-                .addComponent(lblID)
-                .addGap(9, 9, 9)
-                .addComponent(pedidoID))
-              .addComponent(lblNumMesa))
-            .addGap(8, 8, 8)
-            .addComponent(numMesa))
-          .addGroup(bgLayout.createSequentialGroup()
-            .addComponent(lblCobrado)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(isCobrado)))
-        .addGap(62, 62, 62)
-        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addGroup(bgLayout.createSequentialGroup()
-            .addGap(340, 340, 340)
-            .addComponent(mostrarSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-          .addGroup(bgLayout.createSequentialGroup()
-            .addGap(270, 270, 270)
-            .addComponent(subtotalLabel))))
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                  .addGroup(bgLayout.createSequentialGroup()
+                    .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                      .addGroup(bgLayout.createSequentialGroup()
+                        .addComponent(lblID)
+                        .addGap(9, 9, 9)
+                        .addComponent(pedidoID))
+                      .addComponent(lblNumMesa))
+                    .addGap(8, 8, 8)
+                    .addComponent(numMesa))
+                  .addGroup(bgLayout.createSequentialGroup()
+                    .addComponent(lblCobrado)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(isCobrado)))
+                .addGap(57, 57, 57)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                  .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addGroup(bgLayout.createSequentialGroup()
+                    .addGap(340, 340, 340)
+                    .addComponent(mostrarSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                  .addGroup(bgLayout.createSequentialGroup()
+                    .addGap(270, 270, 270)
+                    .addComponent(subtotalLabel))))
+              .addComponent(lblTitulo))))
+        .addGap(50, 50, 50))
     );
     bgLayout.setVerticalGroup(
       bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(bgLayout.createSequentialGroup()
         .addGap(18, 18, 18)
         .addComponent(btnVolver)
-        .addGap(6, 6, 6)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(lblTitulo)
         .addGap(45, 45, 45)
         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addGroup(bgLayout.createSequentialGroup()
-            .addGap(10, 10, 10)
-            .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(lblID)
-              .addComponent(pedidoID))
-            .addGap(11, 11, 11)
-            .addComponent(lblNumMesa)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-              .addComponent(lblCobrado)
-              .addComponent(isCobrado)))
-          .addGroup(bgLayout.createSequentialGroup()
-            .addGap(40, 40, 40)
-            .addComponent(numMesa))
           .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addGroup(bgLayout.createSequentialGroup()
             .addGap(210, 210, 210)
             .addComponent(mostrarSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
           .addGroup(bgLayout.createSequentialGroup()
-            .addGap(210, 210, 210)
+            .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addGroup(bgLayout.createSequentialGroup()
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                  .addComponent(lblID)
+                  .addComponent(pedidoID))
+                .addGap(11, 11, 11)
+                .addComponent(lblNumMesa)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                  .addComponent(lblCobrado)
+                  .addComponent(isCobrado)))
+              .addGroup(bgLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(numMesa)))
+            .addGap(130, 130, 130)
             .addComponent(subtotalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
     );
 
@@ -225,7 +228,7 @@ public class DetallePedido extends javax.swing.JPanel {
 
   public void cargarDatos() {
     
-    NumberFormat deciamlFormatter = new DecimalFormat("#0.00");
+    NumberFormat decimalFormatter = new DecimalFormat("#0.00");
     ArrayList<DetalleDelPedido> detalles = detalleData.obtenerDetallesDePedido(pedido.getIdPedido());
 
     detalles.forEach(detalle -> {
@@ -234,14 +237,14 @@ public class DetallePedido extends javax.swing.JPanel {
       
       model.addRow(new Object[] {
         detalle.getProducto().getNombre(),
-        deciamlFormatter.format(precio),
+        "$" + decimalFormatter.format(precio),
         cantidad,
-        "$" + deciamlFormatter.format(precio * cantidad)
+        "$" + decimalFormatter.format(precio * cantidad)
       });
     });
     
     double subtotal = pedidoData.obtenerSubtotalDelPedido(pedido.getIdPedido());
-    precioTotal.setText("$" + deciamlFormatter.format(subtotal));
+    precioTotal.setText("$" + decimalFormatter.format(subtotal));
     
     pedidoID.setText("" + pedido.getIdPedido());
     numMesa.setText("" + pedido.getMesa().getNumMesa());
