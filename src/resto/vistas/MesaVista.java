@@ -60,6 +60,8 @@ public class MesaVista extends javax.swing.JPanel {
         mVbtnReactivar.setVisible(true);
         mVbtnActualizar.setVisible(false);
         mVbtnBorrar.setVisible(false);
+        BtnOcupar.setVisible(false);
+        BtnDesocupar.setVisible(false);
         borrarFilas();
         ArrayList<Mesa> mesas = mesadata.listadoMesasInactivas();
 
@@ -72,6 +74,8 @@ public class MesaVista extends javax.swing.JPanel {
         mVbtnReactivar.setVisible(false);
         mVbtnActualizar.setVisible(true);
         mVbtnBorrar.setVisible(true);
+        BtnOcupar.setVisible(true);
+        BtnDesocupar.setVisible(true);
         borrarFilas();
         ArrayList<Mesa> mesas = mesadata.listadoMesasActivas();
 
@@ -144,6 +148,10 @@ public class MesaVista extends javax.swing.JPanel {
         mVbtnActualizar = new javax.swing.JLabel();
         jpFondoBorrar = new javax.swing.JPanel();
         mVbtnBorrar = new javax.swing.JLabel();
+        fondoOcupar = new javax.swing.JPanel();
+        BtnOcupar = new javax.swing.JLabel();
+        fondodesocupar = new javax.swing.JPanel();
+        BtnDesocupar = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         mVmesasInactivas = new resto.componentes.CheckboxPersonalizada();
         jpFondoReactivar = new javax.swing.JPanel();
@@ -165,7 +173,7 @@ public class MesaVista extends javax.swing.JPanel {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, false
+                false, true, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -196,7 +204,9 @@ public class MesaVista extends javax.swing.JPanel {
         jpFondoAgregar.setLayout(jpFondoAgregarLayout);
         jpFondoAgregarLayout.setHorizontalGroup(
             jpFondoAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mVbtnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+            .addGroup(jpFondoAgregarLayout.createSequentialGroup()
+                .addComponent(mVbtnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jpFondoAgregarLayout.setVerticalGroup(
             jpFondoAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,11 +235,11 @@ public class MesaVista extends javax.swing.JPanel {
         jpFondoActualizar.setLayout(jpFondoActualizarLayout);
         jpFondoActualizarLayout.setHorizontalGroup(
             jpFondoActualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mVbtnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+            .addComponent(mVbtnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
         );
         jpFondoActualizarLayout.setVerticalGroup(
             jpFondoActualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mVbtnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mVbtnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
         );
 
         jpFondoBorrar.setBackground(new java.awt.Color(241, 207, 178));
@@ -254,11 +264,85 @@ public class MesaVista extends javax.swing.JPanel {
         jpFondoBorrar.setLayout(jpFondoBorrarLayout);
         jpFondoBorrarLayout.setHorizontalGroup(
             jpFondoBorrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mVbtnBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+            .addComponent(mVbtnBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
         );
         jpFondoBorrarLayout.setVerticalGroup(
             jpFondoBorrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(mVbtnBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        fondoOcupar.setBackground(new java.awt.Color(241, 207, 178));
+        fondoOcupar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        fondoOcupar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                fondoOcuparMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                fondoOcuparMouseExited(evt);
+            }
+        });
+
+        BtnOcupar.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        BtnOcupar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        BtnOcupar.setText("Ocupar Mesa");
+        BtnOcupar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnOcuparMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                BtnOcuparMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                BtnOcuparMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout fondoOcuparLayout = new javax.swing.GroupLayout(fondoOcupar);
+        fondoOcupar.setLayout(fondoOcuparLayout);
+        fondoOcuparLayout.setHorizontalGroup(
+            fondoOcuparLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(BtnOcupar, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        );
+        fondoOcuparLayout.setVerticalGroup(
+            fondoOcuparLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(BtnOcupar, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+        );
+
+        fondodesocupar.setBackground(new java.awt.Color(241, 207, 178));
+        fondodesocupar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        fondodesocupar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                fondodesocuparMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                fondodesocuparMouseExited(evt);
+            }
+        });
+
+        BtnDesocupar.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        BtnDesocupar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        BtnDesocupar.setText("Desocupar Mesa");
+        BtnDesocupar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnDesocuparMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                BtnDesocuparMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                BtnDesocuparMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout fondodesocuparLayout = new javax.swing.GroupLayout(fondodesocupar);
+        fondodesocupar.setLayout(fondodesocuparLayout);
+        fondodesocuparLayout.setHorizontalGroup(
+            fondodesocuparLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(BtnDesocupar, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+        );
+        fondodesocuparLayout.setVerticalGroup(
+            fondodesocuparLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(BtnDesocupar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
         );
 
         jLabel4.setFont(new java.awt.Font("Dialog", 3, 20)); // NOI18N
@@ -295,11 +379,11 @@ public class MesaVista extends javax.swing.JPanel {
         jpFondoReactivar.setLayout(jpFondoReactivarLayout);
         jpFondoReactivarLayout.setHorizontalGroup(
             jpFondoReactivarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mVbtnReactivar, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+            .addComponent(mVbtnReactivar, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
         );
         jpFondoReactivarLayout.setVerticalGroup(
             jpFondoReactivarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mVbtnReactivar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mVbtnReactivar, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
@@ -313,21 +397,25 @@ public class MesaVista extends javax.swing.JPanel {
                         .addComponent(jLabel4)
                         .addGap(458, 458, 458)
                         .addComponent(mVmesasInactivas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(escritorioLayout.createSequentialGroup()
                             .addComponent(jpFondoAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jpFondoActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jpFondoBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
+                            .addComponent(fondoOcupar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(fondodesocupar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(34, 34, 34)
                             .addComponent(jpFondoReactivar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(escritorioLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
                 .addGap(83, 83, 83)
                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -335,12 +423,15 @@ public class MesaVista extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
-                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jpFondoAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpFondoActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpFondoBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpFondoReactivar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jpFondoAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jpFondoBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jpFondoActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fondoOcupar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fondodesocupar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jpFondoReactivar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -470,9 +561,97 @@ public class MesaVista extends javax.swing.JPanel {
         jpFondoReactivar.setBackground(Color.decode("#F1CFB2"));
     }//GEN-LAST:event_mVbtnReactivarMouseExited
 
+    private void fondodesocuparMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fondodesocuparMouseEntered
+        // TODO add your handling code here:
+        fondodesocupar.setBackground(Color.decode("#D9B18E"));
+    }//GEN-LAST:event_fondodesocuparMouseEntered
+
+    private void fondodesocuparMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fondodesocuparMouseExited
+        // TODO add your handling code here:
+        fondodesocupar.setBackground(Color.decode("#F1CFB2"));
+    }//GEN-LAST:event_fondodesocuparMouseExited
+
+    private void fondoOcuparMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fondoOcuparMouseExited
+        // TODO add your handling code here:
+        fondoOcupar.setBackground(Color.decode("#F1CFB2"));
+    }//GEN-LAST:event_fondoOcuparMouseExited
+
+    private void fondoOcuparMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fondoOcuparMouseEntered
+        // TODO add your handling code here:
+        fondoOcupar.setBackground(Color.decode("#D9B18E"));
+    }//GEN-LAST:event_fondoOcuparMouseEntered
+
+    private void BtnOcuparMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnOcuparMouseClicked
+        // TODO add your handling code here:
+        int fSelect = tablaMesas.getSelectedRow();
+        if (fSelect > -1) {
+            try {
+                Mesa nMesa = new Mesa();
+                nMesa.setNumMesa(Integer.parseInt(model.getValueAt(fSelect, 0).toString()));
+                mesadata.ocuparMesa(nMesa);
+
+                if (mVmesasInactivas.isSelected()) {
+                    verInactivas();
+                } else {
+                    verActivas();
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error al Ocupar una Mesa. " + ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione una Mesa para Ocupar.");
+        }
+    }//GEN-LAST:event_BtnOcuparMouseClicked
+
+    private void BtnDesocuparMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnDesocuparMouseClicked
+        // TODO add your handling code here:
+        int fSelect = tablaMesas.getSelectedRow();
+        if (fSelect > -1) {
+            try {
+                Mesa nMesa = new Mesa();
+                nMesa.setNumMesa(Integer.parseInt(model.getValueAt(fSelect, 0).toString()));
+                mesadata.desocuparMesa(nMesa);
+
+                if (mVmesasInactivas.isSelected()) {
+                    verInactivas();
+                } else {
+                    verActivas();
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error al Ocupar una Mesa. " + ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione una Mesa para Ocupar.");
+        }
+    }//GEN-LAST:event_BtnDesocuparMouseClicked
+
+    private void BtnOcuparMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnOcuparMouseEntered
+        // TODO add your handling code here:
+        BtnOcupar.setBackground(Color.decode("#D9B18E"));
+    }//GEN-LAST:event_BtnOcuparMouseEntered
+
+    private void BtnOcuparMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnOcuparMouseExited
+        // TODO add your handling code here:
+        BtnOcupar.setBackground(Color.decode("#F1CFB2"));
+    }//GEN-LAST:event_BtnOcuparMouseExited
+
+    private void BtnDesocuparMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnDesocuparMouseEntered
+        // TODO add your handling code here:
+        BtnDesocupar.setBackground(Color.decode("#D9B18E"));
+    }//GEN-LAST:event_BtnDesocuparMouseEntered
+
+    private void BtnDesocuparMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnDesocuparMouseExited
+        // TODO add your handling code here:
+        BtnDesocupar.setBackground(Color.decode("#F1CFB2"));
+    }//GEN-LAST:event_BtnDesocuparMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BtnDesocupar;
+    private javax.swing.JLabel BtnOcupar;
     private javax.swing.JPanel escritorio;
+    private javax.swing.JPanel fondoOcupar;
+    private javax.swing.JPanel fondodesocupar;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPanel;
     private javax.swing.JPanel jpFondoActualizar;

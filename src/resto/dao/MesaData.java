@@ -517,5 +517,60 @@ public class MesaData {
       
       return meseroAgregado;
   }
+ 
+  public boolean ocuparMesa(Mesa mesa) {
+    boolean result = false;
+    if (!(buscarMesa(mesa.getNumMesa()))) {
+      JOptionPane.showMessageDialog(null, "La Mesa N° " + mesa.getNumMesa() + " no existe");
+      return false;
+    }
+
+    String sql = "UPDATE mesa SET estado = 1 WHERE numMesa = ?";
+    try {
+
+      PreparedStatement ps = coneccion.prepareStatement(sql);
+
+      ps.setInt(1, mesa.getNumMesa());
+
+      if (ps.executeUpdate() != 0) {
+        result = true;
+        JOptionPane.showMessageDialog(null, "La Mesa se a Ocupado. ");
+      }
+
+      ps.close();
+
+    } catch (SQLException ex) {
+      JOptionPane.showMessageDialog(null, "Error al obtener una Mesa" + ex);
+    }
+
+    return result;
+  }
   
+  public boolean desocuparMesa(Mesa mesa) {
+    boolean result = false;
+    if (!(buscarMesa(mesa.getNumMesa()))) {
+      JOptionPane.showMessageDialog(null, "La Mesa N° " + mesa.getNumMesa() + " no existe");
+      return false;
+    }
+
+    String sql = "UPDATE mesa SET estado = 0 WHERE numMesa = ?";
+    try {
+
+      PreparedStatement ps = coneccion.prepareStatement(sql);
+
+      ps.setInt(1, mesa.getNumMesa());
+
+      if (ps.executeUpdate() != 0) {
+        result = true;
+        JOptionPane.showMessageDialog(null, "La Mesa se a Desocupado. ");
+      }
+
+      ps.close();
+
+    } catch (SQLException ex) {
+      JOptionPane.showMessageDialog(null, "Error al obtener una Mesa" + ex);
+    }
+
+    return result;
+  }
 }
