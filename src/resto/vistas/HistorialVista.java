@@ -7,6 +7,7 @@ package resto.vistas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -494,6 +495,10 @@ public class HistorialVista extends javax.swing.JPanel {
       DetallesPedidoHistorial dph = new DetallesPedidoHistorial(con, selectedPedido);
       dph.setSize(780, 530);
       dph.setLocation(0, 0);
+      
+      escritorio.setPreferredSize(new Dimension(780, 530));
+        escritorio.setMinimumSize(new Dimension(780, 530));
+        escritorio.setMaximumSize(new Dimension(780, 530));
 
       escritorio.removeAll();
       escritorio.add(dph, BorderLayout.CENTER);
