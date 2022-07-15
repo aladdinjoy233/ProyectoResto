@@ -186,7 +186,7 @@ public class Menu extends javax.swing.JFrame {
     barraLateral.add(logoBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 230, 110));
 
     tabPrincipal.setBackground(new java.awt.Color(217, 177, 142));
-    tabPrincipal.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+    tabPrincipal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     tabPrincipal.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseEntered(java.awt.event.MouseEvent evt) {
         tabPrincipalMouseEntered(evt);
@@ -227,7 +227,7 @@ public class Menu extends javax.swing.JFrame {
     barraLateral.add(tabPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 240, 60));
 
     tabReservas.setBackground(new java.awt.Color(217, 177, 142));
-    tabReservas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+    tabReservas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     tabReservas.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseEntered(java.awt.event.MouseEvent evt) {
         tabReservasMouseEntered(evt);
@@ -268,7 +268,7 @@ public class Menu extends javax.swing.JFrame {
     barraLateral.add(tabReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 240, 60));
 
     tabPedidos.setBackground(new java.awt.Color(217, 177, 142));
-    tabPedidos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+    tabPedidos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     tabPedidos.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseEntered(java.awt.event.MouseEvent evt) {
         tabPedidosMouseEntered(evt);
@@ -309,7 +309,7 @@ public class Menu extends javax.swing.JFrame {
     barraLateral.add(tabPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 240, 60));
 
     tabProductos.setBackground(new java.awt.Color(217, 177, 142));
-    tabProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+    tabProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     tabProductos.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseEntered(java.awt.event.MouseEvent evt) {
         tabProductosMouseEntered(evt);
@@ -350,7 +350,7 @@ public class Menu extends javax.swing.JFrame {
     barraLateral.add(tabProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 240, 60));
 
     tabMesas.setBackground(new java.awt.Color(217, 177, 142));
-    tabMesas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+    tabMesas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     tabMesas.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseEntered(java.awt.event.MouseEvent evt) {
         tabMesasMouseEntered(evt);
@@ -391,7 +391,7 @@ public class Menu extends javax.swing.JFrame {
     barraLateral.add(tabMesas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 240, 60));
 
     tabMeseros.setBackground(new java.awt.Color(217, 177, 142));
-    tabMeseros.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+    tabMeseros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     tabMeseros.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseEntered(java.awt.event.MouseEvent evt) {
         tabMeserosMouseEntered(evt);
@@ -432,7 +432,7 @@ public class Menu extends javax.swing.JFrame {
     barraLateral.add(tabMeseros, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 240, 60));
 
     tabHistorial.setBackground(new java.awt.Color(217, 177, 142));
-    tabHistorial.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+    tabHistorial.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     tabHistorial.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseEntered(java.awt.event.MouseEvent evt) {
         tabHistorialMouseEntered(evt);
