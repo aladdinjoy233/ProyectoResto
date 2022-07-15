@@ -231,6 +231,7 @@ public class ReservaData {
 
             ps.close();
 
+            JOptionPane.showMessageDialog(null, "Reserva actualizada exitosamente");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al actualizar reserva\n" + ex);
         }

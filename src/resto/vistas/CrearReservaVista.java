@@ -9,6 +9,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CrearReservaVista extends javax.swing.JPanel {
 
@@ -225,14 +227,17 @@ public class CrearReservaVista extends javax.swing.JPanel {
                                             .addComponent(jTcantidad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
                                             .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING))
                                         .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(contenidoLayout.createSequentialGroup()
+                                                    .addGap(18, 18, 18)
+                                                    .addComponent(jLabel5))
+                                                .addGroup(contenidoLayout.createSequentialGroup()
+                                                    .addGap(48, 48, 48)
+                                                    .addComponent(jCactivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                             .addGroup(contenidoLayout.createSequentialGroup()
                                                 .addGap(18, 18, 18)
-                                                .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel5)
-                                                    .addComponent(jFhora)))
-                                            .addGroup(contenidoLayout.createSequentialGroup()
-                                                .addGap(48, 48, 48)
-                                                .addComponent(jCactivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                                .addComponent(jFhora, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(0, 0, Short.MAX_VALUE)))))
                                 .addGap(41, 41, 41)
                                 .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cbMesas, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -262,7 +267,7 @@ public class CrearReservaVista extends javax.swing.JPanel {
                 .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jLabel5))
-                .addGap(19, 19, 19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTcantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jFhora, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -299,9 +304,11 @@ public class CrearReservaVista extends javax.swing.JPanel {
         // TODO add your handling code here:
         try {
             String nombre = jTnombre.getText();
+            
             Long dni = Long.parseLong(jTdni.getText());
+            String dniStr = dni + "";
             Boolean estado = jCactivo.isSelected();
-
+            
             SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
             String fecha = formato.format(jDfecha.getDate());
             LocalDate fechaReserva = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
@@ -315,15 +322,19 @@ public class CrearReservaVista extends javax.swing.JPanel {
             if (mesa.getCapacidad() < cantidad) {
                 JOptionPane.showMessageDialog(null, "El numero de sillas no es suficiente para " + cantidad + " personas.\npor favor elija otra mesa!");
                 mesa = null;
-            } else {
+            } else if (nombre.length() > 50) {
+                JOptionPane.showMessageDialog(null, "Su nombre tiene exceso de caracteres");
+            }else {
                 Reserva reserva = new Reserva(mesa, nombre, dni, fechaReserva, hora, estado);
                 rd.agregarReserva(reserva);
             }
 
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Debe completar todos los campos");
-        } catch (NumberFormatException ex){
-            JOptionPane.showMessageDialog(null, "Debe introducir un numero");
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Debe introducir un dato valido");
+        } catch (Exception ex) {
+            Logger.getLogger(CrearReservaVista.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_agregarMouseClicked
 
@@ -365,7 +376,6 @@ public class CrearReservaVista extends javax.swing.JPanel {
 
     private void cbMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMesasActionPerformed
         // TODO add your handling code here:
-        cargarMesas();
     }//GEN-LAST:event_cbMesasActionPerformed
 
     private void jCactivoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCactivoMousePressed
