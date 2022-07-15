@@ -45,7 +45,7 @@
                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                          <Component id="TituloMesas" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="458" max="-2" attributes="0"/>
                           <Component id="mVmesasInactivas" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -57,9 +57,9 @@
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="jpFondoBorrar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                              <Component id="fondoOcupar" min="-2" max="-2" attributes="0"/>
+                              <Component id="jPfondoOcupar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="fondodesocupar" min="-2" max="-2" attributes="0"/>
+                              <Component id="jPfondodesocupar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                               <Component id="jpFondoReactivar" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -75,7 +75,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="TituloMesas" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="mVmesasInactivas" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -87,11 +87,11 @@
                           <Component id="jpFondoBorrar" max="32767" attributes="0"/>
                       </Group>
                       <Component id="jpFondoActualizar" min="-2" max="-2" attributes="0"/>
-                      <Component id="fondoOcupar" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="fondodesocupar" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jPfondoOcupar" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jPfondodesocupar" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jpFondoReactivar" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="59" max="32767" attributes="0"/>
+                  <EmptySpace pref="36" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -265,7 +265,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="fondoOcupar">
+        <Container class="javax.swing.JPanel" name="jPfondoOcupar">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="b2" green="cf" red="f1" type="rgb"/>
@@ -275,8 +275,8 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="fondoOcuparMouseEntered"/>
-            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="fondoOcuparMouseExited"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPfondoOcuparMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPfondoOcuparMouseExited"/>
           </Events>
 
           <Layout>
@@ -308,7 +308,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="fondodesocupar">
+        <Container class="javax.swing.JPanel" name="jPfondodesocupar">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="b2" green="cf" red="f1" type="rgb"/>
@@ -318,8 +318,8 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="fondodesocuparMouseEntered"/>
-            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="fondodesocuparMouseExited"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPfondodesocuparMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPfondodesocuparMouseExited"/>
           </Events>
 
           <Layout>
@@ -351,7 +351,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JLabel" name="jLabel4">
+        <Component class="javax.swing.JLabel" name="TituloMesas">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="20" style="3"/>
