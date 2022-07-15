@@ -358,22 +358,38 @@ public class CrearReservaVista extends javax.swing.JPanel {
 
     private void agregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarMouseClicked
 
+        int countCaracter = 0;
         try {
 
             String nombre = jTnombre.getText();
-            Long dni = Long.parseLong(jTdni.getText());
-            String dniStr = dni + "";
+            Long dni = Long.parseLong("0");
+
+            for (int i = 0; i < jTdni.getText().length(); i++) {
+                countCaracter++;
+            }
+
+            //valido que el dni tenga <= 11 cararcterers
+            if (countCaracter <= 11) {
+                dni = Long.parseLong(jTdni.getText());
+            } else {
+                JOptionPane.showMessageDialog(null, "Su dni supera el limite permitido");
+                return;
+            }
+
             Boolean estado = jCactivo.isSelected();
             SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
             String fecha = formato.format(jDfecha.getDate());
             LocalDate fechaReserva = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
             LocalTime hora = LocalTime.parse((String) jFhora.getText());
             int cantidad = Integer.parseInt(jTcantidad.getText());
+            if(cantidad <= 0){
+                JOptionPane.showMessageDialog(null, "Cantidad de personas incorrrecta");
+                return;
+            }
 
             Mesa mesa = (Mesa) cbMesas.getSelectedItem();
 
             //----valido campos----//
-            
             if (mesa.getCapacidad() < cantidad) {
                 JOptionPane.showMessageDialog(null, "El numero de sillas no es suficiente para " + cantidad + " personas.\npor favor elija otra mesa!");
                 mesa = null;
@@ -383,8 +399,7 @@ public class CrearReservaVista extends javax.swing.JPanel {
                 Reserva reserva = new Reserva(mesa, nombre, dni, fechaReserva, hora, estado);
                 rd.agregarReserva(reserva);
 
-            //---- Consigo el id para setearlo a un Label ----//    
-                
+                //---- Consigo el id para setearlo a un Label ----//    
                 int id = rd.obtenerId(reserva);
                 idDe.setText("-ID de " + nombre + ": " + id + ".");
             }
@@ -423,7 +438,7 @@ public class CrearReservaVista extends javax.swing.JPanel {
     }//GEN-LAST:event_atrasMouseClicked
 
     private void limpiarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limpiarMousePressed
-           limpiarCampos();
+        limpiarCampos();
     }//GEN-LAST:event_limpiarMousePressed
 
     private void cargarMesas() {

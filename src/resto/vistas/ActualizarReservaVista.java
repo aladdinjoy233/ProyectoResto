@@ -342,9 +342,9 @@ public class ActualizarReservaVista extends javax.swing.JPanel {
                             .addComponent(jLabel2)
                             .addComponent(jLabel13))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTid, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTid, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(buscarXId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -505,20 +505,36 @@ public class ActualizarReservaVista extends javax.swing.JPanel {
 
     private void actualizarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizarMousePressed
 
+        int countCaracter = 0;
+        
         try {
             int id = Integer.parseInt(jTid.getText());
             Reserva r = rd.obtenerReserva(id);
-
+            Long dni = Long.parseLong("0"); 
             String nombre = jTnombre.getText();
-            Long dni = Long.parseLong(jTdni.getText());
-            String dniStr = dni + "";
+            
+            for(int i=0;i<jTdni.getText().length();i++){
+                countCaracter++;
+            }
+            
+            if(countCaracter <= 11){
+            dni = Long.parseLong(jTdni.getText());    
+            }else{
+            JOptionPane.showMessageDialog(null, "Su dni supera el limite permitido");
+            return;
+            }
+            
             Boolean estado = jCactivo.isSelected();
             SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
             String fecha = formato.format(jDfecha.getDate());
             LocalDate fechaReserva = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
             LocalTime hora = LocalTime.parse((String) jFhora.getText());
             int cantidad = Integer.parseInt(jTcantidad.getText());
-
+            if(cantidad <= 0){
+                JOptionPane.showMessageDialog(null, "Cantidad de personas incorecta");
+                return;
+            }
+   
             Mesa mesa = (Mesa) cbMesas.getSelectedItem();
 
             //----valido campos----//
@@ -528,8 +544,6 @@ public class ActualizarReservaVista extends javax.swing.JPanel {
                 mesa = null;
             } else if (nombre.length() > 50) {
                 JOptionPane.showMessageDialog(null, "Su nombre tiene exceso de caracteres");
-            } else if (dniStr.length() > 11) {
-                JOptionPane.showMessageDialog(null, "Ingrese un dni valido");
             } else {
                 Reserva reserva = new Reserva(r.getIdReserva(), mesa, nombre, dni, fechaReserva, hora, estado);
                 rd.modificarReserva(reserva);
