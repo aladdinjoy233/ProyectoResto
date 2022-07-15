@@ -137,7 +137,7 @@ public class ReservaVista extends javax.swing.JPanel {
         );
 
         jCinactivo.setForeground(new java.awt.Color(114, 63, 50));
-        jCinactivo.setText("Ver pedidos inactivos");
+        jCinactivo.setText("Ver reservas inactivas");
         jCinactivo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jCinactivoMousePressed(evt);
@@ -183,7 +183,7 @@ public class ReservaVista extends javax.swing.JPanel {
         contenidoLayout.setHorizontalGroup(
             contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoLayout.createSequentialGroup()
-                .addContainerGap(35, Short.MAX_VALUE)
+                .addContainerGap(29, Short.MAX_VALUE)
                 .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(contenidoLayout.createSequentialGroup()
                         .addComponent(agregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
