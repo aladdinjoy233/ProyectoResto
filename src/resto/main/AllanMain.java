@@ -1,6 +1,7 @@
 package resto.main;
 
 import resto.dao.*;
+import resto.entidades.*;
 
 public class AllanMain {
 
@@ -10,7 +11,11 @@ public class AllanMain {
     PedidoData pd = new PedidoData(con);
     DetalleData dd = new DetalleData(con);
 
-    System.out.println(dd.obtenerDetallesDePedido(1));
+    DetalleDelPedido detalle = dd.obtenerDetalle(1);
+
+    detalle.setCantidad(6);
+
+    dd.modificarDetalle(detalle);
 
   }
 

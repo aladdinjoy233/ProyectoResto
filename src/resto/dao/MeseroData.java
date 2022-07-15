@@ -64,7 +64,50 @@ public class MeseroData {
             ResultSet rs = ps.executeQuery();
             
             if(!rs.next()){                
-                JOptionPane.showMessageDialog(null, "No hay meseros en la base de datos");
+                JOptionPane.showMessageDialog(null, "No se encontraron meseros activos.");
+                
+                ps.close();
+                return meseros;
+                
+            }
+            
+            rs.previous();            
+            Mesero mesero;
+            
+            while(rs.next()){
+                mesero = new Mesero();
+                
+                mesero.setIdMesero(rs.getInt("idMesero"));
+                mesero.setNombre(rs.getString("nombre"));
+                mesero.setApellido(rs.getString("apellido"));
+                mesero.setDni(rs.getLong("dni"));
+                mesero.setTelefono(rs.getLong("telefono"));
+                mesero.setActivo(rs.getBoolean("activo"));
+                
+                meseros.add(mesero);                
+            }
+            
+            ps.close();
+            
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Error al obtener meseros " + e);
+            
+        }
+        
+        return meseros;
+    }
+    
+        public ArrayList<Mesero> obtenerMeserosNoActivos(){ //devuelve solo los meseros no activos
+        ArrayList<Mesero> meseros = new ArrayList();
+        
+        try{
+            String sql = "SELECT * FROM mesero WHERE activo = 0;";
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            if(!rs.next()){                
+                JOptionPane.showMessageDialog(null, "No se encontraron meseros inactivos.");
                 
                 ps.close();
                 return meseros;
