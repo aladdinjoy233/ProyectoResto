@@ -56,8 +56,9 @@ public class CrearReservaVista extends javax.swing.JPanel {
         cbMesas = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         jCactivo = new resto.componentes.CheckboxPersonalizada();
-        jPanel1 = new javax.swing.JPanel();
+        actualizar = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
+        idDe = new javax.swing.JLabel();
 
         jToolBar1.setRollover(true);
 
@@ -211,16 +212,16 @@ public class CrearReservaVista extends javax.swing.JPanel {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(241, 207, 178));
-        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        actualizar.setBackground(new java.awt.Color(241, 207, 178));
+        actualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jPanel1MouseEntered(evt);
+                actualizarMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jPanel1MouseExited(evt);
+                actualizarMouseExited(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jPanel1MousePressed(evt);
+                actualizarMousePressed(evt);
             }
         });
 
@@ -228,22 +229,24 @@ public class CrearReservaVista extends javax.swing.JPanel {
         jLabel11.setForeground(new java.awt.Color(114, 63, 50));
         jLabel11.setText("Actualizar");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout actualizarLayout = new javax.swing.GroupLayout(actualizar);
+        actualizar.setLayout(actualizarLayout);
+        actualizarLayout.setHorizontalGroup(
+            actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, actualizarLayout.createSequentialGroup()
                 .addContainerGap(64, Short.MAX_VALUE)
                 .addComponent(jLabel11)
                 .addGap(59, 59, 59))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        actualizarLayout.setVerticalGroup(
+            actualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(actualizarLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(17, Short.MAX_VALUE))
         );
+
+        idDe.setText("-ID de: ");
 
         javax.swing.GroupLayout contenidoLayout = new javax.swing.GroupLayout(contenido);
         contenido.setLayout(contenidoLayout);
@@ -257,12 +260,13 @@ public class CrearReservaVista extends javax.swing.JPanel {
                     .addGroup(contenidoLayout.createSequentialGroup()
                         .addGap(93, 93, 93)
                         .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(idDe)
                             .addGroup(contenidoLayout.createSequentialGroup()
                                 .addComponent(agregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel4)
                             .addGroup(contenidoLayout.createSequentialGroup()
                                 .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -326,11 +330,13 @@ public class CrearReservaVista extends javax.swing.JPanel {
                 .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jCactivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
+                .addGap(16, 16, 16)
+                .addComponent(idDe)
+                .addGap(18, 18, 18)
                 .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(agregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42))
         );
 
@@ -351,32 +357,36 @@ public class CrearReservaVista extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void agregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarMouseClicked
-        // TODO add your handling code here:
+
         try {
+
             String nombre = jTnombre.getText();
-            
             Long dni = Long.parseLong(jTdni.getText());
             String dniStr = dni + "";
             Boolean estado = jCactivo.isSelected();
-            
             SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
             String fecha = formato.format(jDfecha.getDate());
             LocalDate fechaReserva = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-
             LocalTime hora = LocalTime.parse((String) jFhora.getText());
-
             int cantidad = Integer.parseInt(jTcantidad.getText());
 
             Mesa mesa = (Mesa) cbMesas.getSelectedItem();
 
+            //----valido campos----//
+            
             if (mesa.getCapacidad() < cantidad) {
                 JOptionPane.showMessageDialog(null, "El numero de sillas no es suficiente para " + cantidad + " personas.\npor favor elija otra mesa!");
                 mesa = null;
             } else if (nombre.length() > 50) {
                 JOptionPane.showMessageDialog(null, "Su nombre tiene exceso de caracteres");
-            }else {
+            } else {
                 Reserva reserva = new Reserva(mesa, nombre, dni, fechaReserva, hora, estado);
                 rd.agregarReserva(reserva);
+
+            //---- Consigo el id para setearlo a un Label ----//    
+                
+                int id = rd.obtenerId(reserva);
+                idDe.setText("-ID de " + nombre + ": " + id + ".");
             }
 
         } catch (NullPointerException ex) {
@@ -386,6 +396,8 @@ public class CrearReservaVista extends javax.swing.JPanel {
         } catch (Exception ex) {
             Logger.getLogger(CrearReservaVista.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+
     }//GEN-LAST:event_agregarMouseClicked
 
     void setearSeleccionado(JPanel panel) {
@@ -394,7 +406,6 @@ public class CrearReservaVista extends javax.swing.JPanel {
     }
 
     private void btnVolverMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVolverMousePressed
-
     }//GEN-LAST:event_btnVolverMousePressed
 
     private void atrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atrasMouseClicked
@@ -412,8 +423,7 @@ public class CrearReservaVista extends javax.swing.JPanel {
     }//GEN-LAST:event_atrasMouseClicked
 
     private void limpiarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limpiarMousePressed
-        // TODO add your handling code here:
-        limpiarCampos();
+           limpiarCampos();
     }//GEN-LAST:event_limpiarMousePressed
 
     private void cargarMesas() {
@@ -425,11 +435,9 @@ public class CrearReservaVista extends javax.swing.JPanel {
     }
 
     private void cbMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMesasActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_cbMesasActionPerformed
 
     private void jCactivoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCactivoMousePressed
-
     }//GEN-LAST:event_jCactivoMousePressed
 
     private void agregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarMouseEntered
@@ -452,17 +460,17 @@ public class CrearReservaVista extends javax.swing.JPanel {
         limpiar.setBackground(Color.decode("#F1CFB2"));
     }//GEN-LAST:event_limpiarMouseExited
 
-    private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
+    private void actualizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizarMouseEntered
         // TODO add your handling code here:
-        jPanel1.setBackground(Color.decode("#D9B18E"));
-    }//GEN-LAST:event_jPanel1MouseEntered
+        actualizar.setBackground(Color.decode("#D9B18E"));
+    }//GEN-LAST:event_actualizarMouseEntered
 
-    private void jPanel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseExited
+    private void actualizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizarMouseExited
         // TODO add your handling code here:
-        jPanel1.setBackground(Color.decode("#F1CFB2"));
-    }//GEN-LAST:event_jPanel1MouseExited
+        actualizar.setBackground(Color.decode("#F1CFB2"));
+    }//GEN-LAST:event_actualizarMouseExited
 
-    private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
+    private void actualizarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizarMousePressed
         // TODO add your handling code here:
         setearSeleccionado(agregar);
 
@@ -474,7 +482,7 @@ public class CrearReservaVista extends javax.swing.JPanel {
         contenido.add(arv, BorderLayout.CENTER);
         contenido.revalidate();
         contenido.repaint();
-    }//GEN-LAST:event_jPanel1MousePressed
+    }//GEN-LAST:event_actualizarMousePressed
 
     private void limpiarCampos() {
         jTnombre.setText("");
@@ -488,11 +496,13 @@ public class CrearReservaVista extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel actualizar;
     private javax.swing.JPanel agregar;
     private javax.swing.JPanel atras;
     private javax.swing.JLabel btnVolver;
     private javax.swing.JComboBox<Mesa> cbMesas;
     private javax.swing.JPanel contenido;
+    private javax.swing.JLabel idDe;
     private resto.componentes.CheckboxPersonalizada jCactivo;
     private com.toedter.calendar.JDateChooser jDfecha;
     private javax.swing.JFormattedTextField jFhora;
@@ -506,7 +516,6 @@ public class CrearReservaVista extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTcantidad;
     private javax.swing.JTextField jTdni;
     private javax.swing.JTextField jTnombre;

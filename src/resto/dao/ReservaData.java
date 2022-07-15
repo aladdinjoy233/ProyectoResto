@@ -203,10 +203,10 @@ public class ReservaData {
         LocalDate hoy = LocalDate.now();
         LocalTime horaActual = LocalTime.now();
 
-        if(existeReserva(reserva)){
+        if (existeReserva(reserva)) {
             return modificado;
         }
-        
+
         if (reserva.getFecha().isBefore(hoy) || reserva.getFecha().equals(hoy) && reserva.getHora().isBefore(horaActual)) {
             JOptionPane.showMessageDialog(null, "la fecha/hora debe ser proxima a la actual");
             return modificado;
@@ -242,7 +242,7 @@ public class ReservaData {
     public void borrarReserva(int idReserva) {
 
         String sql = "DELETE FROM reserva WHERE `reserva`.`idReserva` = ?";
-        
+
         try {
             Reserva reserva = obtenerReserva(idReserva);
             if (reserva != null) {
@@ -301,6 +301,54 @@ public class ReservaData {
         }
 
         return reservas;
+    }
+
+    public int obtenerId(Reserva reserva) {
+        int id;
+        Reserva aux = null;
+        Mesa mesa;
+
+        String sql = "SELECT * FROM reserva WHERE numMesa = ? AND nombre = ? AND dni = ? AND fecha = ? AND hora = ? AND activo = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setInt(1, reserva.getMesa().getNumMesa());
+            ps.setString(2, reserva.getNombre());
+            ps.setLong(3, reserva.getDni());
+            ps.setDate(4, Date.valueOf(reserva.getFecha()));
+            ps.setTime(5, Time.valueOf(reserva.getHora()));
+            ps.setBoolean(6, reserva.isActivo());
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                aux = new Reserva();
+                mesa = new Mesa();
+
+                aux.setIdReserva(rs.getInt("idReserva"));
+
+                mesa = md.obtenerMesa(rs.getInt("numMesa"));
+
+                aux.setMesa(mesa);
+                aux.setNombre(rs.getString("nombre"));
+                aux.setDni(rs.getLong("dni"));
+                aux.setFecha(rs.getDate("fecha").toLocalDate());
+                aux.setHora(rs.getTime("hora").toLocalTime());
+                aux.setActivo(rs.getBoolean("activo"));
+
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al obtener reservas" + ex);
+        }
+
+        id = aux.getIdReserva();
+        
+        return id;
     }
 
 }

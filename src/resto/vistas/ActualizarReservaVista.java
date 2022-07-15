@@ -465,7 +465,7 @@ public class ActualizarReservaVista extends javax.swing.JPanel {
 
     private void cargarMesas() {
         ArrayList<Mesa> listaMesas = md.listadoMesasActivas();
-        
+
         for (Mesa item : listaMesas) {
             cbMesas.addItem(item);
         }
@@ -489,10 +489,9 @@ public class ActualizarReservaVista extends javax.swing.JPanel {
         jFhora.setText(reserva.getHora() + "");
         jDfecha.setDate(java.sql.Date.valueOf(reserva.getFecha()));
         jCactivo.setSelected(reserva.isActivo());
-        numMesa.setText(reserva.getMesa().getNumMesa()+"");
+        numMesa.setText(reserva.getMesa().getNumMesa() + "");
         Mesa mesa = md.obtenerMesa(reserva.getMesa().getNumMesa());
-        jTcantidad.setText( mesa.getCapacidad() + "");
-
+        jTcantidad.setText(mesa.getCapacidad() + "");
 
     }
 
@@ -505,27 +504,25 @@ public class ActualizarReservaVista extends javax.swing.JPanel {
     }//GEN-LAST:event_buscarXIdMousePressed
 
     private void actualizarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizarMousePressed
-        // TODO add your handling code here:
-       try {
+
+        try {
             int id = Integer.parseInt(jTid.getText());
-            
             Reserva r = rd.obtenerReserva(id);
-            
+
             String nombre = jTnombre.getText();
             Long dni = Long.parseLong(jTdni.getText());
             String dniStr = dni + "";
             Boolean estado = jCactivo.isSelected();
-
             SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
             String fecha = formato.format(jDfecha.getDate());
             LocalDate fechaReserva = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-
             LocalTime hora = LocalTime.parse((String) jFhora.getText());
-
             int cantidad = Integer.parseInt(jTcantidad.getText());
 
             Mesa mesa = (Mesa) cbMesas.getSelectedItem();
 
+            //----valido campos----//
+            
             if (mesa.getCapacidad() < cantidad) {
                 JOptionPane.showMessageDialog(null, "El numero de sillas no es suficiente para " + cantidad + " personas.\npor favor elija otra mesa!");
                 mesa = null;
@@ -534,13 +531,13 @@ public class ActualizarReservaVista extends javax.swing.JPanel {
             } else if (dniStr.length() > 11) {
                 JOptionPane.showMessageDialog(null, "Ingrese un dni valido");
             } else {
-                Reserva reserva = new Reserva(r.getIdReserva(),mesa, nombre, dni, fechaReserva, hora, estado);
+                Reserva reserva = new Reserva(r.getIdReserva(), mesa, nombre, dni, fechaReserva, hora, estado);
                 rd.modificarReserva(reserva);
             }
 
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Debe completar todos los campos");
-        } catch (NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Debe introducir un numero");
         }
     }//GEN-LAST:event_actualizarMousePressed
@@ -551,7 +548,7 @@ public class ActualizarReservaVista extends javax.swing.JPanel {
 
     private void limpiarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limpiarMouseEntered
         // TODO add your handling code here:
-         limpiar.setBackground(Color.decode("#D9B18E"));
+        limpiar.setBackground(Color.decode("#D9B18E"));
     }//GEN-LAST:event_limpiarMouseEntered
 
     private void limpiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limpiarMouseExited
@@ -561,7 +558,7 @@ public class ActualizarReservaVista extends javax.swing.JPanel {
 
     private void actualizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizarMouseEntered
         // TODO add your handling code here:
-         actualizar.setBackground(Color.decode("#D9B18E"));
+        actualizar.setBackground(Color.decode("#D9B18E"));
     }//GEN-LAST:event_actualizarMouseEntered
 
     private void actualizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizarMouseExited
@@ -571,7 +568,7 @@ public class ActualizarReservaVista extends javax.swing.JPanel {
 
     private void buscarXIdMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarXIdMouseEntered
         // TODO add your handling code here:
-         buscarXId.setBackground(Color.decode("#D9B18E"));
+        buscarXId.setBackground(Color.decode("#D9B18E"));
     }//GEN-LAST:event_buscarXIdMouseEntered
 
 
