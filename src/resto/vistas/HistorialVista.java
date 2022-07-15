@@ -435,7 +435,9 @@ public class HistorialVista extends javax.swing.JPanel {
           horaHasta = LocalTime.parse((String) jftHoraHasta.getText()).toString();
       }
       
-      
+      if (jdtDesde.getDate() != null && jdtHasta.getDate() == null) {
+        hasta = desde;
+      }
 
       buscar(activo, pagado, mesa, mesero, desde, hasta,horaDesde,horaHasta);
     }//GEN-LAST:event_jbBuscarMousePressed
