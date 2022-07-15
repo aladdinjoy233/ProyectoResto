@@ -60,6 +60,9 @@ public class HistorialVista extends javax.swing.JPanel {
     } else {
       disableButton(jpFondoVerDetalle, jbVerDetalle);
     }
+
+    enableButton(jpFondoBuscar, jbBuscar);
+    enableButton(jpFondoResetear, jbResetear);
   }
 
   @SuppressWarnings("unchecked")
@@ -529,6 +532,8 @@ public class HistorialVista extends javax.swing.JPanel {
     jdtHasta.setDate(null);
     jcbPagados.setSelectedIndex(-1);
     jcbActivos.setSelectedIndex(-1);
+    
+    cargarDatos();
   }
 
   public void disableButton(JPanel panel, JLabel label) {
