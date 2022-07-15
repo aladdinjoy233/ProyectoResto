@@ -331,7 +331,7 @@ public class PedidoData {
     return modificado;
   }
   
-  public ArrayList<Pedido> obtenerPedidosBuscados(String activo,String pagado,Mesa pMesa,Mesero pMesero,String desde,String hasta){
+  public ArrayList<Pedido> obtenerPedidosBuscados(String activo,String pagado,Mesa pMesa,Mesero pMesero,String desde,String hasta,String horaDesde,String horaHasta){
       ArrayList<Pedido> pedidos = new ArrayList<>();
       boolean a,b;
       int x = 0;
@@ -358,6 +358,14 @@ public class PedidoData {
           
           if(pMesero != null){
               sql = sql + " AND idMesero = ?";
+          }
+          
+          if(horaDesde !=null){
+              sql = sql + " AND hora >= CAST(? AS Time)";
+          }
+          
+          if(horaHasta != null){
+              sql = sql + " AND hora <= CAST(? AS Time)";
           }
           
           PreparedStatement ps = con.prepareStatement(sql);
@@ -390,6 +398,16 @@ public class PedidoData {
           if(pMesero!=null){
               x++;
               ps.setInt(x, pMesero.getIdMesero());
+          }
+          
+          if(horaDesde!=null){
+              x++;
+              ps.setString(x, horaDesde);
+          }
+          
+          if(horaHasta!=null){
+              x++;
+              ps.setString(x, horaHasta);
           }
           
           ResultSet rs = ps.executeQuery();
