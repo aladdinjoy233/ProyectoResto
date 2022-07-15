@@ -383,7 +383,7 @@ public class CrearReservaVista extends javax.swing.JPanel {
             LocalTime hora = LocalTime.parse((String) jFhora.getText());
             int cantidad = Integer.parseInt(jTcantidad.getText());
             if(cantidad <= 0){
-                JOptionPane.showMessageDialog(null, "Cantidad de personas incorrrecta");
+                JOptionPane.showMessageDialog(null, "Cantidad de personas incorecta");
                 return;
             }
 
