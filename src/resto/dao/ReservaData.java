@@ -208,6 +208,7 @@ public class ReservaData {
         }
         
         if (reserva.getFecha().isBefore(hoy) || reserva.getFecha().equals(hoy) && reserva.getHora().isBefore(horaActual)) {
+            JOptionPane.showMessageDialog(null, "la fecha/hora debe ser proxima a la actual");
             return modificado;
         }
 

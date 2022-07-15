@@ -102,6 +102,12 @@ public class ActualizarReservaVista extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 actualizarMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                actualizarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                actualizarMouseExited(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 actualizarMousePressed(evt);
             }
@@ -135,6 +141,12 @@ public class ActualizarReservaVista extends javax.swing.JPanel {
 
         limpiar.setBackground(new java.awt.Color(241, 207, 178));
         limpiar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                limpiarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                limpiarMouseExited(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 limpiarMousePressed(evt);
             }
@@ -216,6 +228,9 @@ public class ActualizarReservaVista extends javax.swing.JPanel {
 
         buscarXId.setBackground(new java.awt.Color(241, 207, 178));
         buscarXId.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                buscarXIdMouseEntered(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 buscarXIdMousePressed(evt);
             }
@@ -264,6 +279,11 @@ public class ActualizarReservaVista extends javax.swing.JPanel {
                 .addGap(93, 93, 93)
                 .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(contenidoLayout.createSequentialGroup()
+                        .addComponent(limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(contenidoLayout.createSequentialGroup()
                         .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTnombre, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
                             .addComponent(jTdni, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
@@ -286,15 +306,12 @@ public class ActualizarReservaVista extends javax.swing.JPanel {
                                         .addGap(36, 36, 36)
                                         .addComponent(jCactivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                         .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
-                                .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10)
-                                    .addComponent(cbMesas, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(25, 25, 25))
+                                .addComponent(jLabel10)
+                                .addGap(306, 306, 306))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(contenidoLayout.createSequentialGroup()
                                         .addComponent(jLabel14)
@@ -306,12 +323,10 @@ public class ActualizarReservaVista extends javax.swing.JPanel {
                                             .addComponent(jTid, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(18, 18, 18)
                                         .addComponent(buscarXId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(132, 132, 132))))
-                    .addGroup(contenidoLayout.createSequentialGroup()
-                        .addComponent(limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                                .addGap(132, 132, 132))
+                            .addGroup(contenidoLayout.createSequentialGroup()
+                                .addComponent(cbMesas, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())))))
         );
         contenidoLayout.setVerticalGroup(
             contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -475,6 +490,8 @@ public class ActualizarReservaVista extends javax.swing.JPanel {
         jDfecha.setDate(java.sql.Date.valueOf(reserva.getFecha()));
         jCactivo.setSelected(reserva.isActivo());
         numMesa.setText(reserva.getMesa().getNumMesa()+"");
+        Mesa mesa = md.obtenerMesa(reserva.getMesa().getNumMesa());
+        jTcantidad.setText( mesa.getCapacidad() + "");
 
 
     }
@@ -531,6 +548,31 @@ public class ActualizarReservaVista extends javax.swing.JPanel {
     private void jTnombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTnombreKeyTyped
 
     }//GEN-LAST:event_jTnombreKeyTyped
+
+    private void limpiarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limpiarMouseEntered
+        // TODO add your handling code here:
+         limpiar.setBackground(Color.decode("#D9B18E"));
+    }//GEN-LAST:event_limpiarMouseEntered
+
+    private void limpiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limpiarMouseExited
+        // TODO add your handling code here:
+        limpiar.setBackground(Color.decode("#F1CFB2"));
+    }//GEN-LAST:event_limpiarMouseExited
+
+    private void actualizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizarMouseEntered
+        // TODO add your handling code here:
+         actualizar.setBackground(Color.decode("#D9B18E"));
+    }//GEN-LAST:event_actualizarMouseEntered
+
+    private void actualizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizarMouseExited
+        // TODO add your handling code here:
+        actualizar.setBackground(Color.decode("#F1CFB2"));
+    }//GEN-LAST:event_actualizarMouseExited
+
+    private void buscarXIdMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarXIdMouseEntered
+        // TODO add your handling code here:
+         buscarXId.setBackground(Color.decode("#D9B18E"));
+    }//GEN-LAST:event_buscarXIdMouseEntered
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

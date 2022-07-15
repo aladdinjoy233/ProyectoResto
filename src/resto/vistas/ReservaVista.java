@@ -146,6 +146,12 @@ public class ReservaVista extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(241, 207, 178));
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel1MouseExited(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jPanel1MousePressed(evt);
             }
@@ -304,6 +310,16 @@ public class ReservaVista extends javax.swing.JPanel {
         contenido.revalidate();
         contenido.repaint();
     }//GEN-LAST:event_jPanel1MousePressed
+
+    private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
+        // TODO add your handling code here:
+        jPanel1.setBackground(Color.decode("#D9B18E"));
+    }//GEN-LAST:event_jPanel1MouseEntered
+
+    private void jPanel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseExited
+        // TODO add your handling code here:
+        jPanel1.setBackground(Color.decode("#F1CFB2"));
+    }//GEN-LAST:event_jPanel1MouseExited
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel agregar;
