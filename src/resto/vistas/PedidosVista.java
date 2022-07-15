@@ -108,6 +108,9 @@ public class PedidosVista extends javax.swing.JPanel {
       public void mouseExited(java.awt.event.MouseEvent evt) {
         btnModificarMouseExited(evt);
       }
+      public void mousePressed(java.awt.event.MouseEvent evt) {
+        btnModificarMousePressed(evt);
+      }
     });
 
     lblModificar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
@@ -201,7 +204,15 @@ public class PedidosVista extends javax.swing.JPanel {
       new String [] {
         "Mesa", "Fecha", "Hora", "Pagado", "Subtotal", "Activo"
       }
-    ));
+    ) {
+      boolean[] canEdit = new boolean [] {
+        false, false, false, false, false, false
+      };
+
+      public boolean isCellEditable(int rowIndex, int columnIndex) {
+        return canEdit [columnIndex];
+      }
+    });
     tablaPedidos.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mousePressed(java.awt.event.MouseEvent evt) {
         tablaPedidosMousePressed(evt);
@@ -421,6 +432,23 @@ public class PedidosVista extends javax.swing.JPanel {
     } catch (ArrayIndexOutOfBoundsException ex) {
     }
   }//GEN-LAST:event_tablaPedidosMouseReleased
+
+  private void btnModificarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMousePressed
+    if (tablaPedidos.getSelectedRows().length != 1) {
+      return;
+    }
+    
+    Pedido pedidoSeleccionada = pedidos.get(tablaPedidos.getSelectedRow());
+    
+    AccionesPedido ap = new AccionesPedido(con, pedidoSeleccionada);
+    ap.setSize(780, 530);
+    ap.setLocation(0, 0);
+    
+    bg.removeAll();
+    bg.add(ap, BorderLayout.CENTER);
+    bg.revalidate();
+    bg.repaint();
+  }//GEN-LAST:event_btnModificarMousePressed
 
   private void cargarDatos(boolean conDesactivos) {
     

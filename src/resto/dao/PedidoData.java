@@ -198,7 +198,7 @@ public class PedidoData {
             = "SELECT producto.precio, detalle.cantidad "
             + "FROM producto "
             + "INNER JOIN detalle ON detalle.codigoProducto = producto.codigo "
-            + "WHERE detalle.idPedido = ?";
+            + "WHERE detalle.idPedido = ? AND detalle.activo = 1 ";
 
     try {
       PreparedStatement ps = con.prepareStatement(sql);
@@ -276,5 +276,34 @@ public class PedidoData {
     }
 
     return agregado;
+  }
+
+  public boolean modificarPedido(Pedido pedido) {
+    boolean modificado = false;
+
+    String sql = "UPDATE pedido SET numMesa = ?, idMesero = ?, pagado = ?, fecha = ?, hora = ?, activo = ? WHERE idPedido = ?";
+
+    try {
+      PreparedStatement ps = con.prepareStatement(sql);
+
+      ps.setInt(1, pedido.getMesa().getNumMesa());
+      ps.setInt(2, pedido.getMesero().getIdMesero());
+      ps.setBoolean(3, pedido.isPagado());
+      ps.setDate(4, Date.valueOf(pedido.getFecha()));
+      ps.setTime(5, Time.valueOf(pedido.getHora()));
+      ps.setBoolean(6, pedido.isActivo());
+      ps.setInt(7, pedido.getIdPedido());
+
+      if (ps.executeUpdate() != 0) {
+        modificado = true;
+      }
+
+      ps.close();
+
+    } catch (SQLException e) {
+      JOptionPane.showMessageDialog(null, "Error al modificar pedido " + e);
+    }
+
+    return modificado;
   }
 }

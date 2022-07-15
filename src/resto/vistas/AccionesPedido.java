@@ -7,6 +7,7 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -21,11 +22,12 @@ import resto.entidades.*;
 
 public class AccionesPedido extends javax.swing.JPanel {
 
-  NumberFormat decimalFormatter = new DecimalFormat("#0.00");
-  Date hoy;
-  SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+  private NumberFormat decimalFormatter = new DecimalFormat("#0.00");
+  private Date hoy;
+  private SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
 
   boolean modoEdicion = false;
+  private Pedido pedido;
   private Conexion con;
   private ProductoData productoData;
   private DetalleData detalleData;
@@ -46,6 +48,7 @@ public class AccionesPedido extends javax.swing.JPanel {
     modelSeleccionar = (DefaultTableModel) tablaSeleccionarProducto.getModel();
     modelAgregados = (DefaultTableModel) tablaPedidosAgregados.getModel();
 
+    this.pedido = pedido;
     this.con = con;
     productoData = new ProductoData(con);
     detalleData = new DetalleData(con);
@@ -62,6 +65,8 @@ public class AccionesPedido extends javax.swing.JPanel {
     }
 
     productosDisponibles = productoData.obtenerProductos(true);
+
+    hoy = new Date();
 
     cargarDatos();
   }
@@ -92,6 +97,7 @@ public class AccionesPedido extends javax.swing.JPanel {
     btnFinalizarPedido = new javax.swing.JPanel();
     lblFinalizarPedido = new javax.swing.JLabel();
     isActivo = new resto.componentes.CheckboxPersonalizada();
+    isPagado = new resto.componentes.CheckboxPersonalizada();
 
     setPreferredSize(new java.awt.Dimension(780, 530));
 
@@ -248,7 +254,7 @@ public class AccionesPedido extends javax.swing.JPanel {
     lblFinalizarPedido.setBackground(new java.awt.Color(241, 207, 178));
     lblFinalizarPedido.setForeground(new java.awt.Color(241, 207, 178));
     lblFinalizarPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    lblFinalizarPedido.setText("Finalizar pedido");
+    lblFinalizarPedido.setText("Finalizar creacion");
 
     javax.swing.GroupLayout btnFinalizarPedidoLayout = new javax.swing.GroupLayout(btnFinalizarPedido);
     btnFinalizarPedido.setLayout(btnFinalizarPedidoLayout);
@@ -265,6 +271,10 @@ public class AccionesPedido extends javax.swing.JPanel {
     isActivo.setSelected(true);
     isActivo.setText("Activo");
     isActivo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+
+    isPagado.setForeground(new java.awt.Color(114, 63, 50));
+    isPagado.setText("Pagado");
+    isPagado.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
     javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
     bg.setLayout(bgLayout);
@@ -292,27 +302,32 @@ public class AccionesPedido extends javax.swing.JPanel {
             .addGap(18, 18, 18)
             .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
               .addGroup(bgLayout.createSequentialGroup()
-                .addComponent(lblMesa)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(opcionesMesas, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-              .addComponent(isActivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addGroup(bgLayout.createSequentialGroup()
-                .addComponent(lblidPedido)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(idPedido)))
-            .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addGroup(bgLayout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addComponent(btnFinalizarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-              .addGroup(bgLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                  .addComponent(lblFecha)
-                  .addComponent(lblHora))
-                .addGap(18, 18, 18)
+                  .addGroup(bgLayout.createSequentialGroup()
+                    .addComponent(lblMesa)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(opcionesMesas, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                  .addGroup(bgLayout.createSequentialGroup()
+                    .addComponent(lblidPedido)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(idPedido)))
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                  .addComponent(horaInput, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addComponent(fechaInput, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                  .addGroup(bgLayout.createSequentialGroup()
+                    .addGap(91, 91, 91)
+                    .addComponent(btnFinalizarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                  .addGroup(bgLayout.createSequentialGroup()
+                    .addGap(18, 18, 18)
+                    .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                      .addComponent(lblFecha)
+                      .addComponent(lblHora))
+                    .addGap(18, 18, 18)
+                    .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                      .addComponent(horaInput, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                      .addComponent(fechaInput, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+              .addGroup(bgLayout.createSequentialGroup()
+                .addComponent(isActivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(isPagado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         .addContainerGap(46, Short.MAX_VALUE))
     );
     bgLayout.setVerticalGroup(
@@ -341,7 +356,9 @@ public class AccionesPedido extends javax.swing.JPanel {
                 .addGap(15, 15, 15)
                 .addComponent(horaInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addGroup(bgLayout.createSequentialGroup()
-              .addComponent(isActivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(isActivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(isPagado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
               .addGap(18, 18, 18)
               .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(lblidPedido)
@@ -370,9 +387,7 @@ public class AccionesPedido extends javax.swing.JPanel {
   }// </editor-fold>//GEN-END:initComponents
 
   private void btnFinalizarPedidoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinalizarPedidoMousePressed
-    
-    Pedido pedidoFinal = new Pedido();
-    
+
     Mesa mesaSeleccionada = mesas.get(opcionesMesas.getSelectedIndex());
     
 //    <Validacion>
@@ -400,10 +415,17 @@ public class AccionesPedido extends javax.swing.JPanel {
 //    </Validacion>
 
 //    <Crear pedido>
+    Pedido pedidoFinal;
+
+    if (modoEdicion) {
+      pedidoFinal = pedido;
+    } else {
+      pedidoFinal = new Pedido();
+    }
+
     pedidoFinal.setMesa(mesaSeleccionada);
     pedidoFinal.setMesero(mesaSeleccionada.getMesero());
-    pedidoFinal.setPagado(false);
-    
+
     SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
     String fecha = formato.format(fechaInput.getDate());
     LocalDate fechaElegida = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
@@ -411,10 +433,16 @@ public class AccionesPedido extends javax.swing.JPanel {
 
     LocalTime hora = LocalTime.parse((String) horaInput.getText());
     pedidoFinal.setHora(hora);
-    
+
     pedidoFinal.setActivo(isActivo.isSelected());
+
+    pedidoFinal.setPagado(isPagado.isSelected());
     
-    pedidoData.agregarPedido(pedidoFinal);
+    if (modoEdicion) {
+      pedidoData.modificarPedido(pedidoFinal);
+    } else {
+      pedidoData.agregarPedido(pedidoFinal); 
+    }
 //    </Crear pedido>
 
 //    <Modificar el stock de los productos>
@@ -425,14 +453,23 @@ public class AccionesPedido extends javax.swing.JPanel {
 
 //    <Modificar los detalles del pedido>
     productosAgregados.forEach(detalle -> {
-      detalle.setPedido(pedidoFinal);
-      
-      detalleData.agregarDetalle(detalle);
+      if (detalle.getPedido() == null) {
+        detalle.setPedido(pedidoFinal);
+        detalleData.agregarDetalle(detalle);
+      }
+
+      if (detalle.getPedido().equals(pedido)) {
+        detalleData.modificarDetalle(detalle);
+      }
     });
 //    </Modificar los detalles del pedido>
 
 //    <Mostrar resultado confirmacion y cambiar vista>
-    JOptionPane.showMessageDialog(this, "Pedido agregado con exito");
+    if (modoEdicion) {
+      JOptionPane.showMessageDialog(this, "Pedido modificado con exito");
+    } else {
+      JOptionPane.showMessageDialog(this, "Pedido agregado con exito");
+    }
 
     PedidosVista pv = new PedidosVista(con);
     pv.setSize(780, 530);
@@ -464,7 +501,13 @@ public class AccionesPedido extends javax.swing.JPanel {
     int cantidad = detalleSeleccionado.getCantidad();
 
     if (cantidad == 1) {
+      
+      if (modoEdicion && detalleSeleccionado.getPedido().equals(pedido)) {
+        detalleData.desactivarDetalle(detalleSeleccionado.getIdDetalle());
+      }
+
       productosAgregados.remove(filaSeleccionada);
+
     } else {
       productosAgregados.get(filaSeleccionada).setCantidad(cantidad - 1);
     }
@@ -557,11 +600,34 @@ public class AccionesPedido extends javax.swing.JPanel {
 
   public void cargarDatos() {
     
-    hoy = new Date();
-    String dateString = formatter.format(hoy);
-    horaInput.setText(dateString);
+    if (modoEdicion) {
 
-    fechaInput.setDate(hoy);
+      LocalDate fecha = pedido.getFecha();
+      Date date = Date.from(fecha.atStartOfDay(ZoneId.systemDefault()).toInstant());
+      fechaInput.setDate(date);
+      
+      DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+      String dateString = timeFormatter.format(pedido.getHora());
+      horaInput.setText(dateString);
+      
+      isActivo.setSelected(pedido.isActivo());
+      
+      isPagado.setSelected(pedido.isPagado());
+      
+      idPedido.setText("" + pedido.getIdPedido());
+      
+      lblTitulo.setText("Editar pedido");
+      
+      lblFinalizarPedido.setText("Finalizar edicion");
+
+    } else {
+
+      String dateString = formatter.format(hoy);
+      
+      horaInput.setText(dateString);
+      fechaInput.setDate(hoy);
+
+    }
 
     Collections.sort(productosDisponibles, new Comparator<Producto>() {
       @Override
@@ -580,6 +646,10 @@ public class AccionesPedido extends javax.swing.JPanel {
     mesas.forEach(mesa -> {
       opcionesMesas.addItem("Mesa " + mesa.getNumMesa());
     });
+
+    if (modoEdicion) {
+      opcionesMesas.setSelectedIndex(mesas.indexOf(pedido.getMesa()));
+    }
     
     rerenderTables();
   }
@@ -615,6 +685,7 @@ public class AccionesPedido extends javax.swing.JPanel {
   private javax.swing.JFormattedTextField horaInput;
   private javax.swing.JLabel idPedido;
   private resto.componentes.CheckboxPersonalizada isActivo;
+  private resto.componentes.CheckboxPersonalizada isPagado;
   private javax.swing.JScrollPane jScrollPane1;
   private javax.swing.JScrollPane jScrollPane2;
   private javax.swing.JLabel lblAgregar;

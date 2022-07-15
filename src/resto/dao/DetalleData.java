@@ -138,6 +138,50 @@ public class DetalleData {
   public boolean modificarDetalle(DetalleDelPedido detalle) {
     boolean modificado = false;
 
+    String sql = "UPDATE detalle SET codigoProducto = ?, idPedido = ?, cantidad = ?, activo = ? WHERE idDetalle = ?";
+
+    try {
+      PreparedStatement ps = con.prepareStatement(sql);
+
+      ps.setInt(1, detalle.getProducto().getCodigo());
+      ps.setInt(2, detalle.getPedido().getIdPedido());
+      ps.setInt(3, detalle.getCantidad());
+      ps.setBoolean(4, detalle.isActivo());
+      ps.setInt(5, detalle.getIdDetalle());
+
+      if (ps.executeUpdate() != 0) {
+        modificado = true;
+      }
+
+      ps.close();
+
+    } catch (SQLException e) {
+      JOptionPane.showMessageDialog(null, "Error al modificar pedido " + e);
+    }
+
     return modificado;
+  }
+
+  public boolean desactivarDetalle(int id) {
+    boolean desactivado = false;
+
+    String sql = "UPDATE detalle SET activo = 0 WHERE idDetalle = ?;";
+
+    try {
+      PreparedStatement ps = con.prepareStatement(sql);
+
+      ps.setInt(1, id);
+
+      if (ps.executeUpdate() != 0) {
+        desactivado = true;
+      }
+
+      ps.close();
+
+    } catch (SQLException e) {
+      JOptionPane.showMessageDialog(null, "Error al desactivar mesero" + e);
+    }
+
+    return desactivado;
   }
 }
