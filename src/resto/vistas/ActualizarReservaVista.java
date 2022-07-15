@@ -532,7 +532,6 @@ public class ActualizarReservaVista extends javax.swing.JPanel {
             int cantidad = Integer.parseInt(jTcantidad.getText());
             if(cantidad <= 0){
                 JOptionPane.showMessageDialog(null, "Cantidad de personas incorrecta");
-                return;
             }
    
             Mesa mesa = (Mesa) cbMesas.getSelectedItem();
@@ -547,10 +546,9 @@ public class ActualizarReservaVista extends javax.swing.JPanel {
             } else {
                 Reserva reserva = new Reserva(r.getIdReserva(), mesa, nombre, dni, fechaReserva, hora, estado);
                 rd.modificarReserva(reserva);
+                return;
             }
 
-        } catch (NullPointerException ex) {
-            JOptionPane.showMessageDialog(null, "Debe completar todos los campos");
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Debe introducir un numero");
         }
