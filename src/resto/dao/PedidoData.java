@@ -331,12 +331,20 @@ public class PedidoData {
     return modificado;
   }
   
-  public ArrayList<Pedido> obtenerPedidosBuscados(boolean inactivo,boolean pagado,Mesa pMesa,Mesero pMesero,String desde,String hasta){
+  public ArrayList<Pedido> obtenerPedidosBuscados(String activo,String pagado,Mesa pMesa,Mesero pMesero,String desde,String hasta){
       ArrayList<Pedido> pedidos = new ArrayList<>();
-
-        String sql = "SELECT * FROM pedido WHERE activo = ? AND pagado = ?";
+      boolean a,b;
+      int x = 0;
+        String sql = "SELECT * FROM pedido WHERE 1=1";// agrego sentencia (siempre true) para poder concatenar los AND
 
         try {
+           if(activo != null){
+              sql = sql + " AND activo = ?";
+          }
+           if(pagado != null){
+              sql = sql + " AND pagado = ?";
+          }
+            
           if(desde != null){
               sql = sql + " AND fecha >= ?";
           }
@@ -344,16 +352,44 @@ public class PedidoData {
               sql = sql + " AND fecha <= ?";
           }
           
+          if(pMesa != null){
+              sql = sql + " AND numMesa = ?";
+          }
+          
+          if(pMesero != null){
+              sql = sql + " AND idMesero = ?";
+          }
+          
           PreparedStatement ps = con.prepareStatement(sql);
           
-          ps.setBoolean(1, inactivo);
-          ps.setBoolean(2, pagado);
+          if(activo != null){
+              a = activo.equals("Si");
+              x++;
+              ps.setBoolean(x, a);
+          }
+          if(pagado != null){
+              b = pagado.equals("Si");
+              x++;
+              ps.setBoolean(x, b);
+          }
           
           if(desde!=null){
-              ps.setString(3, desde);
+              x++;
+              ps.setString(x, desde);
           }
           if(desde!=null){
-              ps.setString(4, hasta);
+              x++;
+              ps.setString(x, hasta);
+          }
+          
+          if(pMesa!=null){
+              x++;
+              ps.setInt(x, pMesa.getNumMesa());
+          }
+          
+          if(pMesero!=null){
+              x++;
+              ps.setInt(x, pMesero.getIdMesero());
           }
           
           ResultSet rs = ps.executeQuery();

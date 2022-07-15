@@ -89,11 +89,11 @@ public class Mesero {
 
     @Override
     public String toString() {
-        return "Mesero: " + nombre + " " + apellido
-                + "\nID: " + idMesero
-                + "\nDNI: " + dni
-                + "\nTelefono: " + telefono
-                + "\nEstado: " + (activo ? "activo\n" : "no activo\n");
+        return  nombre + " " + apellido;
+//                + "\nID: " + idMesero
+//                + "\nDNI: " + dni
+//                + "\nTelefono: " + telefono
+//                + "\nEstado: " + (activo ? "activo\n" : "no activo\n")
     }
 
     @Override

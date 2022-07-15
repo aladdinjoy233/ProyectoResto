@@ -305,7 +305,7 @@ public class ProductoVista extends javax.swing.JPanel {
     }//GEN-LAST:event_jchActivoActionPerformed
 
     private void jbActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbActualizarMouseClicked
-        if(jbActualizar.isEnabled()){          
+        if (jtProductos.getSelectedRows().length == 1){          
             int filaSeleccionada = jtProductos.getSelectedRow();
             int codigo = -1;
             
@@ -328,7 +328,7 @@ public class ProductoVista extends javax.swing.JPanel {
     }//GEN-LAST:event_jbActualizarMouseClicked
 
     private void jbBorrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbBorrarMouseClicked
-        if(jbBorrar.isEnabled()){
+        if (jtProductos.getSelectedRows().length == 1) {
             int filaSeleccionada = jtProductos.getSelectedRow();
             int codigo = -1;
             
