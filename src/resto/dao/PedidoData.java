@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import resto.entidades.*;
@@ -306,4 +307,63 @@ public class PedidoData {
 
     return modificado;
   }
+  
+  public ArrayList<Pedido> obtenerPedidosBuscados(boolean inactivo,boolean pagado,Mesa pMesa,Mesero pMesero,String desde,String hasta){
+      ArrayList<Pedido> pedidos = new ArrayList<>();
+
+        String sql = "SELECT * FROM pedido WHERE activo = ? AND pagado = ?";
+
+        try {
+          if(desde != null){
+              sql = sql + " AND fecha >= ?";
+          }
+          if(hasta != null){
+              sql = sql + " AND fecha <= ?";
+          }
+          
+          PreparedStatement ps = con.prepareStatement(sql);
+          
+          ps.setBoolean(1, inactivo);
+          ps.setBoolean(2, pagado);
+          
+          if(desde!=null){
+              ps.setString(3, desde);
+          }
+          if(desde!=null){
+              ps.setString(4, hasta);
+          }
+          
+          ResultSet rs = ps.executeQuery();
+
+          Pedido pedido;
+
+          while (rs.next()) {
+            pedido = new Pedido();
+            pedido.setIdPedido(rs.getInt("idPedido"));
+
+            Mesa mesa = mesaData.obtenerMesa(rs.getInt("numMesa"));
+            pedido.setMesa(mesa);
+
+            Mesero mesero = meseroData.obtenerMesero(rs.getInt("idMesero"));
+            pedido.setMesero(mesero);
+
+            pedido.setPagado(rs.getBoolean("pagado"));
+
+            pedido.setFecha(rs.getDate("fecha").toLocalDate());
+
+            pedido.setHora(rs.getTime("hora").toLocalTime());
+
+            pedido.setActivo(rs.getBoolean("activo"));
+
+            pedidos.add(pedido);
+          }
+
+          ps.close();
+
+        } catch (SQLException exc) {
+          JOptionPane.showMessageDialog(null, "No se pudo obtener pedidos " + exc);
+        }
+
+        return pedidos;
+      }
 }
