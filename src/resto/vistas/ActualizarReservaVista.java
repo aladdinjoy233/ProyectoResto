@@ -207,7 +207,7 @@ public class ActualizarReservaVista extends javax.swing.JPanel {
 
         jLabel9.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(114, 63, 50));
-        jLabel9.setText("Reservas");
+        jLabel9.setText("Actualizar reserva");
 
         cbMesas.setBorder(null);
         cbMesas.addActionListener(new java.awt.event.ActionListener() {
@@ -333,11 +333,11 @@ public class ActualizarReservaVista extends javax.swing.JPanel {
             .addGroup(contenidoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
+                .addGap(4, 4, 4)
+                .addComponent(jLabel9)
+                .addGap(18, 18, 18)
                 .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(contenidoLayout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(jLabel13))
