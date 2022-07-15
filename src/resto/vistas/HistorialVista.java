@@ -460,8 +460,14 @@ public class HistorialVista extends javax.swing.JPanel {
     });
 
     pedidos.forEach(pedido -> {
+      
+      double precio;
 
-      double precio = pedData.obtenerSubtotalDelPedido(pedido.getIdPedido());
+      if (pedido.isPagado()) {
+        precio = pedido.getSubtotal();
+      } else {
+        precio = pedData.obtenerSubtotalDelPedido(pedido.getIdPedido());
+      }
 
       model.addRow(new Object[]{
         pedido.getMesa().getNumMesa(),

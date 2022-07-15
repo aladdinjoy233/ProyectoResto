@@ -92,6 +92,7 @@ public class DetallePedido extends javax.swing.JPanel {
     precioTotal.setForeground(new java.awt.Color(114, 63, 50));
     precioTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     precioTotal.setText("$0.00");
+    precioTotal.setToolTipText("Subtotal calculado en el momento del cobro");
 
     javax.swing.GroupLayout mostrarSubtotalLayout = new javax.swing.GroupLayout(mostrarSubtotal);
     mostrarSubtotal.setLayout(mostrarSubtotalLayout);
@@ -243,7 +244,14 @@ public class DetallePedido extends javax.swing.JPanel {
       });
     });
     
-    double subtotal = pedidoData.obtenerSubtotalDelPedido(pedido.getIdPedido());
+    double subtotal;
+
+    if (pedido.isPagado()) {
+      subtotal = pedido.getSubtotal();
+    } else {
+      subtotal = pedidoData.obtenerSubtotalDelPedido(pedido.getIdPedido());
+    }
+    
     precioTotal.setText("$" + decimalFormatter.format(subtotal));
     
     pedidoID.setText("" + pedido.getIdPedido());
