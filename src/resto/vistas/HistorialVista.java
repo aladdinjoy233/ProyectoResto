@@ -34,6 +34,7 @@ public class HistorialVista extends javax.swing.JPanel {
     private DefaultTableModel model;
   private ArrayList<Pedido> pedidos;
   private ArrayList<Mesa> mesas;
+  private ArrayList<Mesero> meseros;
     
     public HistorialVista(Conexion con) {
         initComponents();
@@ -48,6 +49,12 @@ public class HistorialVista extends javax.swing.JPanel {
 
       mesas.forEach(mesa -> {
         jcbMesas.addItem(mesa);
+      });
+
+      meseros = ms.obtenerMeseros();
+      
+      meseros.forEach(mesero -> {
+        jcbMesero.addItem(mesero);
       });
 
       cargarDatos();
