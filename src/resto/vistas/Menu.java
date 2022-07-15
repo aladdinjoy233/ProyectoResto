@@ -16,7 +16,7 @@ public class Menu extends javax.swing.JFrame {
   public Menu() {
     initComponents();
     
-    tabs = new ArrayList<>(Arrays.asList(tabHistorial, tabMesas, tabMeseros, tabPedidos, tabPrincipal, tabProductos, tabReservas));
+    tabs = new ArrayList<>(Arrays.asList(tabHistorial, tabMesas, tabMeseros, tabPedidos, tabPrincipal, tabProductos, tabReservas, tabIngresos));
 
     con = new Conexion();
 
@@ -79,6 +79,9 @@ public class Menu extends javax.swing.JFrame {
     tabHistorial = new javax.swing.JPanel();
     historialImg = new javax.swing.JLabel();
     historialTexto = new javax.swing.JLabel();
+    tabIngresos = new javax.swing.JPanel();
+    historialImg1 = new javax.swing.JLabel();
+    historialTexto1 = new javax.swing.JLabel();
     barraSuperior = new javax.swing.JPanel();
     frase = new javax.swing.JLabel();
     fecha = new javax.swing.JLabel();
@@ -472,6 +475,50 @@ public class Menu extends javax.swing.JFrame {
 
     barraLateral.add(tabHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 470, 240, 60));
 
+    tabIngresos.setBackground(new java.awt.Color(217, 177, 142));
+    tabIngresos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    tabIngresos.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseEntered(java.awt.event.MouseEvent evt) {
+        tabIngresosMouseEntered(evt);
+      }
+      public void mouseExited(java.awt.event.MouseEvent evt) {
+        tabIngresosMouseExited(evt);
+      }
+      public void mousePressed(java.awt.event.MouseEvent evt) {
+        tabIngresosMousePressed(evt);
+      }
+    });
+
+    historialImg1.setForeground(new java.awt.Color(114, 63, 50));
+    historialImg1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+    historialImg1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resto/img/iconoIngresos.png"))); // NOI18N
+
+    historialTexto1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+    historialTexto1.setForeground(new java.awt.Color(114, 63, 50));
+    historialTexto1.setText("Ingresos");
+
+    javax.swing.GroupLayout tabIngresosLayout = new javax.swing.GroupLayout(tabIngresos);
+    tabIngresos.setLayout(tabIngresosLayout);
+    tabIngresosLayout.setHorizontalGroup(
+      tabIngresosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(tabIngresosLayout.createSequentialGroup()
+        .addGap(27, 27, 27)
+        .addComponent(historialImg1)
+        .addGap(18, 18, 18)
+        .addComponent(historialTexto1)
+        .addContainerGap(110, Short.MAX_VALUE))
+    );
+    tabIngresosLayout.setVerticalGroup(
+      tabIngresosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addComponent(historialImg1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabIngresosLayout.createSequentialGroup()
+        .addContainerGap()
+        .addComponent(historialTexto1, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+        .addContainerGap())
+    );
+
+    barraLateral.add(tabIngresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 530, 240, -1));
+
     bg.add(barraLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
     barraSuperior.setBackground(new java.awt.Color(114, 63, 50));
@@ -752,6 +799,31 @@ public class Menu extends javax.swing.JFrame {
     contenido.revalidate();
     contenido.repaint();
   }//GEN-LAST:event_tabHistorialMousePressed
+
+  private void tabIngresosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabIngresosMouseEntered
+    if (tabSeleccionada != tabIngresos) {
+      setearHover(tabIngresos);
+    }
+  }//GEN-LAST:event_tabIngresosMouseEntered
+
+  private void tabIngresosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabIngresosMouseExited
+    if (tabSeleccionada != tabIngresos) {
+      resetearColor(tabIngresos);
+    }
+  }//GEN-LAST:event_tabIngresosMouseExited
+
+  private void tabIngresosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabIngresosMousePressed
+    setearSeleccionado(tabIngresos);
+
+    IngresosVista iv = new IngresosVista(con);
+    iv.setSize(780, 530);
+    iv.setLocation(0, 0);
+
+    contenido.removeAll();
+    contenido.add(iv, BorderLayout.CENTER);
+    contenido.revalidate();
+    contenido.repaint();
+  }//GEN-LAST:event_tabIngresosMousePressed
   // </editor-fold>    
     
   void resetearColor(JPanel panel) {
@@ -818,7 +890,9 @@ public class Menu extends javax.swing.JFrame {
   private javax.swing.JLabel fecha;
   private javax.swing.JLabel frase;
   private javax.swing.JLabel historialImg;
+  private javax.swing.JLabel historialImg1;
   private javax.swing.JLabel historialTexto;
+  private javax.swing.JLabel historialTexto1;
   private javax.swing.JPanel logoBg;
   private javax.swing.JLabel mesasImg;
   private javax.swing.JLabel mesasTexto;
@@ -835,6 +909,7 @@ public class Menu extends javax.swing.JFrame {
   private javax.swing.JLabel reservasTexto;
   private javax.swing.JLabel restoLogo;
   private javax.swing.JPanel tabHistorial;
+  private javax.swing.JPanel tabIngresos;
   private javax.swing.JPanel tabMesas;
   private javax.swing.JPanel tabMeseros;
   private javax.swing.JPanel tabPedidos;

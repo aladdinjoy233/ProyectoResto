@@ -424,5 +424,31 @@ public class PedidoData {
         }
 
         return pedidos;
+  }
+
+  public double obtenerTotalDelDia(java.util.Date fecha) {
+    double total = 0;
+
+    String sql = "SELECT subtotal FROM pedido WHERE fecha = ? AND subtotal IS NOT NULL";
+
+    try {
+      PreparedStatement ps = con.prepareStatement(sql);
+
+      java.sql.Date sqlDate = new java.sql.Date(fecha.getTime());
+
+      ps.setDate(1, sqlDate);
+      ResultSet rs = ps.executeQuery();
+
+      while (rs.next()) {
+        total += rs.getDouble("subtotal");
       }
+
+      ps.close();
+
+    } catch (SQLException exc) {
+      JOptionPane.showMessageDialog(null, "No se pudo obtener pedidos " + exc);
+    }
+
+    return total;
+  }
 }
