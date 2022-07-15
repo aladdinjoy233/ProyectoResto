@@ -391,7 +391,7 @@ public class AccionesPedido extends javax.swing.JPanel {
     Mesa mesaSeleccionada = mesas.get(opcionesMesas.getSelectedIndex());
     
 //    <Validacion>
-    if (productosAgregados.size() <= 0) {
+    if (productosAgregados.size() <= 0 && !modoEdicion) {
       JOptionPane.showMessageDialog(this, "Debe ver al menos producto agregado");
       return;
     }
@@ -437,11 +437,11 @@ public class AccionesPedido extends javax.swing.JPanel {
     pedidoFinal.setActivo(isActivo.isSelected());
 
     pedidoFinal.setPagado(isPagado.isSelected());
-    
+
     if (modoEdicion) {
       pedidoData.modificarPedido(pedidoFinal);
     } else {
-      pedidoData.agregarPedido(pedidoFinal); 
+      pedidoData.agregarPedido(pedidoFinal);
     }
 //    </Crear pedido>
 
@@ -463,6 +463,16 @@ public class AccionesPedido extends javax.swing.JPanel {
       }
     });
 //    </Modificar los detalles del pedido>
+
+    if (isPagado.isSelected()) {
+
+      pedidoFinal.setSubtotal(pedidoData.obtenerSubtotalDelPedido(pedidoFinal.getIdPedido()));
+      pedidoData.modificarPedido(pedidoFinal);
+
+    } else {
+      pedidoFinal.setSubtotal(null);
+      pedidoData.modificarPedido(pedidoFinal);
+    }
 
 //    <Mostrar resultado confirmacion y cambiar vista>
     if (modoEdicion) {

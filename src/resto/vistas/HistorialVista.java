@@ -5,22 +5,45 @@
  */
 package resto.vistas;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import javax.swing.table.DefaultTableModel;
 import resto.dao.Conexion;
 import resto.dao.MesaData;
+import resto.dao.MeseroData;
+import resto.dao.PedidoData;
 import resto.entidades.Mesa;
+import resto.entidades.Mesero;
+import resto.entidades.Pedido;
 
 /**
  *
  * @author Valeria
  */
 public class HistorialVista extends javax.swing.JPanel {
+    private Conexion con;
     private MesaData md;
+    private MeseroData ms;
+    private PedidoData pedData;
+    private DefaultTableModel model;
+    private ArrayList<Pedido> pedidos;
     
     public HistorialVista(Conexion con) {
         initComponents();
+        this.con = con;
+        model = (DefaultTableModel) tablaPedidos.getModel();
+        tablaPedidos.arreglarTabla(jScrollPane1);
+        pedData = new PedidoData(con);
         md = new MesaData(con);
+        ms = new MeseroData(con);
         
+        cargarDatos();
         cargarMesas();
     }
 
@@ -35,41 +58,45 @@ public class HistorialVista extends javax.swing.JPanel {
 
         escritorio = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaPersonalizada1 = new resto.componentes.TablaPersonalizada();
+        tablaPedidos = new resto.componentes.TablaPersonalizada();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jDfecha = new com.toedter.calendar.JDateChooser();
-        jDfecha1 = new com.toedter.calendar.JDateChooser();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        cbMesas = new javax.swing.JComboBox<>();
+        jdtHasta = new com.toedter.calendar.JDateChooser();
+        jdtDesde = new com.toedter.calendar.JDateChooser();
+        jchPagados = new javax.swing.JCheckBox();
+        jchInactivos = new javax.swing.JCheckBox();
+        jcbMesas = new javax.swing.JComboBox<>();
+        jpFondoBuscar = new javax.swing.JPanel();
+        jbBuscar = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jcbMesero = new javax.swing.JComboBox<>();
 
         setPreferredSize(new java.awt.Dimension(780, 530));
 
         escritorio.setBackground(new java.awt.Color(240, 239, 239));
 
-        tablaPersonalizada1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaPedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mesa", "Fecha", "Hora", "Pagado", "Total", "Activo"
+                "Mesa", "Mesero", "Fecha", "Hora", "Pagado", "Total", "Activo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tablaPersonalizada1);
+        jScrollPane1.setViewportView(tablaPedidos);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 3, 20)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(114, 63, 50));
@@ -84,24 +111,54 @@ public class HistorialVista extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         jLabel4.setText("Hasta");
 
-        jCheckBox1.setText("Pagados");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        jchPagados.setText("Pagados");
+        jchPagados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                jchPagadosActionPerformed(evt);
             }
         });
 
-        jCheckBox2.setText("Activos");
-        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+        jchInactivos.setText("Inactivos");
+        jchInactivos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox2ActionPerformed(evt);
+                jchInactivosActionPerformed(evt);
             }
         });
 
-        cbMesas.setBorder(null);
-        cbMesas.addActionListener(new java.awt.event.ActionListener() {
+        jcbMesas.setBorder(null);
+        jcbMesas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbMesasActionPerformed(evt);
+                jcbMesasActionPerformed(evt);
+            }
+        });
+
+        jbBuscar.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jbBuscar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jbBuscar.setText("Buscar");
+        jbBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jbBuscarMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jpFondoBuscarLayout = new javax.swing.GroupLayout(jpFondoBuscar);
+        jpFondoBuscar.setLayout(jpFondoBuscarLayout);
+        jpFondoBuscarLayout.setHorizontalGroup(
+            jpFondoBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jbBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+        );
+        jpFondoBuscarLayout.setVerticalGroup(
+            jpFondoBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jbBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        jLabel5.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jLabel5.setText("Mesero");
+
+        jcbMesero.setBorder(null);
+        jcbMesero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbMeseroActionPerformed(evt);
             }
         });
 
@@ -117,25 +174,33 @@ public class HistorialVista extends javax.swing.JPanel {
                         .addGap(1, 1, 1)
                         .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(escritorioLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
+                                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(escritorioLayout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jcbMesas, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(escritorioLayout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jcbMesero, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(escritorioLayout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jdtDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(escritorioLayout.createSequentialGroup()
+                                        .addComponent(jchPagados)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jchInactivos)))
+                                .addGap(24, 24, 24)
+                                .addComponent(jLabel4)
                                 .addGap(18, 18, 18)
                                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(escritorioLayout.createSequentialGroup()
-                                        .addComponent(jCheckBox1)
-                                        .addGap(88, 88, 88))
-                                    .addGroup(escritorioLayout.createSequentialGroup()
-                                        .addComponent(cbMesas, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel3)
-                                        .addGap(18, 18, 18)))
-                                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(escritorioLayout.createSequentialGroup()
-                                        .addComponent(jDfecha1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(24, 24, 24)
-                                        .addComponent(jLabel4)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jDfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jCheckBox2)))
+                                    .addComponent(jdtHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
+                                        .addComponent(jpFondoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(61, 61, 61))))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 676, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
@@ -149,19 +214,23 @@ public class HistorialVista extends javax.swing.JPanel {
                     .addGroup(escritorioLayout.createSequentialGroup()
                         .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(cbMesas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jcbMesas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel2)
                                 .addComponent(jLabel3)
                                 .addComponent(jLabel4))
-                            .addComponent(jDfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jCheckBox1)
-                            .addComponent(jCheckBox2))
-                        .addGap(18, 18, 18)
+                            .addComponent(jdtHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jchPagados)
+                                .addComponent(jchInactivos)
+                                .addComponent(jLabel5)
+                                .addComponent(jcbMesero, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jpFondoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(19, 19, 19)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jDfecha1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(72, Short.MAX_VALUE))
+                    .addComponent(jdtDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -176,39 +245,156 @@ public class HistorialVista extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void jchPagadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchPagadosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_jchPagadosActionPerformed
 
-    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+    private void jchInactivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchInactivosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox2ActionPerformed
+    }//GEN-LAST:event_jchInactivosActionPerformed
 
-    private void cbMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMesasActionPerformed
+    private void jcbMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMesasActionPerformed
         // TODO add your handling code here:
         cargarMesas();
-    }//GEN-LAST:event_cbMesasActionPerformed
+    }//GEN-LAST:event_jcbMesasActionPerformed
 
-    private void cargarMesas() {
+    private void jcbMeseroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMeseroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbMeseroActionPerformed
+
+    private void jbBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbBuscarMousePressed
+        boolean inactivo,pagado;
+        String desde = null,hasta = null;
+        Mesa mesa;
+        Mesero mesero;
+        
+        inactivo = !jchInactivos.isSelected();
+        pagado = jchPagados.isSelected();     
+        mesa = (Mesa) jcbMesas.getSelectedItem();
+        mesero = (Mesero) jcbMesero.getSelectedItem();
+        
+        SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+        
+        if(jdtDesde.getDate() != null){
+            String fecha1 = formato.format(jdtDesde.getDate());
+            desde = LocalDate.parse(fecha1, DateTimeFormatter.ofPattern("dd-MM-yyyy")).toString(); 
+        }
+ 
+        if(jdtHasta.getDate() != null){
+            String fecha2 = formato.format(jdtHasta.getDate());
+            hasta = LocalDate.parse(fecha2, DateTimeFormatter.ofPattern("dd-MM-yyyy")).toString();
+        }
+
+        buscar(inactivo,pagado,mesa,mesero,desde,hasta);
+    }//GEN-LAST:event_jbBuscarMousePressed
+
+    private void cargarDatos() {
+    
+        model.setRowCount(0);
+
+        NumberFormat decimalFormatter = new DecimalFormat("#0.00");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd - MM - yyyy");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        pedidos = new ArrayList<>();
+
+
+          pedidos = pedData.obtenerPedidos();
+
+        Collections.sort(pedidos, new Comparator<Pedido>() {
+          @Override
+          public int compare(Pedido t, Pedido t1) {
+            return t.getFecha().compareTo(t1.getFecha());
+          }
+        });
+
+        pedidos.forEach(pedido -> {
+
+          double precio = pedData.obtenerSubtotalDelPedido(pedido.getIdPedido());
+
+          model.addRow(new Object[]{
+            pedido.getMesa().getNumMesa(),
+            pedido.getMesero().getNombre()+" "+pedido.getMesero().getApellido(),
+            pedido.getFecha().format(dateFormatter),
+            pedido.getHora().format(timeFormatter),
+            pedido.isPagado() ? "Si" : "No",
+            ("$" + decimalFormatter.format(precio)),
+            pedido.isActivo() ? "Si" : "No"            
+          });
+
+        });
+  }
+    
+    private void cargarMesas() {                                // trae mesas duplicadas
         ArrayList<Mesa> listaMesas = md.listadoMesasActivas();
 
         for (Mesa item : listaMesas) {
-            cbMesas.addItem(item);
+            jcbMesas.addItem(item);
         }
     }
+    
+    private void cargarMeseros() {                              // no trae nada
+        ArrayList<Mesero> listaMeseros = ms.obtenerMeseros();
+
+        for (Mesero item : listaMeseros) {
+            jcbMesero.addItem(item);
+        }
+    }
+    
+    private void buscar(boolean inactivo,boolean pagado,Mesa mesa,Mesero mesero,String desde,String hasta){
+        model.setRowCount(0);
+
+        NumberFormat decimalFormatter = new DecimalFormat("#0.00");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd - MM - yyyy");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        pedidos = new ArrayList<>();
+
+        pedidos = pedData.obtenerPedidosBuscados(inactivo,pagado,mesa,mesero,desde,hasta);
+
+        Collections.sort(pedidos, new Comparator<Pedido>() {
+          @Override
+          public int compare(Pedido t, Pedido t1) {
+            return t.getFecha().compareTo(t1.getFecha());
+          }
+        });
+
+        pedidos.forEach(pedido -> {
+
+          double precio = pedData.obtenerSubtotalDelPedido(pedido.getIdPedido());
+
+          model.addRow(new Object[]{
+            pedido.getMesa().getNumMesa(),
+            pedido.getMesero().getNombre()+" "+pedido.getMesero().getApellido(),
+            pedido.getFecha().format(dateFormatter),
+            pedido.getHora().format(timeFormatter),
+            pedido.isPagado() ? "Si" : "No",
+            ("$" + decimalFormatter.format(precio)),
+            pedido.isActivo() ? "Si" : "No"            
+          });
+
+        });
+    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<Mesa> cbMesas;
+    private javax.swing.JPanel btnAgregar;
+    private javax.swing.JPanel btnAgregar1;
     private javax.swing.JPanel escritorio;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private com.toedter.calendar.JDateChooser jDfecha;
-    private com.toedter.calendar.JDateChooser jDfecha1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private resto.componentes.TablaPersonalizada tablaPersonalizada1;
+    private javax.swing.JLabel jbBuscar;
+    private javax.swing.JComboBox<Mesa> jcbMesas;
+    private javax.swing.JComboBox<Mesero> jcbMesero;
+    private javax.swing.JCheckBox jchInactivos;
+    private javax.swing.JCheckBox jchPagados;
+    private com.toedter.calendar.JDateChooser jdtDesde;
+    private com.toedter.calendar.JDateChooser jdtHasta;
+    private javax.swing.JPanel jpFondoBuscar;
+    private javax.swing.JLabel lblAgregar;
+    private javax.swing.JLabel lblAgregar1;
+    private resto.componentes.TablaPersonalizada tablaPedidos;
     // End of variables declaration//GEN-END:variables
 }
