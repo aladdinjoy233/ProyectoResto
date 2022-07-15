@@ -325,7 +325,7 @@ public class ActualizarMeseroVista extends javax.swing.JPanel {
             char letra = cadena.toUpperCase().charAt(i); //agarro la letra en mayuscula
             int cod = (int) letra; //me fijo su codigo ASCII
             
-            if(cod != 165 && (cod < 65 || cod > 90)){
+            if(cod != 165  && cod != 233 && cod != 224 && cod != 214 && cod != 144 && cod != 181 && cod != 130 && (cod < 160 && cod > 163) && (cod < 65 || cod > 90)){
                 return false; //si esta entre esos valores quiere decir que no es una letra
             }
                         
