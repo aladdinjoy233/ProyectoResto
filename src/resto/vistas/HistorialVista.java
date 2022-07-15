@@ -31,37 +31,38 @@ import resto.entidades.Pedido;
  * @author Valeria
  */
 public class HistorialVista extends javax.swing.JPanel {
-    private Conexion con;
-    private MesaData md;
-    private MeseroData ms;
-    private PedidoData pedData;
-    private DefaultTableModel model;
+
+  private Conexion con;
+  private MesaData md;
+  private MeseroData ms;
+  private PedidoData pedData;
+  private DefaultTableModel model;
   private ArrayList<Pedido> pedidos;
   private ArrayList<Mesa> mesas;
   private ArrayList<Mesero> meseros;
-    
-    public HistorialVista(Conexion con) {
-        initComponents();
-        this.con = con;
-        model = (DefaultTableModel) tablaPedidos.getModel();
-        tablaPedidos.arreglarTabla(jScrollPane1);
-        pedData = new PedidoData(con);
-        md = new MesaData(con);
-      ms = new MeseroData(con);
 
-       cargarDatos();
-        cargarMesas();
-        cargarMeseros();
-        resetearCampos();
-        
-        if (tablaPedidos.getSelectedRows().length == 1) {
-            enableButton(jpFondoVerDetalle,jbVerDetalle);
-          } else {
-            disableButton(jpFondoVerDetalle,jbVerDetalle);
-        }
+  public HistorialVista(Conexion con) {
+    initComponents();
+    this.con = con;
+    model = (DefaultTableModel) tablaPedidos.getModel();
+    tablaPedidos.arreglarTabla(jScrollPane1);
+    pedData = new PedidoData(con);
+    md = new MesaData(con);
+    ms = new MeseroData(con);
+
+    cargarDatos();
+    cargarMesas();
+    cargarMeseros();
+    resetearCampos();
+
+    if (tablaPedidos.getSelectedRows().length == 1) {
+      enableButton(jpFondoVerDetalle, jbVerDetalle);
+    } else {
+      disableButton(jpFondoVerDetalle, jbVerDetalle);
     }
+  }
 
-    @SuppressWarnings("unchecked")
+  @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -336,206 +337,205 @@ public class HistorialVista extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jcbMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMesasActionPerformed
-        // TODO add your handling code here:
+      // TODO add your handling code here:
     }//GEN-LAST:event_jcbMesasActionPerformed
 
     private void jcbMeseroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMeseroActionPerformed
-        // TODO add your handling code here:
+      // TODO add your handling code here:
     }//GEN-LAST:event_jcbMeseroActionPerformed
 
     private void jbBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbBuscarMousePressed
-        String activo=null,pagado=null;
-        String desde = null,hasta = null;
-        Mesa mesa;
-        Mesero mesero;
-        
-        if (tablaPedidos.getSelectedRows().length == 1) {
-            enableButton(jpFondoVerDetalle,jbVerDetalle);
-          } else {
-            disableButton(jpFondoVerDetalle,jbVerDetalle);
-        }
-        
-        if(jcbActivos.getSelectedItem()!=null){
-            activo = jcbActivos.getSelectedItem().toString();
-        }
-        
-        if(jcbPagados.getSelectedItem()!=null){
-            pagado = jcbPagados.getSelectedItem().toString();
-        }
-        
-        mesa = (Mesa) jcbMesas.getSelectedItem();
-        mesero = (Mesero) jcbMesero.getSelectedItem();
-        
-        SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-        
-        if(jdtDesde.getDate() != null){
-            String fecha1 = formato.format(jdtDesde.getDate());
-            desde = LocalDate.parse(fecha1, DateTimeFormatter.ofPattern("dd-MM-yyyy")).toString(); 
-        }
- 
-        if(jdtHasta.getDate() != null){
-            String fecha2 = formato.format(jdtHasta.getDate());
-            hasta = LocalDate.parse(fecha2, DateTimeFormatter.ofPattern("dd-MM-yyyy")).toString();
-        }
+      String activo = null, pagado = null;
+      String desde = null, hasta = null;
+      Mesa mesa;
+      Mesero mesero;
 
-        buscar(activo,pagado,mesa,mesero,desde,hasta);
+      if (tablaPedidos.getSelectedRows().length == 1) {
+        enableButton(jpFondoVerDetalle, jbVerDetalle);
+      } else {
+        disableButton(jpFondoVerDetalle, jbVerDetalle);
+      }
+
+      if (jcbActivos.getSelectedItem() != null) {
+        activo = jcbActivos.getSelectedItem().toString();
+      }
+
+      if (jcbPagados.getSelectedItem() != null) {
+        pagado = jcbPagados.getSelectedItem().toString();
+      }
+
+      mesa = (Mesa) jcbMesas.getSelectedItem();
+      mesero = (Mesero) jcbMesero.getSelectedItem();
+
+      SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+
+      if (jdtDesde.getDate() != null) {
+        String fecha1 = formato.format(jdtDesde.getDate());
+        desde = LocalDate.parse(fecha1, DateTimeFormatter.ofPattern("dd-MM-yyyy")).toString();
+      }
+
+      if (jdtHasta.getDate() != null) {
+        String fecha2 = formato.format(jdtHasta.getDate());
+        hasta = LocalDate.parse(fecha2, DateTimeFormatter.ofPattern("dd-MM-yyyy")).toString();
+      }
+
+      buscar(activo, pagado, mesa, mesero, desde, hasta);
     }//GEN-LAST:event_jbBuscarMousePressed
 
     private void jbResetearMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbResetearMousePressed
-        if (tablaPedidos.getSelectedRows().length == 1) {
-            enableButton(jpFondoVerDetalle,jbVerDetalle);
-          } else {
-            disableButton(jpFondoVerDetalle,jbVerDetalle);
-        }
-        resetearCampos();
-        //cargarDatos();
+      if (tablaPedidos.getSelectedRows().length == 1) {
+        enableButton(jpFondoVerDetalle, jbVerDetalle);
+      } else {
+        disableButton(jpFondoVerDetalle, jbVerDetalle);
+      }
+      resetearCampos();
+      //cargarDatos();
     }//GEN-LAST:event_jbResetearMousePressed
 
     private void jbBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbBuscarMouseEntered
-        jpFondoBuscar.setBackground(Color.decode("#D9B18E"));
+      jpFondoBuscar.setBackground(Color.decode("#D9B18E"));
     }//GEN-LAST:event_jbBuscarMouseEntered
 
     private void jbBuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbBuscarMouseExited
-        jpFondoBuscar.setBackground(Color.decode("#F1CFB2"));
+      jpFondoBuscar.setBackground(Color.decode("#F1CFB2"));
     }//GEN-LAST:event_jbBuscarMouseExited
 
     private void jbResetearMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbResetearMouseEntered
-        jpFondoResetear.setBackground(Color.decode("#D9B18E"));
+      jpFondoResetear.setBackground(Color.decode("#D9B18E"));
     }//GEN-LAST:event_jbResetearMouseEntered
 
     private void jbResetearMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbResetearMouseExited
-        jpFondoResetear.setBackground(Color.decode("#F1CFB2"));
+      jpFondoResetear.setBackground(Color.decode("#F1CFB2"));
     }//GEN-LAST:event_jbResetearMouseExited
 
     private void tablaPedidosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPedidosMousePressed
-        if (tablaPedidos.getSelectedRows().length == 1) {
-            enableButton(jpFondoVerDetalle,jbVerDetalle);
-          } else {
-            disableButton(jpFondoVerDetalle,jbVerDetalle);
-        }
+      if (tablaPedidos.getSelectedRows().length == 1) {
+        enableButton(jpFondoVerDetalle, jbVerDetalle);
+      } else {
+        disableButton(jpFondoVerDetalle, jbVerDetalle);
+      }
     }//GEN-LAST:event_tablaPedidosMousePressed
 
     private void jbVerDetalleMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbVerDetalleMousePressed
-        if (tablaPedidos.getSelectedRows().length != 1) {
-      return;
-        }
+      if (tablaPedidos.getSelectedRows().length != 1) {
+        return;
+      }
 
-        Pedido selectedPedido = pedidos.get(tablaPedidos.getSelectedRow());
+      Pedido selectedPedido = pedidos.get(tablaPedidos.getSelectedRow());
 
-        DetallesPedidoHistorial dph = new DetallesPedidoHistorial(con, selectedPedido);
-        dph.setSize(780, 530);
-        dph.setLocation(0, 0);
+      DetallesPedidoHistorial dph = new DetallesPedidoHistorial(con, selectedPedido);
+      dph.setSize(780, 530);
+      dph.setLocation(0, 0);
 
-        escritorio.removeAll();
-        escritorio.add(dph, BorderLayout.CENTER);
-        escritorio.revalidate();
-        escritorio.repaint();
+      escritorio.removeAll();
+      escritorio.add(dph, BorderLayout.CENTER);
+      escritorio.revalidate();
+      escritorio.repaint();
     }//GEN-LAST:event_jbVerDetalleMousePressed
 
-    private void cargarDatos() {
-    
-        model.setRowCount(0);
+  private void cargarDatos() {
 
-        NumberFormat decimalFormatter = new DecimalFormat("#0.00");
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd - MM - yyyy");
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-        pedidos = new ArrayList<>();
+    model.setRowCount(0);
 
+    NumberFormat decimalFormatter = new DecimalFormat("#0.00");
+    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd - MM - yyyy");
+    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+    pedidos = new ArrayList<>();
 
-          pedidos = pedData.obtenerPedidos();
+    pedidos = pedData.obtenerPedidos();
 
-        Collections.sort(pedidos, new Comparator<Pedido>() {
-          @Override
-          public int compare(Pedido t, Pedido t1) {
-            return t.getFecha().compareTo(t1.getFecha());
-          }
-        });
+    Collections.sort(pedidos, new Comparator<Pedido>() {
+      @Override
+      public int compare(Pedido t, Pedido t1) {
+        return t.getFecha().compareTo(t1.getFecha());
+      }
+    });
 
-        pedidos.forEach(pedido -> {
+    pedidos.forEach(pedido -> {
 
-          double precio = pedData.obtenerSubtotalDelPedido(pedido.getIdPedido());
+      double precio = pedData.obtenerSubtotalDelPedido(pedido.getIdPedido());
 
-          model.addRow(new Object[]{
-            pedido.getMesa().getNumMesa(),
-            pedido.getMesero().getNombre()+" "+pedido.getMesero().getApellido(),
-            pedido.getFecha().format(dateFormatter),
-            pedido.getHora().format(timeFormatter),
-            pedido.isPagado() ? "Si" : "No",
-            ("$" + decimalFormatter.format(precio)),
-            pedido.isActivo() ? "Si" : "No"            
-          });
+      model.addRow(new Object[]{
+        pedido.getMesa().getNumMesa(),
+        pedido.getMesero().getNombre() + " " + pedido.getMesero().getApellido(),
+        pedido.getFecha().format(dateFormatter),
+        pedido.getHora().format(timeFormatter),
+        pedido.isPagado() ? "Si" : "No",
+        ("$" + decimalFormatter.format(precio)),
+        pedido.isActivo() ? "Si" : "No"
+      });
 
-        });
+    });
   }
 
-    private void cargarMesas() {                                
-        ArrayList<Mesa> listaMesas = md.listadoMesasActivas();
-        for (Mesa item : listaMesas) {
-            jcbMesas.addItem(item);
-        }
+  private void cargarMesas() {
+    ArrayList<Mesa> listaMesas = md.listadoMesasActivas();
+    for (Mesa item : listaMesas) {
+      jcbMesas.addItem(item);
     }
-    
-    private void cargarMeseros() {                              // no trae nada
-        ArrayList<Mesero> listaMeseros = ms.obtenerMeseros();
+  }
 
-        for (Mesero item : listaMeseros) {
-            jcbMesero.addItem(item);
-        }
+  private void cargarMeseros() {                              // no trae nada
+    ArrayList<Mesero> listaMeseros = ms.obtenerMeseros();
+
+    for (Mesero item : listaMeseros) {
+      jcbMesero.addItem(item);
     }
-    
-    private void buscar(String activo,String pagado,Mesa mesa,Mesero mesero,String desde,String hasta){
-        model.setRowCount(0);
+  }
 
-        NumberFormat decimalFormatter = new DecimalFormat("#0.00");
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd - MM - yyyy");
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-        pedidos = new ArrayList<>();
+  private void buscar(String activo, String pagado, Mesa mesa, Mesero mesero, String desde, String hasta) {
+    model.setRowCount(0);
 
-        pedidos = pedData.obtenerPedidosBuscados(activo,pagado,mesa,mesero,desde,hasta);
+    NumberFormat decimalFormatter = new DecimalFormat("#0.00");
+    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd - MM - yyyy");
+    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+    pedidos = new ArrayList<>();
 
-        Collections.sort(pedidos, new Comparator<Pedido>() {
-          @Override
-          public int compare(Pedido t, Pedido t1) {
-            return t.getFecha().compareTo(t1.getFecha());
-          }
-        });
+    pedidos = pedData.obtenerPedidosBuscados(activo, pagado, mesa, mesero, desde, hasta);
 
-        pedidos.forEach(pedido -> {
+    Collections.sort(pedidos, new Comparator<Pedido>() {
+      @Override
+      public int compare(Pedido t, Pedido t1) {
+        return t.getFecha().compareTo(t1.getFecha());
+      }
+    });
 
-          double precio = pedData.obtenerSubtotalDelPedido(pedido.getIdPedido());
+    pedidos.forEach(pedido -> {
 
-          model.addRow(new Object[]{
-            pedido.getMesa().getNumMesa(),
-            pedido.getMesero().getNombre()+" "+pedido.getMesero().getApellido(),
-            pedido.getFecha().format(dateFormatter),
-            pedido.getHora().format(timeFormatter),
-            pedido.isPagado() ? "Si" : "No",
-            ("$" + decimalFormatter.format(precio)),
-            pedido.isActivo() ? "Si" : "No"            
-          });
+      double precio = pedData.obtenerSubtotalDelPedido(pedido.getIdPedido());
 
-        });
-    }
-    
-    private void resetearCampos(){
-        jcbMesas.setSelectedIndex(-1);
-        jcbMesero.setSelectedIndex(-1);
-        jdtDesde.setDate(null);
-        jdtHasta.setDate(null);
-        jcbPagados.setSelectedIndex(-1);
-        jcbActivos.setSelectedIndex(-1);
-    }
-   
-    public void disableButton(JPanel panel, JLabel label) {
+      model.addRow(new Object[]{
+        pedido.getMesa().getNumMesa(),
+        pedido.getMesero().getNombre() + " " + pedido.getMesero().getApellido(),
+        pedido.getFecha().format(dateFormatter),
+        pedido.getHora().format(timeFormatter),
+        pedido.isPagado() ? "Si" : "No",
+        ("$" + decimalFormatter.format(precio)),
+        pedido.isActivo() ? "Si" : "No"
+      });
+
+    });
+  }
+
+  private void resetearCampos() {
+    jcbMesas.setSelectedIndex(-1);
+    jcbMesero.setSelectedIndex(-1);
+    jdtDesde.setDate(null);
+    jdtHasta.setDate(null);
+    jcbPagados.setSelectedIndex(-1);
+    jcbActivos.setSelectedIndex(-1);
+  }
+
+  public void disableButton(JPanel panel, JLabel label) {
     panel.setBackground(Color.LIGHT_GRAY);
     label.setForeground(Color.GRAY);
   }
-  
+
   public void enableButton(JPanel panel, JLabel label) {
     panel.setBackground(Color.decode("#F1CFB2"));
     label.setForeground(Color.decode("#723F32"));
   }
-   
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel escritorio;
