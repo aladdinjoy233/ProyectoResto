@@ -66,13 +66,13 @@ public class HistorialVista extends javax.swing.JPanel {
     jLabel4 = new javax.swing.JLabel();
     jdtHasta = new com.toedter.calendar.JDateChooser();
     jdtDesde = new com.toedter.calendar.JDateChooser();
-    jchPagados = new javax.swing.JCheckBox();
-    jchInactivos = new javax.swing.JCheckBox();
     jcbMesas = new javax.swing.JComboBox<>();
     jpFondoBuscar = new javax.swing.JPanel();
     jbBuscar = new javax.swing.JLabel();
     jLabel5 = new javax.swing.JLabel();
     jcbMesero = new javax.swing.JComboBox<>();
+    jchPagados = new resto.componentes.CheckboxPersonalizada();
+    jchInactivos = new resto.componentes.CheckboxPersonalizada();
 
     setPreferredSize(new java.awt.Dimension(780, 530));
 
@@ -112,20 +112,6 @@ public class HistorialVista extends javax.swing.JPanel {
     jLabel4.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
     jLabel4.setText("Hasta");
 
-    jchPagados.setText("Pagados");
-    jchPagados.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        jchPagadosActionPerformed(evt);
-      }
-    });
-
-    jchInactivos.setText("Inactivos");
-    jchInactivos.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        jchInactivosActionPerformed(evt);
-      }
-    });
-
     jcbMesas.setBorder(null);
     jcbMesas.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,6 +149,20 @@ public class HistorialVista extends javax.swing.JPanel {
       }
     });
 
+    jchPagados.setText("Pagados");
+    jchPagados.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jchPagadosActionPerformed(evt);
+      }
+    });
+
+    jchInactivos.setText("Inactivos");
+    jchInactivos.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jchInactivosActionPerformed(evt);
+      }
+    });
+
     javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
     escritorio.setLayout(escritorioLayout);
     escritorioLayout.setHorizontalGroup(
@@ -184,16 +184,17 @@ public class HistorialVista extends javax.swing.JPanel {
                     .addComponent(jLabel5)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(jcbMesero, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                   .addGroup(escritorioLayout.createSequentialGroup()
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3)
                     .addGap(18, 18, 18)
                     .addComponent(jdtDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                   .addGroup(escritorioLayout.createSequentialGroup()
-                    .addComponent(jchPagados)
+                    .addGap(48, 48, 48)
+                    .addComponent(jchPagados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jchInactivos)))
+                    .addComponent(jchInactivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(24, 24, 24)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
@@ -202,7 +203,9 @@ public class HistorialVista extends javax.swing.JPanel {
                   .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
                     .addComponent(jpFondoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(61, 61, 61))))
-              .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 676, javax.swing.GroupLayout.PREFERRED_SIZE))))
+              .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 676, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         .addContainerGap(51, Short.MAX_VALUE))
     );
     escritorioLayout.setVerticalGroup(
@@ -222,16 +225,16 @@ public class HistorialVista extends javax.swing.JPanel {
               .addComponent(jdtHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGap(20, 20, 20)
             .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(jchPagados)
               .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jchInactivos)
                 .addComponent(jLabel5)
-                .addComponent(jcbMesero, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jcbMesero, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jchPagados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jchInactivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
               .addComponent(jpFondoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGap(19, 19, 19)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
           .addComponent(jdtDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addContainerGap(112, Short.MAX_VALUE))
+        .addContainerGap(64, Short.MAX_VALUE))
     );
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -245,14 +248,6 @@ public class HistorialVista extends javax.swing.JPanel {
       .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
     );
   }// </editor-fold>//GEN-END:initComponents
-
-    private void jchPagadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchPagadosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jchPagadosActionPerformed
-
-    private void jchInactivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchInactivosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jchInactivosActionPerformed
 
     private void jcbMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMesasActionPerformed
         // TODO add your handling code here:
@@ -268,8 +263,8 @@ public class HistorialVista extends javax.swing.JPanel {
         Mesa mesa;
         Mesero mesero;
         
-        inactivo = !jchInactivos.isSelected();
-        pagado = jchPagados.isSelected();     
+      inactivo = !jchInactivos.isSelected();
+      pagado = jchPagados.isSelected();
         mesa = (Mesa) jcbMesas.getSelectedItem();
         mesero = (Mesero) jcbMesero.getSelectedItem();
         
@@ -287,6 +282,14 @@ public class HistorialVista extends javax.swing.JPanel {
 
         buscar(inactivo,pagado,mesa,mesero,desde,hasta);
     }//GEN-LAST:event_jbBuscarMousePressed
+
+  private void jchPagadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchPagadosActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_jchPagadosActionPerformed
+
+  private void jchInactivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchInactivosActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_jchInactivosActionPerformed
 
     private void cargarDatos() {
     
@@ -378,8 +381,8 @@ public class HistorialVista extends javax.swing.JPanel {
   private javax.swing.JLabel jbBuscar;
   private javax.swing.JComboBox<Mesa> jcbMesas;
   private javax.swing.JComboBox<Mesero> jcbMesero;
-  private javax.swing.JCheckBox jchInactivos;
-  private javax.swing.JCheckBox jchPagados;
+  private resto.componentes.CheckboxPersonalizada jchInactivos;
+  private resto.componentes.CheckboxPersonalizada jchPagados;
   private com.toedter.calendar.JDateChooser jdtDesde;
   private com.toedter.calendar.JDateChooser jdtHasta;
   private javax.swing.JPanel jpFondoBuscar;
